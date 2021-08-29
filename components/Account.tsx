@@ -1,7 +1,9 @@
+import { Box, Button, Center, Input, VStack } from "@chakra-ui/react";
+import { Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
 import { supabase } from "../utils/superbaseClient";
 
-type Props = any;
+type Props = { session: Session };
 
 const Account = (props: Props) => {
   const { session } = props;
@@ -12,12 +14,12 @@ const Account = (props: Props) => {
     getProfile();
   }, [session]);
 
-  async function getProfile() {
+  const getProfile = async () => {
     try {
       setLoading(true);
       const user = supabase.auth.user();
 
-      let { data, error, status } = await supabase
+      const { data, error, status } = await supabase
         .from("profile")
         .select(`username`)
         .eq("id", user?.id)
@@ -35,9 +37,13 @@ const Account = (props: Props) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  async function updateProfile({ username }: any) {
+  const updateProfile = async ({
+    username,
+  }: {
+    username: string | undefined;
+  }) => {
     try {
       setLoading(true);
       const user = supabase.auth.user();
@@ -47,7 +53,7 @@ const Account = (props: Props) => {
         username,
       };
 
-      let { error } = await supabase.from("profile").upsert(updates, {
+      const { error } = await supabase.from("profile").upsert(updates, {
         returning: "minimal", // Don't return the value after inserting
       });
 
@@ -59,43 +65,33 @@ const Account = (props: Props) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
+    <Center width="100%">
+      <VStack>
+        <Box>
+          <label htmlFor="email">Email</label>
+          <Input id="email" type="text" value={session.user?.email} disabled />
+        </Box>
 
-      <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username })}
-          disabled={loading}
-        >
+        <Box>
+          <label htmlFor="username">Name</label>
+          <Input
+            id="username"
+            type="text"
+            value={username || ""}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Box>
+
+        <Button onClick={() => updateProfile({ username })} disabled={loading}>
           {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
+        </Button>
 
-      <div>
-        <button
-          className="button block"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
-      </div>
-    </div>
+        <Button onClick={() => supabase.auth.signOut()}>Sign Out</Button>
+      </VStack>
+    </Center>
   );
 };
 
