@@ -32,7 +32,7 @@ const Account = (props: Props) => {
       if (data) {
         setUsername(data.username);
       }
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message);
     } finally {
       setLoading(false);
@@ -60,7 +60,7 @@ const Account = (props: Props) => {
       if (error) {
         throw error;
       }
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message);
     } finally {
       setLoading(false);
@@ -72,7 +72,7 @@ const Account = (props: Props) => {
       <VStack>
         <Box>
           <label htmlFor="email">Email</label>
-          <Input id="email" type="text" value={session.user?.email} disabled />
+          <Input id="email" type="text" value={session?.user?.email} disabled />
         </Box>
 
         <Box>
