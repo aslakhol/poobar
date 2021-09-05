@@ -1,15 +1,7 @@
-import {
-  Text,
-  Button,
-  Center,
-  Input,
-  VStack,
-  AlertIcon,
-  Alert,
-  AlertDescription,
-} from "@chakra-ui/react";
+import { Text, Button, Center, Input, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSignIn } from "react-supabase";
+import ErrorOrNot from "./ErrorOrNot";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -39,22 +31,12 @@ const Auth = () => {
           }}
           disabled={fetching}
         >
-          <span>{fetching ? "Loading" : "Send magic link"}</span>
+          <Text>{fetching ? "Loading" : "Send magic link"}</Text>
         </Button>
-        {error ? <Error error={error} /> : ""}
+        <ErrorOrNot error={error} />
       </VStack>
     </Center>
   );
 };
 
 export default Auth;
-
-const Error = (props: { error: Error }) => {
-  const { error } = props;
-  return (
-    <Alert status="error">
-      <AlertIcon />
-      <AlertDescription>{error.message}</AlertDescription>
-    </Alert>
-  );
-};
