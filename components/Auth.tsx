@@ -1,28 +1,31 @@
-import { Button, Center, Input, VStack } from "@chakra-ui/react";
+import {
+  Text,
+  Button,
+  Center,
+  Input,
+  VStack,
+  AlertIcon,
+  Alert,
+  AlertDescription,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
-import { supabase } from "../utils/superbaseClient";
+import { useSignIn } from "react-supabase";
 
 const Auth = () => {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [{ error, fetching }, signIn] = useSignIn();
 
   const handleLogin = async (email: string) => {
-    try {
-      setLoading(true);
-      const { error } = await supabase.auth.signIn({ email });
-      if (error) throw error;
-      alert("Check your email for the login link!");
-    } catch (error: any) {
-      alert(error.error_description || error.message);
-    } finally {
-      setLoading(false);
-    }
+    const { error } = await signIn({
+      email,
+    });
+    if (error) console.error(error);
   };
 
   return (
-    <Center className="hahahah" width="100%">
+    <Center width="100%">
       <VStack>
-        <p>Sign in via magic link with your email</p>
+        <Text>Sign in via magic link with your email</Text>
         <Input
           type="email"
           placeholder="Your email"
@@ -34,13 +37,24 @@ const Auth = () => {
             e.preventDefault();
             handleLogin(email);
           }}
-          disabled={loading}
+          disabled={fetching}
         >
-          <span>{loading ? "Loading" : "Send magic link"}</span>
+          <span>{fetching ? "Loading" : "Send magic link"}</span>
         </Button>
+        {error ? <Error error={error} /> : ""}
       </VStack>
     </Center>
   );
 };
 
 export default Auth;
+
+const Error = (props: { error: Error }) => {
+  const { error } = props;
+  return (
+    <Alert status="error">
+      <AlertIcon />
+      <AlertDescription>{error.message}</AlertDescription>
+    </Alert>
+  );
+};
