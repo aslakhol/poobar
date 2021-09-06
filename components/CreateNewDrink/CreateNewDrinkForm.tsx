@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
@@ -24,9 +24,15 @@ const CreateNewDrinkForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Name register={register} errors={errors} />
-      <Description register={register} errors={errors} />
-      <Instruction register={register} errors={errors} />
+      <Name register={register} fieldError={errors.name as FieldError} />
+      <Description
+        register={register}
+        fieldError={errors.description as FieldError}
+      />
+      <Instruction
+        register={register}
+        fieldError={errors.instruction as FieldError}
+      />
       <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
         Submit
       </Button>

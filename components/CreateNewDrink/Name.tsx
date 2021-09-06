@@ -1,20 +1,21 @@
-import { FieldErrors, useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 import { FormElementInput } from "../Form/FormElement";
 
 type Props = {
   register: ReturnType<typeof useForm>["register"];
-  errors: FieldErrors;
+  fieldError: FieldError;
 };
 
 const Name = (props: Props) => {
-  const { register, errors } = props;
+  const { register, fieldError } = props;
   return (
     <FormElementInput
       name={"name"}
       labelText={"Name"}
       placeholder={"Name"}
       register={register}
-      errors={errors}
+      fieldError={fieldError}
+      required
     />
   );
 };
