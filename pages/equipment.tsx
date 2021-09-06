@@ -2,18 +2,20 @@ import React from "react";
 import type { NextPage } from "next";
 import Header from "../components/Header";
 import EntityList from "../components/EntityList/EntityList";
+import { useSelect } from "react-supabase";
+import ErrorOrNot from "../components/ErrorOrNot";
+import Loading from "../components/Loading";
 
 const Equipment: NextPage = () => {
-  const equipment = [
-    { name: "Muddler", id: 1 },
-    { name: "Shaker", id: 2 },
-    { name: "Strainer", id: 3 },
-  ];
+  const [{ data, error }] = useSelect("equipment", {
+    columns: "id, name",
+  });
 
   return (
     <>
       <Header />
-      <EntityList entities={equipment} type={"equipment"} />
+      {data ? <EntityList entities={data} type={"equipment"} /> : <Loading />}
+      <ErrorOrNot error={error} />
     </>
   );
 };

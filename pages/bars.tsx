@@ -2,18 +2,20 @@ import React from "react";
 import type { NextPage } from "next";
 import Header from "../components/Header";
 import EntityList from "../components/EntityList/EntityList";
+import { useSelect } from "react-supabase";
+import ErrorOrNot from "../components/ErrorOrNot";
+import Loading from "../components/Loading";
 
 const Bars: NextPage = () => {
-  const bars = [
-    { name: "Den Gode Nabo", id: 1 },
-    { name: "Brix Brygghus", id: 2 },
-    { name: "Lervig Local", id: 3 },
-  ];
+  const [{ data, error }] = useSelect("bar", {
+    columns: "id, name",
+  });
 
   return (
     <>
       <Header />
-      <EntityList entities={bars} type={"bar"} />
+      {data ? <EntityList entities={data} type={"bar"} /> : <Loading />}
+      <ErrorOrNot error={error} />
     </>
   );
 };
