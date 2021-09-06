@@ -14,7 +14,7 @@ const Header = () => {
     >
       <Flex align="center" mr={5} justify="space-between" width="100%">
         <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
-          FooBar
+          <Link href="/">PooBar</Link>
         </Heading>
         <Link href="/account">Account</Link>
       </Flex>
