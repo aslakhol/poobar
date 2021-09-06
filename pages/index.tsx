@@ -9,13 +9,13 @@ const Home: NextPage = () => {
     <>
       <Header />
       <Button>
-        <Link href={`/bars`}>Bars</Link>
+        <Link href={`/bar`}>Bars</Link>
       </Button>
       <Button>
-        <Link href={`/drinks`}>Drinks</Link>
+        <Link href={`/drink`}>Drinks</Link>
       </Button>
       <Button>
-        <Link href={`/ingredients`}>Ingredients</Link>
+        <Link href={`/ingredient`}>Ingredients</Link>
       </Button>
       <Button>
         <Link href={`/equipment`}>Equipment</Link>
