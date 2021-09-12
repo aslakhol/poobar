@@ -1,4 +1,7 @@
-import { Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
+import { Table, Thead, Tr, Th, Tbody, Link, Button } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+
+import { useRouter } from "next/router";
 import { Entity } from "../../types/types";
 import EntityListElement from "./EntityListElement";
 
@@ -9,12 +12,20 @@ type Props = {
 
 const EntityList = (props: Props) => {
   const { entities, type } = props;
+  const router = useRouter();
 
   return (
     <Table>
       <Thead>
         <Tr>
           <Th>{type}</Th>
+          <Th>
+            <Button padding="0">
+              <Link href={`${router.asPath}/new`}>
+                <AddIcon />
+              </Link>
+            </Button>
+          </Th>
         </Tr>
       </Thead>
       <Tbody>

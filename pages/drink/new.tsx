@@ -1,4 +1,4 @@
-import CreateNewDrinkForm from "../../components/CreateNewDrink/CreateNewDrinkForm";
+import CreateNewDrinkForm from "../../components/DrinkForm/CreateNewDrinkForm";
 import Header from "../../components/Header";
 
 const NewDrinkPage = () => {

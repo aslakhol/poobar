@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
-import EditDrinkForm from "../../../components/CreateNewDrink/EditDrinkForm";
+import EditDrinkForm from "../../../components/DrinkForm/EditDrinkForm";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { DrinkType } from "../../../types/types";
