@@ -11,7 +11,7 @@ const Instruction = (props: Props) => {
 
   return (
     <FormElementText
-      name={"instruction"}
+      name={"instructions"}
       labelText={"Instruction"}
       placeholder={"Instruction"}
       register={register}

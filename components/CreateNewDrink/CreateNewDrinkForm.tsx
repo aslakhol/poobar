@@ -1,43 +1,21 @@
-import { FieldError, useForm } from "react-hook-form";
 import React from "react";
-import { Button } from "@chakra-ui/react";
-import Name from "./Name";
-import Description from "./Description";
-import Instruction from "./Instructions";
-
-type formValues = {
-  name: string;
-  description: string;
-  instructions: string;
-};
+import { useToast } from "@chakra-ui/react";
+import DrinkForm from "./DrinkForm";
 
 const CreateNewDrinkForm = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const toast = useToast();
 
-  const onSubmit = (values: formValues) => {
-    console.log("values", values);
+  const triggerToast = (name: string) => {
+    toast({
+      title: "Drink created.",
+      description: `${name} has been successfully created!`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Name register={register} fieldError={errors.name as FieldError} />
-      <Description
-        register={register}
-        fieldError={errors.description as FieldError}
-      />
-      <Instruction
-        register={register}
-        fieldError={errors.instruction as FieldError}
-      />
-      <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
-        Submit
-      </Button>
-    </form>
-  );
+  return <DrinkForm triggerToast={triggerToast} />;
 };
 
 export default CreateNewDrinkForm;
