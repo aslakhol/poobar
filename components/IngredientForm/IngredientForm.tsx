@@ -2,41 +2,39 @@ import { FieldError, useForm } from "react-hook-form";
 import React, { useEffect } from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
-import Description from "./Description";
-import Instruction from "./Instructions";
 import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../ErrorOrNot";
 import { useRouter } from "next/router";
-import { DrinkType } from "../../types/types";
+import { IngredientType } from "../../types/types";
 
 type formValues = {
   name: string;
-  description: string;
-  instructions: string;
 };
 
 type Props = {
-  drink?: DrinkType;
+  ingredient?: IngredientType;
   triggerToast: (name: string) => void;
   filter?: Filter<any>;
 };
 
-const DrinkForm = (props: Props) => {
-  const { drink, triggerToast, filter } = props;
+const IngredientForm = (props: Props) => {
+  const { ingredient, triggerToast, filter } = props;
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ defaultValues: drink });
+  } = useForm({ defaultValues: ingredient });
 
-  const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
+  const [{ data, error, fetching }, execute] = useUpsert("ingredient", {
+    filter,
+  });
 
   useEffect(() => {
     if (!fetching && data && data[0]) {
       triggerToast(data[0].name);
-      router.push(`${router.basePath}/drink/`);
+      router.push(`${router.basePath}/ingredient/`);
     }
   }, [data, fetching]);
 
@@ -47,14 +45,6 @@ const DrinkForm = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Name register={register} fieldError={errors.name as FieldError} />
-      <Description
-        register={register}
-        fieldError={errors.description as FieldError}
-      />
-      <Instruction
-        register={register}
-        fieldError={errors.instructions as FieldError}
-      />
       <Button mt={4} colorScheme="teal" type="submit">
         Submit
       </Button>
@@ -63,4 +53,4 @@ const DrinkForm = (props: Props) => {
   );
 };
 
-export default DrinkForm;
+export default IngredientForm;

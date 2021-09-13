@@ -1,11 +1,11 @@
-import CreateNewDrinkForm from "../../components/DrinkForm/CreateNewDrinkForm";
+import CreateDrinkForm from "../../components/DrinkForm/CreateDrinkForm";
 import Header from "../../components/Header";
 
 const NewDrinkPage = () => {
   return (
     <>
       <Header />
-      <CreateNewDrinkForm />
+      <CreateDrinkForm />
     </>
   );
 };

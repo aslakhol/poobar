@@ -9,3 +9,13 @@ export type DrinkType = {
   description: string;
   instructions: string;
 };
+
+export type EquipmentType = {
+  id: string;
+  name: string;
+};
+
+export type IngredientType = {
+  id: string;
+  name: string;
+};

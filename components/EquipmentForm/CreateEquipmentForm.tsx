@@ -1,13 +1,13 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
-import DrinkForm from "./DrinkForm";
+import EquipmentForm from "./EquipmentForm";
 
-const CreateNewDrinkForm = () => {
+const CreateEquipmentForm = () => {
   const toast = useToast();
 
   const triggerToast = (name: string) => {
     toast({
-      title: "Drink created.",
+      title: "Equipment created.",
       description: `${name} has been successfully created!`,
       status: "success",
       duration: 5000,
@@ -15,7 +15,7 @@ const CreateNewDrinkForm = () => {
     });
   };
 
-  return <DrinkForm triggerToast={triggerToast} />;
+  return <EquipmentForm triggerToast={triggerToast} />;
 };
 
-export default CreateNewDrinkForm;
+export default CreateEquipmentForm;
