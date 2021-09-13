@@ -8,6 +8,7 @@ export type DrinkType = {
   name: string;
   description: string;
   instructions: string;
+  ingredient: IngredientType[];
 };
 
 export type EquipmentType = {

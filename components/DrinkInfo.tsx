@@ -1,18 +1,18 @@
 import { VStack } from "@chakra-ui/layout";
 import React, { useEffect, useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
+import { DrinkType, IngredientType } from "../types/types";
 import ErrorOrNot from "./ErrorOrNot";
-
-const dummyDrink = { name: "", description: "", instructions: "" };
 
 type Props = { drinkId: string };
 
 const DrinkInfo = (props: Props) => {
   const { drinkId } = props;
-  const [drink, setDrink] = useState(dummyDrink);
+  const [drink, setDrink] = useState<DrinkType>();
 
   const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
   const [{ data, error }] = useSelect("drink", {
+    columns: `id, name, description, instructions, ingredient (id, name)`,
     filter,
   });
 
@@ -23,12 +23,25 @@ const DrinkInfo = (props: Props) => {
   return (
     <VStack>
       <p>Id: {drinkId}</p>
-      <p>Name: {drink.name}</p>
-      <p>Description: {drink.description}</p>
-      <p>Instructions: {drink.instructions}</p>
+      <p>Name: {drink?.name}</p>
+      <p>Ingredients:</p>
+      {drink?.ingredient.map((ingredient) => (
+        <Ingredient key={ingredient.id} ingredient={ingredient} />
+      ))}
+      <p>Instructions: {drink?.instructions}</p>
+      <p>Description: {drink?.description}</p>
       <ErrorOrNot error={error} />
     </VStack>
   );
 };
 
 export default DrinkInfo;
+
+type IngredientProps = {
+  ingredient: IngredientType;
+};
+
+const Ingredient = (props: IngredientProps) => {
+  const { name } = props.ingredient;
+  return <p>{name}</p>;
+};
