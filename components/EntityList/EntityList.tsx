@@ -4,6 +4,8 @@ import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { Entity } from "../../types/types";
 import EntityListElement from "./EntityListElement";
+import { useDelete } from "react-supabase";
+import { useState } from "react";
 
 type Props = {
   entities: any[];
@@ -13,6 +15,16 @@ type Props = {
 const EntityList = (props: Props) => {
   const { entities, type } = props;
   const router = useRouter();
+  const [entityList, setEntityList] = useState(entities);
+
+  const [{}, execute] = useDelete(type);
+
+  const deleteEntity = (id: number) => {
+    setEntityList((prevState) =>
+      prevState.filter((entity) => entity.id !== id)
+    );
+    execute((query) => query.eq("id", id));
+  };
 
   return (
     <Table>
@@ -29,11 +41,12 @@ const EntityList = (props: Props) => {
         </Tr>
       </Thead>
       <Tbody>
-        {entities.map((entity: Entity) => (
+        {entityList.map((entity: Entity) => (
           <EntityListElement
             key={`ELE-${type}-${entity.id}`}
             entity={entity}
             type={type}
+            handleDelete={deleteEntity}
           />
         ))}
       </Tbody>
