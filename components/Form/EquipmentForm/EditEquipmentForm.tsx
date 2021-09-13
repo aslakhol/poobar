@@ -1,24 +1,24 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import { useFilter } from "react-supabase";
-import { IngredientType } from "../../types/types";
-import IngredientForm from "./IngredientForm";
+import { EquipmentType } from "../../../types/types";
+import EquipmentForm from "./EquipmentForm";
 
 type Props = {
-  ingredient: IngredientType;
+  equipment: EquipmentType;
 };
 
-const EditIngredientForm = (props: Props) => {
-  const { ingredient } = props;
+const EditEquipmentForm = (props: Props) => {
+  const { equipment } = props;
   const toast = useToast();
 
-  const filter = useFilter((query) => query.eq("id", ingredient.id), [
-    ingredient,
+  const filter = useFilter((query) => query.eq("id", equipment.id), [
+    equipment,
   ]);
 
   const triggerToast = (name: string) => {
     toast({
-      title: "Ingredient Updated.",
+      title: "Equipment Updated.",
       description: `${name} has been successfully updated!`,
       status: "success",
       duration: 5000,
@@ -27,12 +27,12 @@ const EditIngredientForm = (props: Props) => {
   };
 
   return (
-    <IngredientForm
-      ingredient={ingredient}
+    <EquipmentForm
+      equipment={equipment}
       triggerToast={triggerToast}
       filter={filter}
     />
   );
 };
 
-export default EditIngredientForm;
+export default EditEquipmentForm;

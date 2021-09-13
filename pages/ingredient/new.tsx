@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import CreateIngredientForm from "../../components/IngredientForm/CreateIngredientForm";
+import CreateIngredientForm from "../../components/Form/IngredientForm/CreateIngredientForm";
 
 const NewIngredientPage = () => {
   return (

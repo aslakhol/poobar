@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import { Filter, useUpsert } from "react-supabase";
-import ErrorOrNot from "../ErrorOrNot";
+import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
-import { EquipmentType } from "../../types/types";
+import { EquipmentType } from "../../../types/types";
 
 type formValues = {
   name: string;

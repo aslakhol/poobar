@@ -1,4 +1,4 @@
-import CreateEquipmentForm from "../../components/EquipmentForm/CreateEquipmentForm";
+import CreateEquipmentForm from "../../components/Form/EquipmentForm/CreateEquipmentForm";
 import Header from "../../components/Header";
 
 const NewEquipmentPage = () => {

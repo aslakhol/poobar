@@ -1,5 +1,5 @@
 import { FieldError, useForm } from "react-hook-form";
-import { FormElementInput } from "../Form/FormElement";
+import { FormElementInput } from "../FormElement";
 
 type Props = {
   register: ReturnType<typeof useForm>["register"];

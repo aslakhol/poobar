@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
-import EditIngredientForm from "../../../components/IngredientForm/EditIngredientForm";
+import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
 import { IngredientType } from "../../../types/types";
 
 const EditIngredient = () => {

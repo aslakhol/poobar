@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
-import EditEquipmentForm from "../../../components/EquipmentForm/EditEquipmentForm";
+import EditEquipmentForm from "../../../components/Form/EquipmentForm/EditEquipmentForm";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { EquipmentType } from "../../../types/types";

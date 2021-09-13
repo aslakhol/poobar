@@ -5,9 +5,9 @@ import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
 import { Filter, useUpsert } from "react-supabase";
-import ErrorOrNot from "../ErrorOrNot";
+import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
-import { DrinkType } from "../../types/types";
+import { DrinkType } from "../../../types/types";
 
 type formValues = {
   name: string;
