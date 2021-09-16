@@ -8,6 +8,7 @@ import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
+import IngredientSelect from "./IngredientSelect";
 
 type formValues = {
   name: string;
@@ -47,13 +48,14 @@ const DrinkForm = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Name register={register} fieldError={errors.name as FieldError} />
-      <Description
-        register={register}
-        fieldError={errors.description as FieldError}
-      />
+      <IngredientSelect />
       <Instruction
         register={register}
         fieldError={errors.instructions as FieldError}
+      />
+      <Description
+        register={register}
+        fieldError={errors.description as FieldError}
       />
       <Button mt={4} colorScheme="teal" type="submit">
         Submit
