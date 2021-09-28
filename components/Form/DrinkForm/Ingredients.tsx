@@ -1,3 +1,4 @@
+import { ListItem, UnorderedList } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import { IngredientType } from "../../../types/types";
 import IngredientSelect from "./IngredientSelect";
@@ -22,10 +23,6 @@ const Ingredients = () => {
 
 export default Ingredients;
 
-type AddButtonProps = {
-  trigger: () => void;
-};
-
 type SelectedIngredientsType = {
   ingredients: IngredientType[];
 };
@@ -33,10 +30,10 @@ type SelectedIngredientsType = {
 const SelectedIngredients = (props: SelectedIngredientsType) => {
   const { ingredients } = props;
   return (
-    <>
+    <UnorderedList>
       {ingredients.map((ingredient) => (
-        <p>{ingredient.name}</p>
+        <ListItem key={ingredient.id}>{ingredient.name}</ListItem>
       ))}
-    </>
+    </UnorderedList>
   );
 };

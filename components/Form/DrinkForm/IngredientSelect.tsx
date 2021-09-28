@@ -23,8 +23,6 @@ const IngredientSelect = (props: Props) => {
     if (selected) selectIngredient(selected);
   }, [selectedIngredientName]);
 
-  console.log(selectedIngredients);
-
   const selectedIngredientNames = selectedIngredients.map((i) => i.name);
 
   const names = data
