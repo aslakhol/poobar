@@ -9,7 +9,7 @@ import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
 import IngredientSelect from "./IngredientSelect";
-import NewIngredientSelect from "./NewIngredientSelect";
+import Ingredients from "./Ingredients";
 
 type formValues = {
   name: string;
@@ -49,7 +49,7 @@ const DrinkForm = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Name register={register} fieldError={errors.name as FieldError} />
-      <NewIngredientSelect />
+      <Ingredients />
       <Instruction
         register={register}
         fieldError={errors.instructions as FieldError}

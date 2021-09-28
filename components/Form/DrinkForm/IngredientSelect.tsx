@@ -1,71 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { CUIAutoComplete } from "chakra-ui-autocomplete";
-import { useSelect } from "react-supabase";
 import { Box } from "@chakra-ui/layout";
 import ErrorOrNot from "../../ErrorOrNot";
+import { useSelect } from "react-supabase";
+import Combobox from "./ComboBox";
+import { IngredientType } from "../../../types/types";
 
-const IngredientSelect = () => {
-  const [ingredients, setIngredients] = useState<Item[]>([]);
+type Props = {
+  selectIngredient: (ingredient: IngredientType) => void;
+  selectedIngredients: IngredientType[];
+};
 
+const IngredientSelect = (props: Props) => {
+  const { selectIngredient, selectedIngredients } = props;
+  const [selectedIngredientName, setSelectedIngredientName] = useState("");
   const [{ data, error }] = useSelect("ingredient", {
     columns: "id, name",
   });
 
   useEffect(() => {
-    if (data) {
-      const adaptedData = data.map((dataPoint) => ({
-        label: dataPoint.name,
-        value: dataPoint.id,
-      }));
+    const selected = data?.find((i) => i.name === selectedIngredientName);
 
-      setIngredients(adaptedData);
-    }
-  }, [data]);
+    if (selected) selectIngredient(selected);
+  }, [selectedIngredientName]);
+
+  console.log(selectedIngredients);
+
+  const selectedIngredientNames = selectedIngredients.map((i) => i.name);
+
+  const names = data
+    ?.map((ingredient) => ingredient.name)
+    .filter((name) => !selectedIngredientNames.includes(name));
 
   return (
     <Box>
-      {ingredients.length ? <EntitySelect entities={ingredients} /> : ""}
+      {names ? (
+        <Combobox
+          items={names}
+          type={"Ingredient"}
+          setSelected={setSelectedIngredientName}
+        />
+      ) : (
+        ""
+      )}
       <ErrorOrNot error={error} />
-    </Box>
-  );
-};
-
-type Item = {
-  label: string;
-  value: string;
-};
-
-type Props = { entities: Item[] };
-
-const EntitySelect = (props: Props) => {
-  const { entities } = props;
-  const [pickerItems, setPickerItems] = useState<Item[]>(entities);
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
-
-  const handleCreateItem = (item: Item) => {
-    // handle creating items on submit
-    setPickerItems((curr) => [...curr, item]);
-    setSelectedItems((curr) => [...curr, item]);
-  };
-
-  const handleSelectedItemsChange = (selectedItems?: Item[]) => {
-    if (selectedItems) {
-      setSelectedItems(selectedItems);
-    }
-  };
-
-  return (
-    <Box>
-      <CUIAutoComplete
-        label="Ingredients"
-        placeholder="Ingredient"
-        onCreateItem={handleCreateItem}
-        items={pickerItems}
-        selectedItems={selectedItems}
-        onSelectedItemsChange={(changes) =>
-          handleSelectedItemsChange(changes.selectedItems)
-        }
-      />
     </Box>
   );
 };

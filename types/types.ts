@@ -17,6 +17,6 @@ export type EquipmentType = {
 };
 
 export type IngredientType = {
-  id: string;
+  id: number;
   name: string;
 };
