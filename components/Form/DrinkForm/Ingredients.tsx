@@ -1,33 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IngredientType } from "../../../types/types";
-import { IconButton } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
 import IngredientSelect from "./IngredientSelect";
 
 const Ingredients = () => {
   const [ingredients, setIngredients] = useState<IngredientType[]>([]);
-  const [openAddIngredient, setOpenAddIngredient] = useState<boolean>(false);
 
   const addIngredient = (ingredient: IngredientType) => {
     setIngredients((prevState) => [...prevState, ingredient]);
-    setOpenAddIngredient(false);
   };
-
-  useEffect(() => {
-    console.log(ingredients);
-  }, [ingredients]);
 
   return (
     <>
+      <IngredientSelect
+        selectIngredient={addIngredient}
+        selectedIngredients={ingredients}
+      />
       <SelectedIngredients ingredients={ingredients} />
-      {openAddIngredient ? (
-        <IngredientSelect
-          selectIngredient={addIngredient}
-          selectedIngredients={ingredients}
-        />
-      ) : (
-        <AddButton trigger={() => setOpenAddIngredient(true)} />
-      )}
     </>
   );
 };
@@ -36,18 +24,6 @@ export default Ingredients;
 
 type AddButtonProps = {
   trigger: () => void;
-};
-
-const AddButton = (props: AddButtonProps) => {
-  const { trigger } = props;
-
-  return (
-    <IconButton
-      aria-label="Add ingredient"
-      icon={<AddIcon />}
-      onClick={trigger}
-    />
-  );
 };
 
 type SelectedIngredientsType = {
@@ -59,7 +35,7 @@ const SelectedIngredients = (props: SelectedIngredientsType) => {
   return (
     <>
       {ingredients.map((ingredient) => (
-        <div>{ingredient.name}</div>
+        <p>{ingredient.name}</p>
       ))}
     </>
   );
