@@ -1,4 +1,6 @@
-import { ListItem, UnorderedList } from "@chakra-ui/layout";
+import { Box, Flex, ListItem, UnorderedList } from "@chakra-ui/layout";
+import { NumberInput, NumberInputField } from "@chakra-ui/number-input";
+import { Select } from "@chakra-ui/select";
 import React, { useState } from "react";
 import { IngredientType } from "../../../types/types";
 import IngredientSelect from "./IngredientSelect";
@@ -32,7 +34,24 @@ const SelectedIngredients = (props: SelectedIngredientsType) => {
   return (
     <UnorderedList>
       {ingredients.map((ingredient) => (
-        <ListItem key={ingredient.id}>{ingredient.name}</ListItem>
+        <ListItem key={ingredient.id}>
+          <Flex>
+            <span>{ingredient.name}</span>
+            <NumberInput size={"xs"} min={0} maxW={16}>
+              <NumberInputField />
+            </NumberInput>
+            <Select size={"xs"} maxW={20}>
+              <option>ml</option>
+              <option>cl</option>
+              <option>dl</option>
+              <option>g</option>
+              <option>wedge</option>
+              <option>shot</option>
+              <option>part</option>
+              <option>bunch</option>
+            </Select>
+          </Flex>
+        </ListItem>
       ))}
     </UnorderedList>
   );
