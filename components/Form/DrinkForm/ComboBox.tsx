@@ -12,6 +12,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import { UseFormRegister } from "react-hook-form";
+import { IngredientsSelectType } from "./SimpleIngredients";
 
 type Props = {
   items: string[];

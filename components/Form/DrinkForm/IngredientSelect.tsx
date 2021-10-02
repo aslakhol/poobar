@@ -4,6 +4,8 @@ import ErrorOrNot from "../../ErrorOrNot";
 import { useSelect } from "react-supabase";
 import Combobox from "./ComboBox";
 import { IngredientType } from "../../../types/types";
+import { IngredientsSelectType } from "./SimpleIngredients";
+import { UseFormRegister } from "react-hook-form";
 
 type Props = {
   selectIngredient: (ingredient: IngredientType) => void;
@@ -20,7 +22,7 @@ const IngredientSelect = (props: Props) => {
   useEffect(() => {
     const selected = data?.find((i) => i.name === selectedIngredientName);
 
-    if (selected) selectIngredient(selected);
+    if (selected && selectIngredient) selectIngredient(selected);
   }, [selectedIngredientName]);
 
   const selectedIngredientNames = selectedIngredients.map((i) => i.name);
