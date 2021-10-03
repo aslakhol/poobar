@@ -98,13 +98,11 @@ const ComboBox = (props: ComboBoxProps) => {
     items: inputItems,
     onSelectedItemChange: ({ inputValue }) => onChange(inputValue),
     onInputValueChange: ({ inputValue }) => {
-      if (inputValue) {
-        setInputItems(
-          items.filter((item) =>
-            item.name.toLowerCase().startsWith(inputValue.toLowerCase())
-          )
-        );
-      }
+      setInputItems(
+        items.filter((item) =>
+          item.name.toLowerCase().startsWith(inputValue || "".toLowerCase())
+        )
+      );
     },
     itemToString: (item) => (item ? item.name : ""),
   });
