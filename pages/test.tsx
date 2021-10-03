@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import {
   Controller,
   FieldError,
+  useController,
+  UseControllerProps,
   useForm,
   UseFormRegister,
 } from "react-hook-form";
@@ -36,13 +38,7 @@ type FormValues = {
 type Props = {};
 
 const TestForm = (props: Props) => {
-  const {
-    handleSubmit,
-    register,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm<FormValues>();
+  const { handleSubmit, watch, control } = useForm<FormValues>();
 
   const [{ data, error }] = useSelect("ingredient", {
     columns: "id, name",
@@ -57,14 +53,9 @@ const TestForm = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {data ? (
-        <Controller
-          control={control}
-          name={"ingredients"}
-          defaultValue=""
-          render={({ field }) => {
-            const { ref, ...rest } = field;
-            return <ComboBox items={data} {...rest} />;
-          }}
+        <ComboBox
+          items={data}
+          useControllerProps={{ control, name: "ingredients" }}
         />
       ) : (
         ""
@@ -78,12 +69,14 @@ const TestForm = (props: Props) => {
 
 type ComboBoxProps = {
   items: Ingredients[];
-  onChange: (...event: any[]) => void;
+  useControllerProps: UseControllerProps<FormValues>;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, onChange } = props;
+  const { items, useControllerProps } = props;
   const [inputItems, setInputItems] = useState(items);
+
+  const { field } = useController(useControllerProps);
 
   const {
     isOpen,
@@ -96,7 +89,7 @@ const ComboBox = (props: ComboBoxProps) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
-    onSelectedItemChange: ({ inputValue }) => onChange(inputValue),
+    onSelectedItemChange: ({ inputValue }) => field.onChange(inputValue),
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
