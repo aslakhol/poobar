@@ -1,7 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React, { useEffect, useState } from "react";
-import { FieldError, useForm } from "react-hook-form";
+import {
+  Controller,
+  FieldError,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
 import { Filter, useSelect } from "react-supabase";
 import ErrorOrNot from "../components/ErrorOrNot";
 import Header from "../components/Header";
@@ -26,8 +31,6 @@ type Ingredients = {
 
 type FormValues = {
   ingredients: string;
-  description: string;
-  instructions: string;
 };
 
 type Props = {};
@@ -36,6 +39,8 @@ const TestForm = (props: Props) => {
   const {
     handleSubmit,
     register,
+    watch,
+    control,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -47,9 +52,23 @@ const TestForm = (props: Props) => {
     console.log(values);
   };
 
+  console.log(watch());
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {data ? <ComboBox items={data} /> : ""}
+      {data ? (
+        <Controller
+          control={control}
+          name={"ingredients"}
+          defaultValue=""
+          render={({ field }) => {
+            const { ref, ...rest } = field;
+            return <ComboBox items={data} {...rest} />;
+          }}
+        />
+      ) : (
+        ""
+      )}
       <Button mt={4} colorScheme="teal" type="submit">
         Submit
       </Button>
@@ -57,10 +76,13 @@ const TestForm = (props: Props) => {
   );
 };
 
-type ComboBoxProps = { items: Ingredients[] };
+type ComboBoxProps = {
+  items: Ingredients[];
+  onChange: (...event: any[]) => void;
+};
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items } = props;
+  const { items, onChange } = props;
   const [inputItems, setInputItems] = useState(items);
 
   const {
@@ -74,6 +96,7 @@ const ComboBox = (props: ComboBoxProps) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
+    onSelectedItemChange: ({ inputValue }) => onChange(inputValue),
     onInputValueChange: ({ inputValue }) => {
       if (inputValue) {
         setInputItems(
