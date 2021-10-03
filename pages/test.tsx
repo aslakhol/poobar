@@ -1,4 +1,13 @@
-import { Button } from "@chakra-ui/react";
+import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  forwardRef,
+  Input,
+  List,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React, { useEffect, useState } from "react";
 import {
@@ -101,32 +110,70 @@ const ComboBox = (props: ComboBoxProps) => {
   });
 
   return (
-    <div>
-      <label {...getLabelProps()}>Choose an element:</label>
-      <div {...getComboboxProps()}>
-        <input {...getInputProps()} />
-        <button
-          type="button"
+    <Box>
+      <Text as="label" fontSize="lg" {...getLabelProps()}>
+        Ingredient
+      </Text>
+      <Box {...getComboboxProps()}>
+        <ComboboxInput
+          {...getInputProps()}
+          placeholder="Search..."
+          flex="0 0 auto"
+          width={500}
+          mt={3}
+        />
+        <Button
           {...getToggleButtonProps()}
-          aria-label="toggle menu"
+          aria-label={"toggle menu"}
+          variantcolor={isOpen ? "gray" : "teal"}
         >
-          &#8595;
-        </button>
-      </div>
-      <ul {...getMenuProps()}>
-        {isOpen &&
-          inputItems.map((item, index) => (
-            <li
-              style={
-                highlightedIndex === index ? { backgroundColor: "#bde4ff" } : {}
-              }
-              key={`${item.name}${index}`}
-              {...getItemProps({ item, index })}
-            >
-              {item.name}
-            </li>
-          ))}
-      </ul>
-    </div>
+          {isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
+        </Button>
+      </Box>
+      <ComboboxList
+        isOpen={isOpen}
+        {...getMenuProps()}
+        flex={1}
+        overflowY="auto"
+        mt={0}
+      >
+        {inputItems.map((item, index) => (
+          <ComboboxItem
+            {...getItemProps({ item, index })}
+            itemIndex={index}
+            highlightedIndex={highlightedIndex}
+            key={`${item.name}${index}`}
+          >
+            {item.name}
+          </ComboboxItem>
+        ))}
+      </ComboboxList>
+    </Box>
   );
 };
+
+const ComboboxInput = forwardRef(({ ...props }, ref) => {
+  return <Input {...props} ref={ref} />;
+});
+
+const ComboboxList = forwardRef(({ isOpen, ...props }, ref) => {
+  return <List display={isOpen ? "" : "none"} py={2} {...props} ref={ref} />;
+});
+
+const ComboboxItem = forwardRef(
+  ({ itemIndex, highlightedIndex, ...props }, ref) => {
+    const isActive = itemIndex === highlightedIndex;
+
+    return (
+      <ListItem
+        transition="background-color 220ms, color 220ms"
+        bg={isActive ? "teal.100" : ""}
+        px={4}
+        py={2}
+        cursor="pointer"
+        {...props}
+        ref={ref}
+      />
+    );
+  }
+);
