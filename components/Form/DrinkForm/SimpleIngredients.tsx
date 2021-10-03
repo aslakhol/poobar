@@ -1,13 +1,14 @@
 import { IconButton } from "@chakra-ui/button";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Input } from "@chakra-ui/input";
 import { Flex } from "@chakra-ui/layout";
 import { NumberInput, NumberInputField } from "@chakra-ui/number-input";
 import { Select } from "@chakra-ui/select";
+import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
 import { useSelect } from "react-supabase";
-import { DrinkFormValues, Ingredient } from "./DrinkForm";
+import ComboBox from "./ComboBox";
+import { DrinkFormValues } from "./DrinkForm";
 
 const SimpleIngredients = () => {
   const { register } = useFormContext();
@@ -16,24 +17,21 @@ const SimpleIngredients = () => {
     name: "ingredients",
   });
 
-  // const [{ data, error }] = useSelect("ingredient", {
-  //   columns: "id, name",
-  // });
+  const [{ data, error }] = useSelect("ingredient", {
+    columns: "id, name",
+  });
 
-  // if (!data) return <Spinner />;
-
-  // console.log(watch());
+  if (!data) return <Spinner />;
 
   return (
     <>
       {fields.map(({ id, name, amount, unit }, index) => (
         <Flex key={id}>
-          <Input
-            {...register(`ingredients.${index}.name` as const)}
-            maxW={20}
-            defaultValue={name}
+          <ComboBox
+            items={data}
+            labelText="Ingredients"
+            name={`ingredients.${index}.name`}
           />
-
           <NumberInput min={0} maxW={20}>
             <NumberInputField
               {...register(`ingredients.${index}.amount`)}

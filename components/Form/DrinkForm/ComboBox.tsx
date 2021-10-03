@@ -1,11 +1,7 @@
 import { Box, forwardRef, Input, List, ListItem, Text } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React, { useState } from "react";
-import { useController, UseControllerProps } from "react-hook-form";
-
-type FormValues = {
-  ingredients: string;
-};
+import { useController, useFormContext } from "react-hook-form";
 
 type ItemType = {
   name: string;
@@ -14,14 +10,15 @@ type ItemType = {
 type ComboBoxProps = {
   items: ItemType[];
   labelText: string;
-  useControllerProps: UseControllerProps<FormValues>;
+  name: string;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, useControllerProps, labelText } = props;
+  const { items, labelText, name } = props;
   const [inputItems, setInputItems] = useState(items);
+  const { control } = useFormContext();
 
-  const { field } = useController(useControllerProps);
+  const { field } = useController({ name, control });
 
   const {
     isOpen,
