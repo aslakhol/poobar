@@ -64,6 +64,7 @@ const TestForm = (props: Props) => {
       {data ? (
         <ComboBox
           items={data}
+          labelText="Ingredients"
           useControllerProps={{ control, name: "ingredients" }}
         />
       ) : (
@@ -78,11 +79,12 @@ const TestForm = (props: Props) => {
 
 type ComboBoxProps = {
   items: Ingredients[];
+  labelText: string;
   useControllerProps: UseControllerProps<FormValues>;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, useControllerProps } = props;
+  const { items, useControllerProps, labelText } = props;
   const [inputItems, setInputItems] = useState(items);
 
   const { field } = useController(useControllerProps);
@@ -102,7 +104,7 @@ const ComboBox = (props: ComboBoxProps) => {
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
-          item.name.toLowerCase().startsWith(inputValue || "".toLowerCase())
+          item.name.toLowerCase().includes(inputValue || "".toLowerCase())
         )
       );
     },
@@ -112,7 +114,7 @@ const ComboBox = (props: ComboBoxProps) => {
   return (
     <Box>
       <Text as="label" fontSize="lg" {...getLabelProps()}>
-        Ingredient
+        {labelText}
       </Text>
       <Box {...getComboboxProps()}>
         <ComboboxInput
@@ -122,13 +124,6 @@ const ComboBox = (props: ComboBoxProps) => {
           width={500}
           mt={3}
         />
-        <Button
-          {...getToggleButtonProps()}
-          aria-label={"toggle menu"}
-          variantcolor={isOpen ? "gray" : "teal"}
-        >
-          {isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
-        </Button>
       </Box>
       <ComboboxList
         isOpen={isOpen}
