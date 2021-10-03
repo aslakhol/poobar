@@ -1,33 +1,30 @@
-// adapted from https://codesandbox.io/s/mkvj7?file=/src/Combobox.js
-
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Box, forwardRef, Input, List, ListItem, Text } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
-import {
-  Input,
-  List,
-  ListItem,
-  Box,
-  forwardRef,
-  Text,
-  Button,
-} from "@chakra-ui/react";
-import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
-import { UseFormRegister } from "react-hook-form";
-import { IngredientsSelectType } from "./SimpleIngredients";
+import React, { useState } from "react";
+import { useController, UseControllerProps } from "react-hook-form";
 
-type Props = {
-  items: string[];
-  type: string;
-  setSelected: Dispatch<SetStateAction<string>>;
+type FormValues = {
+  ingredients: string;
 };
 
-const Combobox = (props: Props) => {
-  const { items, type, setSelected } = props;
+type ItemType = {
+  name: string;
+};
+
+type ComboBoxProps = {
+  items: ItemType[];
+  labelText: string;
+  useControllerProps: UseControllerProps<FormValues>;
+};
+
+const ComboBox = (props: ComboBoxProps) => {
+  const { items, useControllerProps, labelText } = props;
   const [inputItems, setInputItems] = useState(items);
+
+  const { field } = useController(useControllerProps);
+
   const {
     isOpen,
-    selectedItem,
-    getToggleButtonProps,
     getLabelProps,
     getMenuProps,
     getInputProps,
@@ -36,65 +33,52 @@ const Combobox = (props: Props) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
+    onSelectedItemChange: ({ inputValue }) => field.onChange(inputValue),
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
-          item.toLowerCase().startsWith((inputValue || "").toLowerCase())
+          item.name.toLowerCase().includes(inputValue || "".toLowerCase())
         )
       );
     },
+    itemToString: (item) => (item ? item.name : ""),
   });
-
-  useEffect(() => {
-    if (selectedItem) setSelected(selectedItem);
-  }, [selectedItem]);
 
   return (
     <Box>
       <Text as="label" fontSize="lg" {...getLabelProps()}>
-        {type}
+        {labelText}
       </Text>
       <Box {...getComboboxProps()}>
-        <Box>
-          <ComboboxInput
-            {...getInputProps()}
-            placeholder="Search..."
-            flex="0 0 auto"
-            width={500}
-            mt={3}
-          />
-          <Button
-            {...getToggleButtonProps()}
-            aria-label={"toggle menu"}
-            variantcolor={isOpen ? "gray" : "teal"}
-          >
-            {isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
-          </Button>
-        </Box>
-        <ComboboxList
-          isOpen={isOpen}
-          {...getMenuProps()}
-          flex={1}
-          overflowY="auto"
-          mt={0}
-        >
-          {inputItems.map((item, index) => (
-            <ComboboxItem
-              {...getItemProps({ item, index })}
-              itemIndex={index}
-              highlightedIndex={highlightedIndex}
-              key={index}
-            >
-              {item}
-            </ComboboxItem>
-          ))}
-        </ComboboxList>
+        <ComboboxInput
+          {...getInputProps()}
+          placeholder="Search..."
+          flex="0 0 auto"
+          width={500}
+          mt={3}
+        />
       </Box>
+      <ComboboxList
+        isOpen={isOpen}
+        {...getMenuProps()}
+        flex={1}
+        overflowY="auto"
+        mt={0}
+      >
+        {inputItems.map((item, index) => (
+          <ComboboxItem
+            {...getItemProps({ item, index })}
+            itemIndex={index}
+            highlightedIndex={highlightedIndex}
+            key={`${item.name}${index}`}
+          >
+            {item.name}
+          </ComboboxItem>
+        ))}
+      </ComboboxList>
     </Box>
   );
 };
-
-export default Combobox;
 
 const ComboboxInput = forwardRef(({ ...props }, ref) => {
   return <Input {...props} ref={ref} />;
@@ -121,3 +105,5 @@ const ComboboxItem = forwardRef(
     );
   }
 );
+
+export default ComboBox;
