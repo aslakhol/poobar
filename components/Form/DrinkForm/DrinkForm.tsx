@@ -1,4 +1,4 @@
-import { FieldError, useForm } from "react-hook-form";
+import { FieldError, FormProvider, useForm } from "react-hook-form";
 import React, { useEffect } from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
@@ -8,12 +8,17 @@ import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
-import IngredientSelect from "./IngredientSelect";
-import Ingredients from "./Ingredients";
 import SimpleIngredients from "./SimpleIngredients";
 
-type formValues = {
+export type Ingredient = {
   name: string;
+  amount: number;
+  unit: string;
+};
+
+export type DrinkFormValues = {
+  name: string;
+  ingredients: Ingredient[];
   description: string;
   instructions: string;
 };
@@ -28,11 +33,7 @@ const DrinkForm = (props: Props) => {
   const { drink, triggerToast, filter } = props;
   const router = useRouter();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({ defaultValues: drink });
+  const methods = useForm({ defaultValues: drink });
 
   const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
 
@@ -43,27 +44,34 @@ const DrinkForm = (props: Props) => {
     }
   }, [data, fetching]);
 
-  const onSubmit = (values: formValues) => {
+  const onSubmit = (values: DrinkFormValues) => {
     execute(values);
   };
 
+  console.log(methods.watch());
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Name register={register} fieldError={errors.name as FieldError} />
-      <SimpleIngredients />
-      <Instruction
-        register={register}
-        fieldError={errors.instructions as FieldError}
-      />
-      <Description
-        register={register}
-        fieldError={errors.description as FieldError}
-      />
-      <Button mt={4} colorScheme="teal" type="submit">
-        Submit
-      </Button>
-      <ErrorOrNot error={error} />
-    </form>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Name
+          register={methods.register}
+          fieldError={methods.formState.errors.name as FieldError}
+        />
+        <SimpleIngredients />
+        <Instruction
+          register={methods.register}
+          fieldError={methods.formState.errors.instructions as FieldError}
+        />
+        <Description
+          register={methods.register}
+          fieldError={methods.formState.errors.description as FieldError}
+        />
+        <Button mt={4} colorScheme="teal" type="submit">
+          Submit
+        </Button>
+        <ErrorOrNot error={error} />
+      </form>
+    </FormProvider>
   );
 };
 

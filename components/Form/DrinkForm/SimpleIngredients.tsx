@@ -5,46 +5,35 @@ import { Flex } from "@chakra-ui/layout";
 import { NumberInput, NumberInputField } from "@chakra-ui/number-input";
 import { Select } from "@chakra-ui/select";
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import IngredientSelect from "./IngredientSelect";
-
-type Ingredient = {
-  name: string;
-  amount: number;
-  unit: string;
-};
-
-export type IngredientsSelectType = {
-  ingredients: Ingredient[];
-};
+import { useFieldArray, useForm, useFormContext } from "react-hook-form";
+import { useSelect } from "react-supabase";
+import { DrinkFormValues, Ingredient } from "./DrinkForm";
 
 const SimpleIngredients = () => {
-  const { control, register, watch } = useForm<IngredientsSelectType>();
-  const {
-    fields,
-    append,
-    prepend,
-    remove,
-    swap,
-    move,
-    insert,
-  } = useFieldArray({ control, name: "ingredients" });
+  const { register } = useFormContext();
 
-  console.log(watch());
+  const { fields, append, remove } = useFieldArray<DrinkFormValues>({
+    name: "ingredients",
+  });
+
+  // const [{ data, error }] = useSelect("ingredient", {
+  //   columns: "id, name",
+  // });
+
+  // if (!data) return <Spinner />;
+
+  // console.log(watch());
 
   return (
     <>
       {fields.map(({ id, name, amount, unit }, index) => (
         <Flex key={id}>
           <Input
-            {...register(`ingredients.${index}.name`)}
+            {...register(`ingredients.${index}.name` as const)}
             maxW={20}
             defaultValue={name}
           />
-          {/* <IngredientSelect
-            selectedIngredients={[]}
-            {...register(`ingredients.${index}.name`)}
-          /> */}
+
           <NumberInput min={0} maxW={20}>
             <NumberInputField
               {...register(`ingredients.${index}.amount`)}
@@ -83,8 +72,6 @@ const SimpleIngredients = () => {
       </IconButton>
     </>
   );
-
-  return <>SimpleIngredients</>;
 };
 
 export default SimpleIngredients;
