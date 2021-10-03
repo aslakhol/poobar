@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.3.0",
     "@supabase/supabase-js": "^1.22.3",
     "chakra-ui-autocomplete": "^1.4.3",
+    "downshift": "^6.1.7",
     "framer-motion": "^4.1.17",
     "next": "11.1.0",
     "react": "17.0.2",
