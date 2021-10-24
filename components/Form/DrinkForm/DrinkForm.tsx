@@ -4,7 +4,7 @@ import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
-import { Filter, useUpsert } from "react-supabase";
+import { Filter, useInsert, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
@@ -37,18 +37,37 @@ const DrinkForm = (props: Props) => {
 
   const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
 
+  const iForDMethods = useInsert("ingredient_for_drink");
+  const executeIForD = iForDMethods[1];
+
   useEffect(() => {
     if (!fetching && data && data[0]) {
       triggerToast(data[0].name);
-      router.push(`${router.basePath}/drink/`);
+      // router.push(`${router.basePath}/drink/`);
     }
   }, [data, fetching]);
 
   const onSubmit = (values: DrinkFormValues) => {
-    execute(values);
+    const { ingredients, ...rest } = values;
+
+    console.log("split", ingredients, rest);
+
+    execute(rest).then((result) => {
+      console.log("result", result);
+      const drinkId = result.data[0].id;
+
+      // for (const ingredient of ingredients) {
+      //   executeIForD({
+      //     drink_id: drinkId,
+      //     ingredient_id: ingredient.id,
+      //     amount: ingredient.amount,
+      //     unit: ingredient.unit,
+      //   });
+      // }
+    });
   };
 
-  console.log(methods.watch());
+  // console.log("methods.watch", methods.watch());
 
   return (
     <FormProvider {...methods}>
