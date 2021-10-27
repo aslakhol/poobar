@@ -8,7 +8,7 @@ import { Filter, useInsert, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
-import SimpleIngredients from "./SimpleIngredients";
+import IngredientsSelect from "./IngredientsSelect";
 
 export type Ingredient = {
   name: string;
@@ -76,7 +76,7 @@ const DrinkForm = (props: Props) => {
           register={methods.register}
           fieldError={methods.formState.errors.name as FieldError}
         />
-        <SimpleIngredients />
+        <IngredientsSelect />
         <Instruction
           register={methods.register}
           fieldError={methods.formState.errors.instructions as FieldError}
