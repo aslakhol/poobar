@@ -8,7 +8,7 @@ I am trying out supabase to allow me to build this in a manner such that other p
 
 The first working title was FooBar, however to no suprise I could not get that domain. As a joke one of my friends called the project PooBar, and the name regretfully stuck. I'll update the repo-name eventually, when I've passed the denial phase. For now you can find the live version of the project at:
 
-[https://poobar.no/](poobar.no)
+[poobar.no](https://poobar.no/)
 
 ## Running the code
 
