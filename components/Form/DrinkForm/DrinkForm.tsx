@@ -56,14 +56,14 @@ const DrinkForm = (props: Props) => {
       console.log("result", result);
       const drinkId = result.data[0].id;
 
-      // for (const ingredient of ingredients) {
-      //   executeIForD({
-      //     drink_id: drinkId,
-      //     ingredient_id: ingredient.id,
-      //     amount: ingredient.amount,
-      //     unit: ingredient.unit,
-      //   });
-      // }
+      for (const ingredient of ingredients) {
+        executeIForD({
+          drinkId: drinkId,
+          ingredientId: ingredient.object.id,
+          amount: ingredient.amount,
+          unit: ingredient.unit,
+        });
+      }
     });
   };
 
