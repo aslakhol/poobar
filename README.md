@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PooBar
 
-## Getting Started
+PooBar is a bar cabinet app. It is intended for keeping track of drinks you can make, and what you have in your bar cabinet. I am not interested in solving the "what are all possible drinks I can make with my current ingredients" problem, as it does not interest me. However, I have had a need to have a menu I can present to guests when I ask if they want a drink, as well as a look up for recipes.
 
-First, run the development server:
+I am trying out supabase to allow me to build this in a manner such that other people can create their own bars. Instructions on how to build your own bar will appear here when the project gets to a working state. The fact that multiple users are in the same database will be leveraged to reduce the work involved with building ones own database, as ingredients and drinks will be a shared list. From that list bar-owners can pick for their own bar, or create new ones, which will be added to the global list.
+
+## The name
+
+The first working title was FooBar, however to no suprise I could not get that domain. As a joke one of my friends called the project PooBar, and the name regretfully stuck. I'll update the repo-name eventually, when I've passed the denial phase. For now you can find the live version of the project at:
+
+[https://poobar.no/](poobar.no)
+
+## Running the code
+
+To install:
+
+```bash
+npm install
+```
+
+To run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The project is now available at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deployment is done automatically on new commits to the main branch. The website is hosted using netlify.
