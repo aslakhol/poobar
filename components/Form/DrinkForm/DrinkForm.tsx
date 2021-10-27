@@ -1,5 +1,5 @@
 import { FieldError, FormProvider, useForm } from "react-hook-form";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
@@ -11,7 +11,7 @@ import { DrinkType } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect";
 
 export type Ingredient = {
-  name: string;
+  object: { id: number; name: string };
   amount: number;
   unit: string;
 };
@@ -32,6 +32,7 @@ type Props = {
 const DrinkForm = (props: Props) => {
   const { drink, triggerToast, filter } = props;
   const router = useRouter();
+  const [completed, setCompleted] = useState(false);
 
   const methods = useForm({ defaultValues: drink });
 
@@ -41,30 +42,33 @@ const DrinkForm = (props: Props) => {
   const executeIForD = iForDMethods[1];
 
   useEffect(() => {
-    if (!fetching && data && data[0]) {
+    if (completed && !fetching && data && data[0]) {
       triggerToast(data[0].name);
-      // router.push(`${router.basePath}/drink/`);
+      router.push(`${router.basePath}/drink/`);
+    } else {
+      setCompleted(false);
     }
-  }, [data, fetching]);
+  }, [data, fetching, completed, triggerToast, router]);
 
   const onSubmit = (values: DrinkFormValues) => {
     const { ingredients, ...rest } = values;
 
-    console.log("split", ingredients, rest);
+    execute(rest)
+      .then((result) => {
+        const drinkId = result.data[0].id;
 
-    execute(rest).then((result) => {
-      console.log("result", result);
-      const drinkId = result.data[0].id;
-
-      // for (const ingredient of ingredients) {
-      //   executeIForD({
-      //     drink_id: drinkId,
-      //     ingredient_id: ingredient.id,
-      //     amount: ingredient.amount,
-      //     unit: ingredient.unit,
-      //   });
-      // }
-    });
+        for (const ingredient of ingredients) {
+          executeIForD({
+            drinkId: drinkId,
+            ingredientId: ingredient.object.id,
+            amount: ingredient.amount,
+            unit: ingredient.unit,
+          });
+        }
+      })
+      .finally(() => {
+        setCompleted(true);
+      });
   };
 
   // console.log("methods.watch", methods.watch());

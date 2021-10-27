@@ -15,16 +15,12 @@ const IngredientSelect = (props: {
   fieldArray: FieldArrayWithId<DrinkFormValues, "ingredients", "id">;
 }) => {
   const { index, fieldArray, data, remove } = props;
-  const { id, name, amount, unit } = fieldArray;
+  const { id, amount, unit } = fieldArray;
   const { register } = useFormContext();
 
   return (
     <Flex key={id}>
-      <ComboBox
-        items={data}
-        labelText="Ingredients"
-        name={`ingredients.${index}.name`}
-      />
+      <ComboBox items={data} name={`ingredients.${index}.object`} />
       <NumberInput min={0} maxW={20}>
         <NumberInputField
           {...register(`ingredients.${index}.amount`)}
