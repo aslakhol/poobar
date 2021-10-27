@@ -12,7 +12,7 @@ const IngredientsSelect = () => {
     name: "ingredients",
   });
 
-  const [{ data, error }] = useSelect("ingredient", {
+  const [{ data }] = useSelect("ingredient", {
     columns: "id, name",
   });
 
@@ -31,7 +31,9 @@ const IngredientsSelect = () => {
       ))}
       <IconButton
         aria-label="Add Ingredient"
-        onClick={() => append({ name: "", amount: 0, unit: "" })}
+        onClick={() =>
+          append({ object: { id: 0, name: "" }, amount: 0, unit: "" })
+        }
       >
         <AddIcon />
       </IconButton>

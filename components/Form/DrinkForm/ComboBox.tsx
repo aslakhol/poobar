@@ -9,12 +9,11 @@ type ItemType = {
 
 type ComboBoxProps = {
   items: ItemType[];
-  labelText: string;
   name: string;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, labelText, name } = props;
+  const { items, name } = props;
   const [inputItems, setInputItems] = useState(items);
   const { control } = useFormContext();
 
@@ -22,7 +21,6 @@ const ComboBox = (props: ComboBoxProps) => {
 
   const {
     isOpen,
-    getLabelProps,
     getMenuProps,
     getInputProps,
     getComboboxProps,
@@ -30,7 +28,8 @@ const ComboBox = (props: ComboBoxProps) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
-    onSelectedItemChange: ({ inputValue }) => field.onChange(inputValue),
+    onSelectedItemChange: ({ inputValue }) =>
+      field.onChange(items.find((item) => item.name === inputValue)),
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
@@ -43,9 +42,6 @@ const ComboBox = (props: ComboBoxProps) => {
 
   return (
     <Box>
-      <Text as="label" fontSize="lg" {...getLabelProps()}>
-        {labelText}
-      </Text>
       <Box {...getComboboxProps()}>
         <ComboboxInput
           {...getInputProps()}

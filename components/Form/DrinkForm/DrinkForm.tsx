@@ -11,7 +11,7 @@ import { DrinkType } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect";
 
 export type Ingredient = {
-  name: string;
+  object: { id: number; name: string };
   amount: number;
   unit: string;
 };
