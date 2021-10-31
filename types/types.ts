@@ -17,8 +17,8 @@ export type EquipmentType = {
 };
 
 export type IngredientForDrink = {
-  object: Ingredient;
   amount: number;
+  ingredient: Ingredient;
   unit: string;
 };
 

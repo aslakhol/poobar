@@ -51,12 +51,12 @@ const DrinkForm = (props: Props) => {
       .then((result) => {
         const drinkId = result.data[0].id;
 
-        for (const ingredient of ingredients) {
+        for (const ingredientForDrink of ingredients) {
           executeIForD({
             drinkId: drinkId,
-            ingredientId: ingredient.object.id,
-            amount: ingredient.amount,
-            unit: ingredient.unit,
+            ingredientId: ingredientForDrink.ingredient.id,
+            amount: ingredientForDrink.amount,
+            unit: ingredientForDrink.unit,
           });
         }
       })
