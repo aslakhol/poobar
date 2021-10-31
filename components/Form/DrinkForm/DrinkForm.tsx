@@ -4,7 +4,7 @@ import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
-import { Filter, useInsert, useUpsert } from "react-supabase";
+import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
 import { DrinkType } from "../../../types/types";
@@ -38,7 +38,7 @@ const DrinkForm = (props: Props) => {
 
   const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
 
-  const iForDMethods = useInsert("ingredient_for_drink");
+  const iForDMethods = useUpsert("ingredient_for_drink");
   const executeIForD = iForDMethods[1];
 
   useEffect(() => {
