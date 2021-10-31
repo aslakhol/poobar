@@ -4,21 +4,15 @@ import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
-import { Filter, useInsert, useUpsert } from "react-supabase";
+import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
-import { DrinkType } from "../../../types/types";
+import { DrinkType, IngredientForDrink } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect";
-
-export type Ingredient = {
-  object: { id: number; name: string };
-  amount: number;
-  unit: string;
-};
 
 export type DrinkFormValues = {
   name: string;
-  ingredients: Ingredient[];
+  ingredients: IngredientForDrink[];
   description: string;
   instructions: string;
 };
@@ -34,11 +28,11 @@ const DrinkForm = (props: Props) => {
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
 
-  const methods = useForm({ defaultValues: drink });
+  const methods = useForm<DrinkType>({ defaultValues: drink });
 
   const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
 
-  const iForDMethods = useInsert("ingredient_for_drink");
+  const iForDMethods = useUpsert("ingredient_for_drink");
   const executeIForD = iForDMethods[1];
 
   useEffect(() => {
@@ -57,12 +51,12 @@ const DrinkForm = (props: Props) => {
       .then((result) => {
         const drinkId = result.data[0].id;
 
-        for (const ingredient of ingredients) {
+        for (const ingredientForDrink of ingredients) {
           executeIForD({
             drinkId: drinkId,
-            ingredientId: ingredient.object.id,
-            amount: ingredient.amount,
-            unit: ingredient.unit,
+            ingredientId: ingredientForDrink.ingredient.id,
+            amount: ingredientForDrink.amount,
+            unit: ingredientForDrink.unit,
           });
         }
       })
@@ -70,8 +64,6 @@ const DrinkForm = (props: Props) => {
         setCompleted(true);
       });
   };
-
-  // console.log("methods.watch", methods.watch());
 
   return (
     <FormProvider {...methods}>

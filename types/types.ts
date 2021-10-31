@@ -8,7 +8,7 @@ export type DrinkType = {
   name: string;
   description: string;
   instructions: string;
-  ingredient: IngredientType[];
+  ingredients: IngredientForDrink[];
 };
 
 export type EquipmentType = {
@@ -16,7 +16,13 @@ export type EquipmentType = {
   name: string;
 };
 
-export type IngredientType = {
+export type IngredientForDrink = {
+  amount: number;
+  ingredient: Ingredient;
+  unit: string;
+};
+
+export type Ingredient = {
   id: number;
   name: string;
 };

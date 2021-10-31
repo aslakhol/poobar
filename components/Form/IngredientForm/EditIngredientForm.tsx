@@ -1,11 +1,11 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import { useFilter } from "react-supabase";
-import { IngredientType } from "../../../types/types";
+import { Ingredient } from "../../../types/types";
 import IngredientForm from "./IngredientForm";
 
 type Props = {
-  ingredient: IngredientType;
+  ingredient: Ingredient;
 };
 
 const EditIngredientForm = (props: Props) => {

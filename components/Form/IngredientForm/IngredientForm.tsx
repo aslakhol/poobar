@@ -5,14 +5,14 @@ import Name from "./Name";
 import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
-import { IngredientType } from "../../../types/types";
+import { Ingredient } from "../../../types/types";
 
 type formValues = {
   name: string;
 };
 
 type Props = {
-  ingredient?: IngredientType;
+  ingredient?: Ingredient;
   triggerToast: (name: string) => void;
   filter?: Filter<any>;
 };

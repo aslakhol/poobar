@@ -6,14 +6,28 @@ import EditDrinkForm from "../../../components/Form/DrinkForm/EditDrinkForm";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { DrinkType } from "../../../types/types";
+import { Spinner } from "@chakra-ui/spinner";
 
-const EditDrink = () => {
+const RoutedEditDrink = () => {
   const router = useRouter();
+
   const { drinkId } = router.query;
+
+  if (!drinkId || Array.isArray(drinkId)) return <Spinner />;
+
+  return <EditDrinkPage drinkId={drinkId} />;
+};
+
+export default RoutedEditDrink;
+
+const EditDrinkPage = (props: { drinkId: string }) => {
+  const { drinkId } = props;
+
   const [drink, setDrink] = useState<DrinkType>();
 
   const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
   const [{ data, error }] = useSelect("drink", {
+    columns: `id, name, description, instructions, ingredients: ingredient_for_drink (id, amount, unit, ingredient (id, name))`,
     filter,
   });
 
@@ -29,5 +43,3 @@ const EditDrink = () => {
     </Box>
   );
 };
-
-export default EditDrink;
