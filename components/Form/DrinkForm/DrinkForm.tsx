@@ -7,18 +7,12 @@ import Instruction from "./Instructions";
 import { Filter, useUpsert } from "react-supabase";
 import ErrorOrNot from "../../ErrorOrNot";
 import { useRouter } from "next/router";
-import { DrinkType } from "../../../types/types";
+import { DrinkType, IngredientForDrink } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect";
-
-export type Ingredient = {
-  object: { id: number; name: string };
-  amount: number;
-  unit: string;
-};
 
 export type DrinkFormValues = {
   name: string;
-  ingredients: Ingredient[];
+  ingredients: IngredientForDrink[];
   description: string;
   instructions: string;
 };
