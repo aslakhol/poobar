@@ -26,7 +26,7 @@ const DrinkInfo = (props: Props) => {
       <p>Name: {drink?.name}</p>
       <p>Ingredients:</p>
       {drink?.ingredients.map((ingredient) => (
-        <Ingredient key={ingredient.object.id} ingredient={ingredient} />
+        <Ingredient key={ingredient.ingredient.id} ingredient={ingredient} />
       ))}
       <p>Instructions: {drink?.instructions}</p>
       <p>Description: {drink?.description}</p>
@@ -42,6 +42,6 @@ type IngredientProps = {
 };
 
 const Ingredient = (props: IngredientProps) => {
-  const { name } = props.ingredient.object;
+  const { name } = props.ingredient.ingredient;
   return <p>{name}</p>;
 };
