@@ -71,8 +71,6 @@ const DrinkForm = (props: Props) => {
       });
   };
 
-  // console.log("methods.watch", methods.watch());
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
