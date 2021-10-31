@@ -28,7 +28,7 @@ const DrinkForm = (props: Props) => {
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
 
-  const methods = useForm({ defaultValues: drink });
+  const methods = useForm<DrinkType>({ defaultValues: drink });
 
   const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
 

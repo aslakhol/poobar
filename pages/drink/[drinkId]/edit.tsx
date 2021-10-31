@@ -27,7 +27,7 @@ const EditDrinkPage = (props: { drinkId: string }) => {
 
   const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
   const [{ data, error }] = useSelect("drink", {
-    columns: `id, name, description, instructions, ingredients: ingredient (id, name)`,
+    columns: `id, name, description, instructions, ingredients: ingredient_for_drink (amount, unit, ingredient (id, name))`,
     filter,
   });
 
