@@ -2,15 +2,12 @@ import React from "react";
 import type { NextPage } from "next";
 import Header from "../../components/Header";
 import EntityList from "../../components/EntityList/EntityList";
-import { useSelect } from "react-supabase";
 import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
+import { useDrinks } from "../../utils/supaHooks";
 
 const Drinks: NextPage = () => {
-  const [{ data, error }] = useSelect("drink", {
-    columns: "id, name",
-  });
-
+  const [{ data, error }] = useDrinks();
   return (
     <>
       <Header />

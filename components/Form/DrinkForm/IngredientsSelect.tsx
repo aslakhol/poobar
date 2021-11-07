@@ -3,7 +3,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import { useSelect } from "react-supabase";
+import { useIngredients } from "../../../utils/supaHooks";
 import { DrinkFormValues } from "./DrinkForm";
 import IngredientSelect from "./IngredientSelect";
 
@@ -12,9 +12,7 @@ const IngredientsSelect = () => {
     name: "ingredients",
   });
 
-  const [{ data }] = useSelect("ingredient", {
-    columns: "id, name",
-  });
+  const [{ data }] = useIngredients();
 
   if (!data) return <Spinner />;
 

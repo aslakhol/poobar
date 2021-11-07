@@ -53,8 +53,8 @@ const DrinkForm = (props: Props) => {
 
         for (const ingredientForDrink of ingredients) {
           executeIForD({
-            drinkId: drinkId,
-            ingredientId: ingredientForDrink.ingredient.id,
+            drink_id: drinkId,
+            ingredient_id: ingredientForDrink.ingredient.id,
             amount: ingredientForDrink.amount,
             unit: ingredientForDrink.unit,
           });

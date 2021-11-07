@@ -1,23 +1,21 @@
 import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useFilter, useSelect } from "react-supabase";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
 import { Ingredient } from "../../../types/types";
+import { useIngredient } from "../../../utils/supaHooks";
+import { Spinner } from "@chakra-ui/spinner";
 
 const EditIngredient = () => {
   const router = useRouter();
   const { ingredientId } = router.query;
   const [ingredient, setIngredient] = useState<Ingredient>();
 
-  const filter = useFilter((query) => query.eq("id", ingredientId), [
-    ingredientId,
-  ]);
-  const [{ data, error }] = useSelect("ingredient", {
-    filter,
-  });
+  if (!ingredientId || Array.isArray(ingredientId)) return <Spinner />;
+
+  const [{ data, error }] = useIngredient(ingredientId);
 
   useEffect(() => {
     if (data && data[0]) setIngredient(data[0]);

@@ -2,14 +2,12 @@ import React from "react";
 import type { NextPage } from "next";
 import Header from "../../components/Header";
 import EntityList from "../../components/EntityList/EntityList";
-import { useSelect } from "react-supabase";
 import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
+import { useEquipments } from "../../utils/supaHooks";
 
 const Equipment: NextPage = () => {
-  const [{ data, error }] = useSelect("equipment", {
-    columns: "id, name",
-  });
+  const [{ data, error }] = useEquipments();
 
   return (
     <>

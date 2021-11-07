@@ -2,6 +2,7 @@ import { VStack } from "@chakra-ui/layout";
 import React, { useEffect, useState } from "react";
 import { useFilter, useSelect } from "react-supabase";
 import { DrinkType, IngredientForDrink } from "../types/types";
+import { useDrink } from "../utils/supaHooks";
 import ErrorOrNot from "./ErrorOrNot";
 
 type Props = { drinkId: string };
@@ -10,11 +11,7 @@ const DrinkInfo = (props: Props) => {
   const { drinkId } = props;
   const [drink, setDrink] = useState<DrinkType>();
 
-  const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
-  const [{ data, error }] = useSelect("drink", {
-    columns: `id, name, description, instructions, ingredients: ingredient_for_drink (id, amount, unit, ingredient (id, name))`,
-    filter,
-  });
+  const [{ data, error }] = useDrink(drinkId);
 
   useEffect(() => {
     if (data && data[0]) setDrink(data[0]);

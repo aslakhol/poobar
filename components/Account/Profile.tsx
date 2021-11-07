@@ -1,17 +1,6 @@
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  Box,
-  Button,
-  Center,
-  Input,
-  VStack,
-} from "@chakra-ui/react";
 import { User } from "@supabase/gotrue-js";
-import React, { useState, useEffect, SetStateAction } from "react";
-import { useFilter, useSelect, useSignOut, useUpsert } from "react-supabase";
-import { useAuthContext } from "../../context/AuthContext";
+import React, { useState, useEffect } from "react";
+import { useFilter, useSelect } from "react-supabase";
 import ErrorOrNot from "../ErrorOrNot";
 import Email from "./Email";
 import UpdateProfileButton from "./UpdateProfileButton";

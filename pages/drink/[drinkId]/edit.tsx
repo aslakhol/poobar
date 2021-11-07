@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useFilter, useSelect } from "react-supabase";
 import EditDrinkForm from "../../../components/Form/DrinkForm/EditDrinkForm";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { DrinkType } from "../../../types/types";
 import { Spinner } from "@chakra-ui/spinner";
+import { useDrink } from "../../../utils/supaHooks";
 
 const RoutedEditDrink = () => {
   const router = useRouter();
@@ -25,11 +25,7 @@ const EditDrinkPage = (props: { drinkId: string }) => {
 
   const [drink, setDrink] = useState<DrinkType>();
 
-  const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
-  const [{ data, error }] = useSelect("drink", {
-    columns: `id, name, description, instructions, ingredients: ingredient_for_drink (id, amount, unit, ingredient (id, name))`,
-    filter,
-  });
+  const [{ data, error }] = useDrink(drinkId);
 
   useEffect(() => {
     if (data && data[0]) setDrink(data[0]);
