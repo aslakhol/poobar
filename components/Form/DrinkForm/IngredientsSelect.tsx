@@ -3,7 +3,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import { useIngredients } from "../../../utils/supaHooks";
+import { useIngredients } from "../../../supabase/ingredients";
 import { DrinkFormValues } from "./DrinkForm";
 import IngredientSelect from "./IngredientSelect";
 

@@ -5,7 +5,7 @@ import EditEquipmentForm from "../../../components/Form/EquipmentForm/EditEquipm
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { EquipmentType } from "../../../types/types";
-import { useEquipment } from "../../../utils/supaHooks";
+import { useEquipment } from "../../../supabase/equipment";
 import { Spinner } from "@chakra-ui/spinner";
 
 const RoutedEditEquipment = () => {

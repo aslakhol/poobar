@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import EntityList from "../../components/EntityList/EntityList";
 import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
-import { useEquipments } from "../../utils/supaHooks";
+import { useEquipments } from "../../supabase/supaHooks";
 
 const Equipment: NextPage = () => {
   const [{ data, error }] = useEquipments();

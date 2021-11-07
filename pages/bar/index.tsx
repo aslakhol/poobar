@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import EntityList from "../../components/EntityList/EntityList";
 import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
-import { useBars } from "../../utils/supaHooks";
+import { useBars } from "../../supabase/bars";
 
 const Bars: NextPage = () => {
   const [{ data, error }] = useBars();

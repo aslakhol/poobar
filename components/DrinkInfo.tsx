@@ -1,8 +1,7 @@
 import { VStack } from "@chakra-ui/layout";
 import React, { useEffect, useState } from "react";
-import { useFilter, useSelect } from "react-supabase";
 import { DrinkType, IngredientForDrink } from "../types/types";
-import { useDrink } from "../utils/supaHooks";
+import { useDrink } from "../supabase/drinks";
 import ErrorOrNot from "./ErrorOrNot";
 
 type Props = { drinkId: string };

@@ -5,7 +5,7 @@ import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
 import { Ingredient } from "../../../types/types";
-import { useIngredient } from "../../../utils/supaHooks";
+import { useIngredient } from "../../../supabase/supaHooks";
 import { Spinner } from "@chakra-ui/spinner";
 
 const EditIngredient = () => {

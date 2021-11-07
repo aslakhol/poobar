@@ -6,7 +6,7 @@ import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import { DrinkType } from "../../../types/types";
 import { Spinner } from "@chakra-ui/spinner";
-import { useDrink } from "../../../utils/supaHooks";
+import { useDrink } from "../../../supabase/drinks";
 
 const RoutedEditDrink = () => {
   const router = useRouter();
