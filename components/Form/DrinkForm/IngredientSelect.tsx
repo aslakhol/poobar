@@ -17,8 +17,6 @@ const IngredientSelect = (props: {
   const { index, fieldArray, data, remove } = props;
   const { id, amount, ingredient, unit } = fieldArray;
 
-  console.log(fieldArray);
-
   const { register } = useFormContext();
 
   return (

@@ -1,5 +1,5 @@
 import { FieldError, FormProvider, useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
@@ -26,23 +26,13 @@ type Props = {
 const DrinkForm = (props: Props) => {
   const { drink, triggerToast, filter } = props;
   const router = useRouter();
-  const [completed, setCompleted] = useState(false);
 
   const methods = useForm<DrinkType>({ defaultValues: drink });
 
-  const [{ data, error, fetching }, execute] = useUpsert("drink", { filter });
+  const [{ error }, execute] = useUpsert("drink", { filter });
 
   const iForDMethods = useUpsert("ingredient_for_drink");
-  const executeIForD = iForDMethods[1];
-
-  useEffect(() => {
-    if (completed && !fetching && data && data[0]) {
-      triggerToast(data[0].name);
-      router.push(`${router.basePath}/drink/`);
-    } else {
-      setCompleted(false);
-    }
-  }, [data, fetching, completed, triggerToast, router]);
+  const executeIngredientForDrink = iForDMethods[1];
 
   const onSubmit = (values: DrinkFormValues) => {
     const { ingredients, ...rest } = values;
@@ -52,7 +42,8 @@ const DrinkForm = (props: Props) => {
         const drinkId = result.data[0].id;
 
         for (const ingredientForDrink of ingredients) {
-          executeIForD({
+          executeIngredientForDrink({
+            id: ingredientForDrink.id,
             drink_id: drinkId,
             ingredient_id: ingredientForDrink.ingredient.id,
             amount: ingredientForDrink.amount,
@@ -61,7 +52,8 @@ const DrinkForm = (props: Props) => {
         }
       })
       .finally(() => {
-        setCompleted(true);
+        triggerToast(values.name);
+        router.push(`${router.basePath}/drink/`);
       });
   };
 
