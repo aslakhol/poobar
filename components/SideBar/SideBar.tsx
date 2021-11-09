@@ -5,21 +5,27 @@ import SideDrawer from "./SideDrawer";
 const SideBar = () => {
   return (
     <SideDrawer>
-      <Link href={`/bar`}>
-        <Button>Bars</Button>
-      </Link>
-      <Link href={`/drink`}>
-        <Button>Drinks</Button>
-      </Link>
-
-      <Link href={`/ingredient`}>
-        <Button>Ingredients</Button>
-      </Link>
-      <Link href={`/equipment`}>
-        <Button>Equipment</Button>
-      </Link>
+      <LinkButton href={`/bar`} text="Bars" />
+      <LinkButton href={`/drink`} text="Drinks" />
+      <LinkButton href={`/ingredient`} text="Ingredients" />
+      <LinkButton href={`/equipment`} text="Equipment" />
     </SideDrawer>
   );
 };
 
 export default SideBar;
+
+type LinkButtonProps = {
+  href: string;
+  text: string;
+};
+
+const LinkButton = (props: LinkButtonProps) => {
+  const { href, text } = props;
+
+  return (
+    <Link href={href} text="">
+      <Button>{text}</Button>
+    </Link>
+  );
+};
