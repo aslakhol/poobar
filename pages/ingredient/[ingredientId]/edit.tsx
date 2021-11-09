@@ -6,6 +6,7 @@ import Header from "../../../components/Header";
 import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
 import { Ingredient } from "../../../types/types";
 import { Spinner } from "@chakra-ui/spinner";
+import { useIngredient } from "../../../supabase/ingredients";
 
 const EditIngredient = () => {
   const router = useRouter();
