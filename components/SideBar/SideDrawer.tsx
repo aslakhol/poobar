@@ -1,3 +1,4 @@
+import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
@@ -10,6 +11,7 @@ import {
   Button,
   Link,
   VStack,
+  IconButton,
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
 
@@ -24,9 +26,13 @@ const SideDrawer = (props: Props) => {
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button>
+      <IconButton
+        ref={btnRef}
+        aria-label="Open drawer"
+        colorScheme="teal"
+        onClick={onOpen}
+        icon={<HamburgerIcon />}
+      />
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
