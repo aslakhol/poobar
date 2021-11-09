@@ -1,4 +1,5 @@
 import { Flex, Heading, Link } from "@chakra-ui/react";
+import SideBar from "./SideBar/SideBar";
 
 const Header = () => {
   return (
@@ -17,6 +18,7 @@ const Header = () => {
           <Link href="/">PooBar</Link>
         </Heading>
         <Link href="/account">Account</Link>
+        <SideBar />
       </Flex>
     </Flex>
   );
