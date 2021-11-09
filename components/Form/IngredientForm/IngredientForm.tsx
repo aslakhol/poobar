@@ -36,7 +36,7 @@ const IngredientForm = (props: Props) => {
       triggerToast(data[0].name);
       router.push(`${router.basePath}/ingredient/`);
     }
-  }, [data, fetching]);
+  }, [data, fetching, triggerToast, router]);
 
   const onSubmit = (values: formValues) => {
     execute(values);

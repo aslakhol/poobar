@@ -8,12 +8,20 @@ import { Ingredient } from "../../../types/types";
 import { Spinner } from "@chakra-ui/spinner";
 import { useIngredient } from "../../../supabase/ingredients";
 
-const EditIngredient = () => {
+const RoutedEditIngredient = () => {
   const router = useRouter();
   const { ingredientId } = router.query;
-  const [ingredient, setIngredient] = useState<Ingredient>();
 
   if (!ingredientId || Array.isArray(ingredientId)) return <Spinner />;
+
+  return <EditIngredientPage ingredientId={ingredientId} />;
+};
+
+export default RoutedEditIngredient;
+
+const EditIngredientPage = (props: { ingredientId: string }) => {
+  const { ingredientId } = props;
+  const [ingredient, setIngredient] = useState<Ingredient>();
 
   const [{ data, error }] = useIngredient(ingredientId);
 
@@ -29,5 +37,3 @@ const EditIngredient = () => {
     </Box>
   );
 };
-
-export default EditIngredient;
