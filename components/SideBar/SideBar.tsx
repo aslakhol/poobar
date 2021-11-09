@@ -5,18 +5,19 @@ import SideDrawer from "./SideDrawer";
 const SideBar = () => {
   return (
     <SideDrawer>
-      <Button>
-        <Link href={`/bar`}>Bars</Link>
-      </Button>
-      <Button>
-        <Link href={`/drink`}>Drinks</Link>
-      </Button>
-      <Button>
-        <Link href={`/ingredient`}>Ingredients</Link>
-      </Button>
-      <Button>
-        <Link href={`/equipment`}>Equipment</Link>
-      </Button>
+      <Link href={`/bar`}>
+        <Button>Bars</Button>
+      </Link>
+      <Link href={`/drink`}>
+        <Button>Drinks</Button>
+      </Link>
+
+      <Link href={`/ingredient`}>
+        <Button>Ingredients</Button>
+      </Link>
+      <Link href={`/equipment`}>
+        <Button>Equipment</Button>
+      </Link>
     </SideDrawer>
   );
 };
