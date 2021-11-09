@@ -5,13 +5,14 @@ const Header = () => {
   return (
     <Flex
       as="nav"
+      aria-label="main navigation"
       align="center"
       justify="space-between"
       wrap="wrap"
       padding="1.5rem"
       bg="teal.500"
       color="white"
-      marginBottom="2rem"
+      marginBottom="1rem"
     >
       <Flex align="center" mr={5} justify="space-between" width="100%">
         <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>

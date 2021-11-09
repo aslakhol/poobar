@@ -2,14 +2,11 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  Button,
-  Link,
   VStack,
   IconButton,
 } from "@chakra-ui/react";
@@ -38,9 +35,8 @@ const SideDrawer = (props: Props) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Pages</DrawerHeader>
-
           <DrawerBody>
-            <VStack>{children}</VStack>
+            <VStack align="flex-start">{children}</VStack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import EntityList from "../../components/EntityList/EntityList";
 import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
-import { useIngredients } from "../../supabase/supaHooks";
+import { useIngredients } from "../../supabase/ingredients";
 
 const Ingredients: NextPage = () => {
   const [{ data, error }] = useIngredients();
