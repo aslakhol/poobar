@@ -1,6 +1,6 @@
 export type Entity = {
+  id: string;
   name: string;
-  id: number;
 };
 
 export type DrinkType = {
@@ -24,6 +24,21 @@ export type IngredientForDrink = {
 };
 
 export type Ingredient = {
-  id: number;
+  id: string;
   name: string;
+};
+
+export type Bar = {
+  id: string;
+  name: string;
+  drink: BarDrink[];
+};
+
+export type BarDrink = {
+  id: string;
+  name: string;
+  ingredient: {
+    id: string;
+    name: string;
+  };
 };

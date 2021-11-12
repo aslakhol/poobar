@@ -5,7 +5,7 @@ import { Entity } from "../../types/types";
 type EntityListElementProps = {
   entity: Entity;
   type: string;
-  handleDelete: (id: number) => void;
+  handleDelete: (id: string) => void;
 };
 
 const EntityListElement = (props: EntityListElementProps) => {
