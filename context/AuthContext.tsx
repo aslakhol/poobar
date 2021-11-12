@@ -6,13 +6,14 @@ const initialState = {
   session: null as Session | null,
   user: null as User | null,
 };
+
 export const AuthContext = createContext(initialState);
 
 type Props = {
   children: React.ReactNode;
 };
 
-export function AuthProvider({ children }: Props) {
+export const AuthProvider = ({ children }: Props) => {
   const client = useClient();
   const [state, setState] = useState(initialState);
 
@@ -27,11 +28,11 @@ export function AuthProvider({ children }: Props) {
   });
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
-}
+};
 
-export function useAuthContext() {
+export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined)
     throw Error("useAuth must be used within AuthProvider");
   return context;
-}
+};
