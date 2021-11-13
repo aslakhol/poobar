@@ -30,7 +30,7 @@ const IngredientsSelect = () => {
       <IconButton
         aria-label="Add Ingredient"
         onClick={() =>
-          append({ amount: 0, ingredient: { id: 0, name: "" }, unit: "" })
+          append({ amount: 0, ingredient: { id: "0", name: "" }, unit: "" })
         }
       >
         <AddIcon />
