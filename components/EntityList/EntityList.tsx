@@ -27,7 +27,7 @@ const EntityList = (props: Props) => {
 
   const [{}, execute] = useDelete(type);
 
-  const deleteEntity = (id: number) => {
+  const deleteEntity = (id: string) => {
     setEntityList((prevState) =>
       prevState.filter((entity) => entity.id !== id)
     );
