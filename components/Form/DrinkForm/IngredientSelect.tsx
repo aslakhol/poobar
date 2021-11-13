@@ -32,7 +32,6 @@ const IngredientSelect = (props: {
           defaultValue={amount}
         />
       </NumberInput>
-      foo
       <Select
         {...register(`ingredients.${index}.unit`)}
         maxW={20}
@@ -42,7 +41,7 @@ const IngredientSelect = (props: {
         <option value="ml">ml</option>
         <option value="cl">cl</option>
         <option value="dl">dl</option>
-        <option value="oz">dl</option>
+        <option value="oz">oz</option>
         <option value="g">g</option>
         <option value="wedge">Wedge</option>
         <option value="shot">Shot</option>
