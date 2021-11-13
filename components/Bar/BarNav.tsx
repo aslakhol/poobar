@@ -1,5 +1,5 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { HStack } from "@chakra-ui/layout";
+import { Flex, HStack } from "@chakra-ui/layout";
 import { ButtonGroup, Button, IconButton } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
@@ -11,7 +11,9 @@ const BarNav = (props: { barId: string }) => {
       as="nav"
       aria-label="bar navigation"
       marginLeft="1rem"
+      marginRight="1rem"
       marginBottom="1rem"
+      justifyContent="space-evenly"
     >
       <ButtonGroup size="sm" isAttached variant="outline">
         <Button mr="-px" aria-label="Go to drinks for bar">

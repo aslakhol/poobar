@@ -1,13 +1,12 @@
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import BarNav from "../../../components/BarNav";
-import EntityList from "../../../components/EntityList/EntityList";
+import Bar from "../../../components/Bar/Bar";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
 import { useBar } from "../../../supabase/bars";
-import { Bar } from "../../../types/types";
+import { BarType } from "../../../types/types";
 
 const RoutedBarPage = () => {
   const router = useRouter();
@@ -22,20 +21,18 @@ export default RoutedBarPage;
 
 const BarPage = (props: { barId: string }) => {
   const { barId } = props;
-  const [bar, setBar] = useState<Bar>();
+  const [bar, setBar] = useState<BarType>();
 
   const [{ data, error }] = useBar(barId);
 
   useEffect(() => {
     if (data && data[0]) setBar(data[0]);
-    console.log(data);
   }, [data]);
 
   return (
     <>
       <Header />
-      <BarNav barId={barId} />
-      {bar ? <EntityList entities={bar.drink} type={"drink"} /> : <Loading />}
+      {bar ? <Bar bar={bar} /> : <Loading />}
       <ErrorOrNot error={error} />
     </>
   );

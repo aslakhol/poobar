@@ -28,7 +28,7 @@ export type Ingredient = {
   name: string;
 };
 
-export type Bar = {
+export type BarType = {
   id: string;
   name: string;
   drink: BarDrink[];
@@ -37,8 +37,5 @@ export type Bar = {
 export type BarDrink = {
   id: string;
   name: string;
-  ingredient: {
-    id: string;
-    name: string;
-  };
+  ingredient: Ingredient[];
 };
