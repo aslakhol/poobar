@@ -1,4 +1,4 @@
-import { VStack, Box, HStack } from "@chakra-ui/react";
+import { SimpleGrid, Text, HStack, GridItem, Heading } from "@chakra-ui/react";
 import { BarDrink } from "../../types/types";
 import React from "react";
 
@@ -11,11 +11,24 @@ const DrinkList = (props: Props) => {
   const { drinks } = props;
 
   return (
-    <VStack>
+    <SimpleGrid columns={2} columnGap={3} rowGap={6} margin={4}>
+      <GridItem colSpan={1}>
+        <Heading as="h5" size="sm">
+          Drink
+        </Heading>
+      </GridItem>
+      <GridItem colSpan={1}>
+        <Heading as="h5" size="sm">
+          Ingredients
+        </Heading>
+      </GridItem>
       {drinks.map((drink: BarDrink) => (
         <Drink key={`drink-${drink.id}`} drink={drink} />
       ))}
-    </VStack>
+      {drinks.map((drink: BarDrink) => (
+        <Drink key={`drink-${drink.id}`} drink={drink} />
+      ))}
+    </SimpleGrid>
   );
 };
 
@@ -32,12 +45,14 @@ const Drink = (props: DrinkProps) => {
     .map((ingredient) => ingredient.name)
     .join(", ");
 
-  console.log(ingredentsNames);
-
   return (
-    <HStack justifyContent="space-between">
-      <Box>{drink.name}</Box>
-      <Box>{ingredentsNames}</Box>
-    </HStack>
+    <>
+      <GridItem colSpan={1} isTruncated>
+        {drink.name}
+      </GridItem>
+      <GridItem colSpan={1} noOfLines={2}>
+        {ingredentsNames}
+      </GridItem>
+    </>
   );
 };
