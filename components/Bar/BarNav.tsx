@@ -1,11 +1,16 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Flex, HStack } from "@chakra-ui/layout";
+import { HStack } from "@chakra-ui/layout";
 import { ButtonGroup, Button, IconButton } from "@chakra-ui/react";
-import router from "next/router";
 import React from "react";
 
-const BarNav = (props: { barId: string }) => {
-  const { barId } = props;
+type Props = {
+  barId: string;
+  onAddDrink: () => void;
+  onAddIngredient: () => void;
+};
+
+const BarNav = (props: Props) => {
+  const { barId, onAddDrink, onAddIngredient } = props;
   return (
     <HStack
       as="nav"
@@ -22,7 +27,7 @@ const BarNav = (props: { barId: string }) => {
         <IconButton
           aria-label="Add drink to bar"
           icon={<AddIcon />}
-          onClick={() => router.push(`/bar/${barId}/add-drink`)}
+          onClick={() => onAddDrink()}
         />
       </ButtonGroup>
       <ButtonGroup size="sm" isAttached variant="outline">
@@ -32,7 +37,7 @@ const BarNav = (props: { barId: string }) => {
         <IconButton
           aria-label="Add ingredient to bar"
           icon={<AddIcon />}
-          onClick={() => router.push(`/bar/${barId}/add-ingredient`)}
+          onClick={() => onAddIngredient()}
         />
       </ButtonGroup>
     </HStack>
