@@ -1,8 +1,6 @@
 import { Box, forwardRef, Input, List, ListItem } from "@chakra-ui/react";
-import { useCombobox } from "downshift";
+import { useCombobox, UseComboboxStateChange } from "downshift";
 import React, { useState } from "react";
-import { useController, useFormContext } from "react-hook-form";
-import { Ingredient } from "../../../types/types";
 
 type ItemType = {
   name: string;
@@ -10,16 +8,12 @@ type ItemType = {
 
 type ComboBoxProps = {
   items: ItemType[];
-  name: string;
-  defaultValue: Ingredient;
+  onSelectedItemChange: (changes: UseComboboxStateChange<ItemType>) => void;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, name, defaultValue } = props;
+  const { items, onSelectedItemChange } = props;
   const [inputItems, setInputItems] = useState(items);
-  const { control } = useFormContext();
-
-  const { field } = useController({ name, control });
 
   const {
     isOpen,
@@ -30,8 +24,7 @@ const ComboBox = (props: ComboBoxProps) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
-    onSelectedItemChange: ({ inputValue }) =>
-      field.onChange(items.find((item) => item.name === inputValue)),
+    onSelectedItemChange: onSelectedItemChange,
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
@@ -40,7 +33,6 @@ const ComboBox = (props: ComboBoxProps) => {
       );
     },
     itemToString: (item) => (item ? item.name : ""),
-    initialSelectedItem: defaultValue,
   });
 
   return (

@@ -1,6 +1,9 @@
+import { Center } from "@chakra-ui/layout";
+import { UseComboboxStateChange } from "downshift";
 import React, { useState } from "react";
 import { BarType } from "../../types/types";
 import BarNav from "./BarNav";
+import ComboBox from "./ComboBox";
 import DrinkList from "./DrinkList";
 
 type Props = {
@@ -30,7 +33,7 @@ const Bar = (props: Props) => {
         onAddDrink={() => toggleAddingDrinks()}
         onAddIngredient={() => toggleAddingIngredients()}
       />
-      <AddDrink display={addingDrinks} />
+      <AddDrink display={addingDrinks} bar={bar} />
       <AddIngredient display={addingIngredients} />
       <DrinkList drinks={bar.drink} type={"drink"} />
     </>
@@ -39,18 +42,33 @@ const Bar = (props: Props) => {
 
 export default Bar;
 
-const AddDrink = (props: { display: boolean }) => {
-  const { display } = props;
+type ItemType = {
+  name: string;
+};
+
+const AddDrink = (props: { display: boolean; bar: BarType }) => {
+  const { display, bar } = props;
 
   if (!display) return null;
 
-  return <div>Add Drink</div>;
+  const onSelectedItemChange: (
+    changes: UseComboboxStateChange<ItemType>
+  ) => void = ({ inputValue }) => console.log(inputValue);
+
+  return (
+    <Center>
+      <ComboBox items={bar.drink} onSelectedItemChange={onSelectedItemChange} />
+    </Center>
+  );
 };
 
 const AddIngredient = (props: { display: boolean }) => {
   const { display } = props;
 
   if (!display) return null;
-
-  return <div>Add Ingredient</div>;
+  return (
+    <Center>
+      <div>Add Ingredient</div>
+    </Center>
+  );
 };
