@@ -57,7 +57,11 @@ const AddDrink = (props: { display: boolean; bar: BarType }) => {
 
   return (
     <Center>
-      <ComboBox items={bar.drink} onSelectedItemChange={onSelectedItemChange} />
+      <ComboBox
+        items={bar.drink}
+        onSelectedItemChange={onSelectedItemChange}
+        submit={() => console.log("fooo")}
+      />
     </Center>
   );
 };

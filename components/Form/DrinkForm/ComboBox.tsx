@@ -51,7 +51,6 @@ const ComboBox = (props: ComboBoxProps) => {
           placeholder="Search..."
           flex="0 0 auto"
           width={500}
-          mt={3}
         />
       </Box>
       <ComboboxList

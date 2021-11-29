@@ -1,4 +1,15 @@
-import { Box, forwardRef, Input, List, ListItem } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  forwardRef,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  List,
+  ListItem,
+} from "@chakra-ui/react";
 import { useCombobox, UseComboboxStateChange } from "downshift";
 import React, { useState } from "react";
 
@@ -8,11 +19,12 @@ type ItemType = {
 
 type ComboBoxProps = {
   items: ItemType[];
+  submit: () => void;
   onSelectedItemChange: (changes: UseComboboxStateChange<ItemType>) => void;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, onSelectedItemChange } = props;
+  const { items, onSelectedItemChange, submit } = props;
   const [inputItems, setInputItems] = useState(items);
 
   const {
@@ -38,13 +50,22 @@ const ComboBox = (props: ComboBoxProps) => {
   return (
     <Box>
       <Box {...getComboboxProps()}>
-        <ComboboxInput
-          {...getInputProps()}
-          placeholder="Search..."
-          flex="0 0 auto"
-          width={500}
-          mt={3}
-        />
+        {submit ? (
+          <ComboboxInputWithButton
+            {...getInputProps()}
+            placeholder="Search..."
+            flex="0 0 auto"
+            width={500}
+            submit={submit}
+          />
+        ) : (
+          <ComboboxInput
+            {...getInputProps()}
+            placeholder="Search..."
+            flex="0 0 auto"
+            width={500}
+          />
+        )}
       </Box>
       <ComboboxList
         isOpen={isOpen}
@@ -67,6 +88,23 @@ const ComboBox = (props: ComboBoxProps) => {
     </Box>
   );
 };
+
+const ComboboxInputWithButton = forwardRef(({ ...props }, ref) => {
+  const { submit, ...rest } = props;
+  return (
+    <InputGroup>
+      <Input {...rest} ref={ref} />
+      <InputRightElement>
+        <IconButton
+          size="sm"
+          aria-label="Add drink to bar"
+          icon={<AddIcon />}
+          onClick={submit}
+        />
+      </InputRightElement>
+    </InputGroup>
+  );
+});
 
 const ComboboxInput = forwardRef(({ ...props }, ref) => {
   return <Input {...props} ref={ref} />;
