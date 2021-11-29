@@ -1,13 +1,12 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
+  Text,
   forwardRef,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   List,
   ListItem,
 } from "@chakra-ui/react";
@@ -54,7 +53,7 @@ const ComboBox = (props: ComboBoxProps) => {
       return (
         <ListItem px={4} py={2}>
           <LinkButton href={"/drink/new"}>
-            We can't find anything with that name, create new?
+            <Text>We can't find anything with that name, create new?</Text>
           </LinkButton>
         </ListItem>
       );
