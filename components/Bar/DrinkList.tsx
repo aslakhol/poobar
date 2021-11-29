@@ -1,4 +1,4 @@
-import { SimpleGrid, Text, HStack, GridItem, Heading } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Heading, Link } from "@chakra-ui/react";
 import { BarDrink } from "../../types/types";
 import React from "react";
 
@@ -25,9 +25,6 @@ const DrinkList = (props: Props) => {
       {drinks.map((drink: BarDrink) => (
         <Drink key={`drink-${drink.id}`} drink={drink} />
       ))}
-      {drinks.map((drink: BarDrink) => (
-        <Drink key={`drink-${drink.id}`} drink={drink} />
-      ))}
     </SimpleGrid>
   );
 };
@@ -48,7 +45,7 @@ const Drink = (props: DrinkProps) => {
   return (
     <>
       <GridItem colSpan={1} isTruncated>
-        {drink.name}
+        <Link href={`/drink/${drink.id}`}>{drink.name}</Link>
       </GridItem>
       <GridItem colSpan={1} noOfLines={2}>
         {ingredentsNames}
