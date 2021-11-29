@@ -15,7 +15,6 @@ const Instruction = (props: Props) => {
       labelText={"Instruction"}
       placeholder={"Instruction"}
       register={register}
-      required
       fieldError={fieldError}
     />
   );

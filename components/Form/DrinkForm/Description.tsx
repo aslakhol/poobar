@@ -14,7 +14,6 @@ const Description = (props: Props) => {
       name={"description"}
       labelText={"Description"}
       placeholder={"Description"}
-      required
       register={register}
       fieldError={fieldError}
     />
