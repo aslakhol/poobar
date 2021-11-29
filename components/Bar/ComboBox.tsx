@@ -53,7 +53,7 @@ const ComboBox = (props: ComboBoxProps) => {
       return (
         <ListItem px={4} py={2}>
           <LinkButton href={"/drink/new"}>
-            <Text>We can&apost find anything with that name, create new?</Text>
+            <Text>We can&apos;t find anything with that name, create new?</Text>
           </LinkButton>
         </ListItem>
       );
