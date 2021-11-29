@@ -35,7 +35,7 @@ const ComboBox = (props: ComboBoxProps) => {
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
-          item.name.toLowerCase().includes(inputValue || "".toLowerCase())
+          item.name.toLowerCase().includes((inputValue || "").toLowerCase())
         )
       );
     },
