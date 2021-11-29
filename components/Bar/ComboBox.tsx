@@ -7,11 +7,13 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Link,
   List,
   ListItem,
 } from "@chakra-ui/react";
 import { useCombobox, UseComboboxStateChange } from "downshift";
 import React, { useState } from "react";
+import LinkButton from "../LinkButton";
 
 type ItemType = {
   name: string;
@@ -47,6 +49,31 @@ const ComboBox = (props: ComboBoxProps) => {
     itemToString: (item) => (item ? item.name : ""),
   });
 
+  const noResultFromSearch = () => {
+    if (inputItems.length === 0 && isOpen) {
+      return (
+        <ListItem px={4} py={2}>
+          <LinkButton href={"/drink/new"}>
+            We can't find anything with that name, create new?
+          </LinkButton>
+        </ListItem>
+      );
+    }
+  };
+
+  const searchResults = () => {
+    return inputItems.map((item, index) => (
+      <ComboboxItem
+        {...getItemProps({ item, index })}
+        itemIndex={index}
+        highlightedIndex={highlightedIndex}
+        key={`${item.name}-${index}`}
+      >
+        {item.name}
+      </ComboboxItem>
+    ));
+  };
+
   return (
     <Box>
       <Box {...getComboboxProps()}>
@@ -74,16 +101,8 @@ const ComboBox = (props: ComboBoxProps) => {
         overflowY="auto"
         mt={0}
       >
-        {inputItems.map((item, index) => (
-          <ComboboxItem
-            {...getItemProps({ item, index })}
-            itemIndex={index}
-            highlightedIndex={highlightedIndex}
-            key={`${item.name}-${index}`}
-          >
-            {item.name}
-          </ComboboxItem>
-        ))}
+        {searchResults()}
+        {noResultFromSearch()}
       </ComboboxList>
     </Box>
   );
