@@ -1,7 +1,7 @@
 import { Center } from "@chakra-ui/layout";
 import { UseComboboxStateChange } from "downshift";
-import React, { useState } from "react";
-import { BarDrink, BarType } from "../../types/types";
+import React, { useMemo, useState } from "react";
+import { BarDrink, BarType, DrinkType } from "../../types/types";
 import BarNav from "./BarNav";
 import ComboBox from "./ComboBox";
 import DrinkList from "./DrinkList";
@@ -9,14 +9,20 @@ import DrinkList from "./DrinkList";
 type Props = {
   bar: BarType;
   removeDrink: (drinkId: string) => void;
+  allDrinks: DrinkType[];
 };
 
 const Bar = (props: Props) => {
-  const { bar, removeDrink } = props;
+  const { bar, removeDrink, allDrinks } = props;
 
   const [drinks, setDrinks] = useState(bar.drink);
   const [addingDrinks, setAddingDrinks] = useState(false);
   const [addingIngredients, setAddingIngredients] = useState(false);
+
+  const drinksNotInBar = useMemo(
+    () => allDrinks.filter((drink) => !drinkInBarDrinks(drink, drinks)),
+    [allDrinks, drinks]
+  );
 
   const toggleAddingDrinks = () => {
     setAddingDrinks((prev) => !prev);
@@ -40,7 +46,7 @@ const Bar = (props: Props) => {
         onAddDrink={() => toggleAddingDrinks()}
         onAddIngredient={() => toggleAddingIngredients()}
       />
-      <AddDrink display={addingDrinks} drinks={drinks} />
+      <AddDrink display={addingDrinks} drinks={drinksNotInBar} />
       <AddIngredient display={addingIngredients} />
       <DrinkList
         drinks={drinks}
@@ -57,7 +63,7 @@ type ItemType = {
   name: string;
 };
 
-const AddDrink = (props: { display: boolean; drinks: BarDrink[] }) => {
+const AddDrink = (props: { display: boolean; drinks: DrinkType[] }) => {
   const { display, drinks } = props;
 
   if (!display) return null;
@@ -86,4 +92,9 @@ const AddIngredient = (props: { display: boolean }) => {
       <div>Add Ingredient</div>
     </Center>
   );
+};
+
+const drinkInBarDrinks = (drink: DrinkType, barDrinks: BarDrink[]) => {
+  const barDrinkMatch = barDrinks.find((barDrink) => barDrink.id === drink.id);
+  return barDrinkMatch ? true : false;
 };

@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { BarDrink } from "../../types/types";
 import React from "react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { CloseIcon } from "@chakra-ui/icons";
 
 type Props = {
   drinks: BarDrink[];
@@ -71,7 +71,7 @@ const Drink = (props: DrinkProps) => {
       <GridItem colSpan={2} noOfLines={2}>
         <IconButton
           aria-label="remove drink"
-          icon={<DeleteIcon />}
+          icon={<CloseIcon />}
           onClick={() => removeDrinkFromBar(drink.id)}
         />
       </GridItem>
