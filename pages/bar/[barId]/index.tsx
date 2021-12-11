@@ -5,7 +5,7 @@ import Bar from "../../../components/Bar/Bar";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
-import { useBar } from "../../../supabase/bars";
+import { useBar, useDeleteDrinkForBar } from "../../../supabase/bars";
 import { BarType } from "../../../types/types";
 
 const RoutedBarPage = () => {
@@ -24,15 +24,23 @@ const BarPage = (props: { barId: string }) => {
   const [bar, setBar] = useState<BarType>();
 
   const [{ data, error }] = useBar(barId);
+  const [{}, execute] = useDeleteDrinkForBar();
+
+  const removeDrink = (drinkId: string) => {
+    execute((query) => query.eq("drink_id", drinkId).eq("bar_id", barId));
+  };
 
   useEffect(() => {
-    if (data && data[0]) setBar(data[0]);
+    if (data && data[0]) {
+      setBar(data[0]);
+      console.log(data[0]);
+    }
   }, [data]);
 
   return (
     <>
       <Header />
-      {bar ? <Bar bar={bar} /> : <Loading />}
+      {bar ? <Bar bar={bar} removeDrink={removeDrink} /> : <Loading />}
       <ErrorOrNot error={error} />
     </>
   );

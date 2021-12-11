@@ -1,9 +1,11 @@
 import { useFilter, useSelect } from "react-supabase";
 
 export const useEquipment = (equipmentId: string) => {
-  const filter = useFilter((query) => query.eq("id", equipmentId), [
-    equipmentId,
-  ]);
+  const filter = useFilter(
+    (query) => query.eq("id", equipmentId),
+    [equipmentId]
+  );
+
   return useSelect("equipment", {
     filter,
   });

@@ -8,10 +8,11 @@ import DrinkList from "./DrinkList";
 
 type Props = {
   bar: BarType;
+  removeDrink: (drinkId: string) => void;
 };
 
 const Bar = (props: Props) => {
-  const { bar } = props;
+  const { bar, removeDrink } = props;
 
   const [addingDrinks, setAddingDrinks] = useState(false);
   const [addingIngredients, setAddingIngredients] = useState(false);
@@ -26,6 +27,11 @@ const Bar = (props: Props) => {
     setAddingDrinks(false);
   };
 
+  const removeDrinkFromBar = (drinkId: string) => {
+    console.log(`Remove ${drinkId} from ${bar.id}`);
+    removeDrink(drinkId);
+  };
+
   return (
     <>
       <BarNav
@@ -35,7 +41,11 @@ const Bar = (props: Props) => {
       />
       <AddDrink display={addingDrinks} bar={bar} />
       <AddIngredient display={addingIngredients} />
-      <DrinkList drinks={bar.drink} type={"drink"} />
+      <DrinkList
+        drinks={bar.drink}
+        type={"drink"}
+        removeDrinkFromBar={removeDrinkFromBar}
+      />
     </>
   );
 };
