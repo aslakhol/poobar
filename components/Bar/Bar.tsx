@@ -1,7 +1,7 @@
 import { Center } from "@chakra-ui/layout";
 import { UseComboboxStateChange } from "downshift";
 import React, { useState } from "react";
-import { BarType } from "../../types/types";
+import { BarDrink, BarType } from "../../types/types";
 import BarNav from "./BarNav";
 import ComboBox from "./ComboBox";
 import DrinkList from "./DrinkList";
@@ -14,6 +14,7 @@ type Props = {
 const Bar = (props: Props) => {
   const { bar, removeDrink } = props;
 
+  const [drinks, setDrinks] = useState(bar.drink);
   const [addingDrinks, setAddingDrinks] = useState(false);
   const [addingIngredients, setAddingIngredients] = useState(false);
 
@@ -28,7 +29,7 @@ const Bar = (props: Props) => {
   };
 
   const removeDrinkFromBar = (drinkId: string) => {
-    console.log(`Remove ${drinkId} from ${bar.id}`);
+    setDrinks((prevState) => prevState.filter((drink) => drink.id !== drinkId));
     removeDrink(drinkId);
   };
 
@@ -39,10 +40,10 @@ const Bar = (props: Props) => {
         onAddDrink={() => toggleAddingDrinks()}
         onAddIngredient={() => toggleAddingIngredients()}
       />
-      <AddDrink display={addingDrinks} bar={bar} />
+      <AddDrink display={addingDrinks} drinks={drinks} />
       <AddIngredient display={addingIngredients} />
       <DrinkList
-        drinks={bar.drink}
+        drinks={drinks}
         type={"drink"}
         removeDrinkFromBar={removeDrinkFromBar}
       />
@@ -56,8 +57,8 @@ type ItemType = {
   name: string;
 };
 
-const AddDrink = (props: { display: boolean; bar: BarType }) => {
-  const { display, bar } = props;
+const AddDrink = (props: { display: boolean; drinks: BarDrink[] }) => {
+  const { display, drinks } = props;
 
   if (!display) return null;
 
@@ -68,7 +69,7 @@ const AddDrink = (props: { display: boolean; bar: BarType }) => {
   return (
     <Center>
       <ComboBox
-        items={bar.drink}
+        items={drinks}
         onSelectedItemChange={onSelectedItemChange}
         submit={() => console.log("fooo")}
       />
