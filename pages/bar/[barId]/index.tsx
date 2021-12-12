@@ -40,7 +40,7 @@ const BarPage = (props: { barId: string }) => {
   };
 
   const addDrinkToBar = (drinkId: string) => {
-    useAddDrinkToBar(barId, drinkId);
+    useAddDrinkToBar(parseInt(barId), parseInt(drinkId));
   };
 
   useEffect(() => {
