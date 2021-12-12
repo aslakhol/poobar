@@ -5,7 +5,11 @@ import Bar from "../../../components/Bar/Bar";
 import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
-import { useBar, useDeleteDrinkForBar } from "../../../supabase/bars";
+import {
+  useAddDrinkToBar,
+  useBar,
+  useDeleteDrinkForBar,
+} from "../../../supabase/bars";
 import { useDrinks } from "../../../supabase/drinks";
 import { BarType, DrinkType } from "../../../types/types";
 
@@ -25,6 +29,7 @@ const BarPage = (props: { barId: string }) => {
   const [bar, setBar] = useState<BarType>();
 
   const [{ data, error }] = useBar(barId);
+
   const [drinksResult] = useDrinks();
   const allDrinks: DrinkType[] =
     drinksResult && drinksResult.data ? drinksResult.data : [];
@@ -32,6 +37,10 @@ const BarPage = (props: { barId: string }) => {
 
   const removeDrink = (drinkId: string) => {
     execute((query) => query.eq("drink_id", drinkId).eq("bar_id", barId));
+  };
+
+  const addDrinkToBar = (drinkId: string) => {
+    useAddDrinkToBar(barId, drinkId);
   };
 
   useEffect(() => {
@@ -44,7 +53,12 @@ const BarPage = (props: { barId: string }) => {
     <>
       <Header />
       {bar ? (
-        <Bar bar={bar} removeDrink={removeDrink} allDrinks={allDrinks} />
+        <Bar
+          bar={bar}
+          removeDrink={removeDrink}
+          allDrinks={allDrinks}
+          addDrink={addDrinkToBar}
+        />
       ) : (
         <Loading />
       )}

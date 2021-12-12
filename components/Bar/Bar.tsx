@@ -10,10 +10,11 @@ type Props = {
   bar: BarType;
   removeDrink: (drinkId: string) => void;
   allDrinks: DrinkType[];
+  addDrink: (drinkId: string) => void;
 };
 
 const Bar = (props: Props) => {
-  const { bar, removeDrink, allDrinks } = props;
+  const { bar, removeDrink, allDrinks, addDrink } = props;
 
   const [drinks, setDrinks] = useState(bar.drink);
   const [addingDrinks, setAddingDrinks] = useState(false);
@@ -39,6 +40,10 @@ const Bar = (props: Props) => {
     removeDrink(drinkId);
   };
 
+  const addDrinkToBar = (drinkId: string) => {
+    addDrink(drinkId);
+  };
+
   return (
     <>
       <BarNav
@@ -46,7 +51,11 @@ const Bar = (props: Props) => {
         onAddDrink={() => toggleAddingDrinks()}
         onAddIngredient={() => toggleAddingIngredients()}
       />
-      <AddDrink display={addingDrinks} drinks={drinksNotInBar} />
+      <AddDrink
+        display={addingDrinks}
+        drinks={drinksNotInBar}
+        addDrink={addDrinkToBar}
+      />
       <AddIngredient display={addingIngredients} />
       <DrinkList
         drinks={drinks}
@@ -61,16 +70,23 @@ export default Bar;
 
 type ItemType = {
   name: string;
+  id: string;
 };
 
-const AddDrink = (props: { display: boolean; drinks: DrinkType[] }) => {
-  const { display, drinks } = props;
+const AddDrink = (props: {
+  display: boolean;
+  drinks: DrinkType[];
+  addDrink: (drinkId: string) => void;
+}) => {
+  const { display, drinks, addDrink } = props;
 
   if (!display) return null;
 
-  const onSelectedItemChange: (
-    changes: UseComboboxStateChange<ItemType>
-  ) => void = ({ inputValue }) => console.log(inputValue);
+  const onSelectedItemChange = (selectedItem: ItemType | undefined) => {
+    if (selectedItem) {
+      addDrink(selectedItem.id);
+    }
+  };
 
   return (
     <Center>

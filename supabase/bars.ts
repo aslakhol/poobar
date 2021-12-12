@@ -1,4 +1,5 @@
-import { useDelete, useFilter, useSelect } from "react-supabase";
+import { useDelete, useFilter, useSelect, useUpsert } from "react-supabase";
+import { supabase } from "../utils/superbaseClient";
 
 export const useBar = (barId: string) => {
   const filter = useFilter((query) => query.eq("id", barId), [barId]);
@@ -17,4 +18,16 @@ export const useBars = () => {
 
 export const useDeleteDrinkForBar = () => {
   return useDelete("drink_for_bar");
+};
+
+export const useAddDrinkToBar = async (barId: string, drinkId: string) => {
+  const drinkForBar = { bar_id: barId, drink_id: drinkId };
+
+  return await supabase.from("drink_for_bar").upsert(drinkForBar);
+};
+
+type DrinkForBar = {
+  id: number;
+  bar_id: number;
+  drink_id: number;
 };

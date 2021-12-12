@@ -16,12 +16,13 @@ import LinkButton from "../LinkButton";
 
 type ItemType = {
   name: string;
+  id: string;
 };
 
 type ComboBoxProps = {
   items: ItemType[];
   submit: () => void;
-  onSelectedItemChange: (changes: UseComboboxStateChange<ItemType>) => void;
+  onSelectedItemChange: (selectedItem: ItemType | undefined) => void;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
@@ -37,7 +38,10 @@ const ComboBox = (props: ComboBoxProps) => {
     getItemProps,
   } = useCombobox({
     items: inputItems,
-    onSelectedItemChange: onSelectedItemChange,
+    onSelectedItemChange: ({ inputValue }) => {
+      const selectedItem = items.find((item) => item.name === inputValue);
+      return onSelectedItemChange(selectedItem);
+    },
     onInputValueChange: ({ inputValue }) => {
       setInputItems(
         items.filter((item) =>
