@@ -16,7 +16,7 @@ import LinkButton from "../LinkButton";
 
 type ItemType = {
   name: string;
-  id: string;
+  id: number;
 };
 
 type ComboBoxProps = {

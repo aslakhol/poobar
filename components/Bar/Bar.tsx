@@ -1,27 +1,26 @@
 import { Center } from "@chakra-ui/layout";
-import { UseComboboxStateChange } from "downshift";
 import React, { useMemo, useState } from "react";
-import { BarDrink, BarType, DrinkType } from "../../types/types";
+import { BarType, DrinkType } from "../../types/new";
 import BarNav from "./BarNav";
 import ComboBox from "./ComboBox";
 import DrinkList from "./DrinkList";
 
 type Props = {
   bar: BarType;
-  removeDrink: (drinkId: string) => void;
+  removeDrink: (drinkId: number) => void;
   allDrinks: DrinkType[];
-  addDrink: (drinkId: string) => void;
+  addDrink: (drinkId: number) => void;
 };
 
 const Bar = (props: Props) => {
   const { bar, removeDrink, allDrinks, addDrink } = props;
 
-  const [drinks, setDrinks] = useState(bar.drink);
+  const [drinks, setDrinks] = useState(bar.drinks);
   const [addingDrinks, setAddingDrinks] = useState(false);
   const [addingIngredients, setAddingIngredients] = useState(false);
 
   const drinksNotInBar = useMemo(
-    () => allDrinks.filter((drink) => !drinkInBarDrinks(drink, drinks)),
+    () => allDrinks.filter((drink) => !bar.drinks.includes(drink)),
     [allDrinks, drinks]
   );
 
@@ -35,19 +34,18 @@ const Bar = (props: Props) => {
     setAddingDrinks(false);
   };
 
-  const removeDrinkFromBar = (drinkId: string) => {
+  const removeDrinkFromBar = (drinkId: number) => {
     setDrinks((prevState) => prevState.filter((drink) => drink.id !== drinkId));
     removeDrink(drinkId);
   };
 
-  const addDrinkToBar = (drinkId: string) => {
+  const addDrinkToBar = (drinkId: number) => {
     addDrink(drinkId);
   };
 
   return (
     <>
       <BarNav
-        barId={bar.id}
         onAddDrink={() => toggleAddingDrinks()}
         onAddIngredient={() => toggleAddingIngredients()}
       />
@@ -57,11 +55,7 @@ const Bar = (props: Props) => {
         addDrink={addDrinkToBar}
       />
       <AddIngredient display={addingIngredients} />
-      <DrinkList
-        drinks={drinks}
-        type={"drink"}
-        removeDrinkFromBar={removeDrinkFromBar}
-      />
+      <DrinkList drinks={drinks} removeDrinkFromBar={removeDrinkFromBar} />
     </>
   );
 };
@@ -70,13 +64,13 @@ export default Bar;
 
 type ItemType = {
   name: string;
-  id: string;
+  id: number;
 };
 
 const AddDrink = (props: {
   display: boolean;
   drinks: DrinkType[];
-  addDrink: (drinkId: string) => void;
+  addDrink: (drinkId: number) => void;
 }) => {
   const { display, drinks, addDrink } = props;
 
@@ -108,9 +102,4 @@ const AddIngredient = (props: { display: boolean }) => {
       <div>Add Ingredient</div>
     </Center>
   );
-};
-
-const drinkInBarDrinks = (drink: DrinkType, barDrinks: BarDrink[]) => {
-  const barDrinkMatch = barDrinks.find((barDrink) => barDrink.id === drink.id);
-  return barDrinkMatch ? true : false;
 };

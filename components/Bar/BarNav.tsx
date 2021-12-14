@@ -4,13 +4,12 @@ import { ButtonGroup, Button, IconButton } from "@chakra-ui/react";
 import React from "react";
 
 type Props = {
-  barId: string;
   onAddDrink: () => void;
   onAddIngredient: () => void;
 };
 
 const BarNav = (props: Props) => {
-  const { barId, onAddDrink, onAddIngredient } = props;
+  const { onAddDrink, onAddIngredient } = props;
   return (
     <HStack
       as="nav"

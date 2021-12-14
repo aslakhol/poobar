@@ -9,9 +9,9 @@ import {
   useAddDrinkToBar,
   useBar,
   useDeleteDrinkForBar,
+  useDrinksNew,
 } from "../../../supabase/bars";
-import { useDrinks } from "../../../supabase/drinks";
-import { BarType, DrinkType } from "../../../types/types";
+import { BarType, DrinkType } from "../../../types/new";
 
 const RoutedBarPage = () => {
   const router = useRouter();
@@ -27,27 +27,33 @@ export default RoutedBarPage;
 const BarPage = (props: { barId: string }) => {
   const { barId } = props;
   const [bar, setBar] = useState<BarType>();
+  const [allDrinks, setAllDrinks] = useState<DrinkType[]>([]);
 
-  const [{ data, error }] = useBar(barId);
+  useEffect(() => {
+    useBar(barId).then((result) => {
+      if (result.data && result.data[0]) {
+        setBar(result.data[0]);
+      }
+    });
 
-  const [drinksResult] = useDrinks();
-  const allDrinks: DrinkType[] =
-    drinksResult && drinksResult.data ? drinksResult.data : [];
+    useDrinksNew().then((result) => {
+      if (result.data) {
+        setAllDrinks(result.data);
+      }
+    });
+  }, [barId]);
+
   const [{}, execute] = useDeleteDrinkForBar();
 
-  const removeDrink = (drinkId: string) => {
+  const removeDrink = (drinkId: number) => {
     execute((query) => query.eq("drink_id", drinkId).eq("bar_id", barId));
   };
 
-  const addDrinkToBar = (drinkId: string) => {
-    useAddDrinkToBar(parseInt(barId), parseInt(drinkId));
-  };
-
-  useEffect(() => {
-    if (data && data[0]) {
-      setBar(data[0]);
+  const addDrinkToBar = (drinkId: number) => {
+    if (bar) {
+      useAddDrinkToBar(bar.id, drinkId);
     }
-  }, [data]);
+  };
 
   return (
     <>
@@ -62,7 +68,7 @@ const BarPage = (props: { barId: string }) => {
       ) : (
         <Loading />
       )}
-      <ErrorOrNot error={error} />
+      {/* <ErrorOrNot error={error} /> */}
     </>
   );
 };

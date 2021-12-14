@@ -1,20 +1,27 @@
-import { useDelete, useFilter, useSelect, useUpsert } from "react-supabase";
+import { useDelete, useSelect } from "react-supabase";
+import { BarType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 
-export const useBar = (barId: string) => {
-  const filter = useFilter((query) => query.eq("id", barId), [barId]);
-
-  return useSelect("bar", {
-    columns: `id, name, drink (id, name, ingredient (id, name))`,
-    filter,
-  });
+export const useBar = async (barId: string) => {
+  return await supabase
+    .from<BarType>("bar")
+    .select(
+      "*, drinks: drink (*, ingredients: ingredient_for_drink (*, ingredient (*)))"
+    )
+    .eq("id", barId);
 };
 
 export const useBars = () => {
   return useSelect("bar", {
     columns: "id, name",
   });
+};
+
+export const useDrinksNew = async () => {
+  return await supabase
+    .from("drink")
+    .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
 };
 
 export const useDeleteDrinkForBar = () => {
@@ -27,10 +34,4 @@ export const useAddDrinkToBar = async (barId: number, drinkId: number) => {
   return await supabase
     .from<definitions["drink_for_bar"]>("drink_for_bar")
     .upsert(drinkForBar);
-};
-
-type DrinkForBar = {
-  id: number;
-  bar_id: number;
-  drink_id: number;
 };

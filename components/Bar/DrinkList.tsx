@@ -5,14 +5,13 @@ import {
   Link,
   IconButton,
 } from "@chakra-ui/react";
-import { BarDrink } from "../../types/types";
 import React from "react";
 import { CloseIcon } from "@chakra-ui/icons";
+import { DrinkType } from "../../types/new";
 
 type Props = {
-  drinks: BarDrink[];
-  type: string;
-  removeDrinkFromBar: (drinkId: string) => void;
+  drinks: DrinkType[];
+  removeDrinkFromBar: (drinkId: number) => void;
 };
 
 const DrinkList = (props: Props) => {
@@ -35,7 +34,7 @@ const DrinkList = (props: Props) => {
           Remove from bar
         </Heading>
       </GridItem>
-      {drinks.map((drink: BarDrink) => (
+      {drinks.map((drink: DrinkType) => (
         <Drink
           key={`drink-${drink.id}`}
           drink={drink}
@@ -49,15 +48,16 @@ const DrinkList = (props: Props) => {
 export default DrinkList;
 
 type DrinkProps = {
-  drink: BarDrink;
-  removeDrinkFromBar: (drinkId: string) => void;
+  drink: DrinkType;
+  removeDrinkFromBar: (drinkId: number) => void;
 };
 
 const Drink = (props: DrinkProps) => {
   const { drink, removeDrinkFromBar } = props;
+  console.log(drink);
 
-  const ingredentsNames = drink.ingredient
-    .map((ingredient) => ingredient.name)
+  const ingredentsNames = drink.ingredients
+    .map((ingredientForDrink) => ingredientForDrink.ingredient.name)
     .join(", ");
 
   return (
