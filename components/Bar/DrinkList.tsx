@@ -54,7 +54,6 @@ type DrinkProps = {
 
 const Drink = (props: DrinkProps) => {
   const { drink, removeDrinkFromBar } = props;
-  console.log(drink);
 
   const ingredentsNames = drink.ingredients
     .map((ingredientForDrink) => ingredientForDrink.ingredient.name)

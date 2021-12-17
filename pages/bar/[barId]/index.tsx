@@ -32,21 +32,19 @@ const BarPage = (props: { barId: string }) => {
     useBar(barId).then((result) => {
       if (result.data && result.data[0]) {
         setBar(result.data[0]);
-        console.log(result.data[0], "slkjaslk");
       }
     });
 
     useDrinksNew().then((result) => {
       if (result.data) {
         setAllDrinks(result.data);
-        console.log(result.data);
       }
     });
   }, [barId]);
 
   const removeDrink = (drinkId: number) => {
     if (bar) {
-      useDeleteDrinkForBar(drinkId, bar.id).then(console.log);
+      useDeleteDrinkForBar(drinkId, bar.id);
     }
   };
 

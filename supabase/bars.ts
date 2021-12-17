@@ -1,4 +1,4 @@
-import { useDelete, useSelect } from "react-supabase";
+import { useSelect } from "react-supabase";
 import { BarType, DrinkType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
