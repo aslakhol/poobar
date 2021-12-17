@@ -1,21 +1,30 @@
 import React from "react";
-import type { NextPage } from "next";
 import Header from "../../components/Header";
-import EntityList from "../../components/EntityList/EntityList";
-import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
-import { useIngredients } from "../../supabase/ingredients";
+import { deleteIngredient, useIngredients } from "../../supabase/ingredients";
+import IngredientsList from "../../components/Ingredients/IngredientsList";
 
-const Ingredients: NextPage = () => {
-  const [{ data, error }] = useIngredients();
+const IngredientsPage = () => {
+  const { ingredients, setIngredients } = useIngredients();
+
+  const removeIngredient = (id: number) => {
+    deleteIngredient(id);
+  };
+
+  if (!ingredients) {
+    return <Loading />;
+  }
 
   return (
     <>
       <Header />
-      {data ? <EntityList entities={data} type={"ingredient"} /> : <Loading />}
-      <ErrorOrNot error={error} />
+      <IngredientsList
+        ingredients={ingredients}
+        setIngredients={setIngredients}
+        deleteIngredient={removeIngredient}
+      />
     </>
   );
 };
 
-export default Ingredients;
+export default IngredientsPage;

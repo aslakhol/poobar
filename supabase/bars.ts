@@ -37,7 +37,7 @@ export const useDrinks = () => {
 
   useEffect(() => {
     getDrinks().then((result) => {
-      if (result.data && result.data[0]) {
+      if (result.data) {
         setDrinks(result.data);
       }
     });
@@ -52,8 +52,8 @@ const getDrinks = async () => {
     .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
 };
 
-export const deleteDrinkForBar = async (drinkId: number, barId: number) => {
-  return await supabase
+export const deleteDrinkForBar = (drinkId: number, barId: number) => {
+  return supabase
     .from("drink_for_bar")
     .delete()
     .eq("drink_id", drinkId)
