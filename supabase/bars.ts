@@ -3,7 +3,7 @@ import { BarType, DrinkType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 
-export const useBar = async (barId: number) => {
+export const getBar = async (barId: number) => {
   return await supabase
     .from<BarType>("bar")
     .select(
@@ -18,7 +18,7 @@ export const useBars = () => {
   });
 };
 
-export const useDrinksNew = async () => {
+export const getDrinks = async () => {
   return await supabase
     .from<DrinkType>("drink")
     .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
