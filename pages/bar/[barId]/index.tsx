@@ -2,7 +2,6 @@ import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Bar from "../../../components/Bar/Bar";
-import ErrorOrNot from "../../../components/ErrorOrNot";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
 import {
@@ -68,7 +67,6 @@ const BarPage = (props: { barId: string }) => {
       ) : (
         <Loading />
       )}
-      {/* <ErrorOrNot error={error} /> */}
     </>
   );
 };
