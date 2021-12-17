@@ -1,14 +1,14 @@
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Bar from "../../../components/Bar/Bar";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
 import {
   addDrinkToBar,
   deleteDrinkForBar,
-  getBar,
-  getDrinks,
+  useBar,
+  useDrinks,
 } from "../../../supabase/bars";
 import { BarType, DrinkType } from "../../../types/new";
 
@@ -27,36 +27,22 @@ export default RoutedBarPage;
 
 const GetBarPage = (props: { barId: string }) => {
   const { barId } = props;
-  const [bar, setBar] = useState<BarType>();
-  const [allDrinks, setAllDrinks] = useState<DrinkType[]>([]);
+  const { bar } = useBar(Number(barId));
+  const { drinks } = useDrinks();
 
-  useEffect(() => {
-    getBar(Number(barId)).then((result) => {
-      if (result.data && result.data[0]) {
-        setBar(result.data[0]);
-      }
-
-      getDrinks().then((result) => {
-        if (result.data) {
-          setAllDrinks(result.data);
-        }
-      });
-    });
-  }, [barId]);
-
-  if (!bar) {
+  if (!bar || !drinks.length) {
     return <Loading />;
   }
 
   return (
     <>
       <Header />
-      <BarPageWithBar bar={bar} allDrinks={allDrinks} />
+      <BarPage bar={bar} allDrinks={drinks} />
     </>
   );
 };
 
-const BarPageWithBar = (props: { bar: BarType; allDrinks: DrinkType[] }) => {
+const BarPage = (props: { bar: BarType; allDrinks: DrinkType[] }) => {
   const { bar, allDrinks } = props;
 
   const removeDrink = (drinkId: number) => {
