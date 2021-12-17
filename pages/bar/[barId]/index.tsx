@@ -32,20 +32,22 @@ const BarPage = (props: { barId: string }) => {
     useBar(barId).then((result) => {
       if (result.data && result.data[0]) {
         setBar(result.data[0]);
+        console.log(result.data[0], "slkjaslk");
       }
     });
 
     useDrinksNew().then((result) => {
       if (result.data) {
         setAllDrinks(result.data);
+        console.log(result.data);
       }
     });
   }, [barId]);
 
-  const [{}, execute] = useDeleteDrinkForBar();
-
   const removeDrink = (drinkId: number) => {
-    execute((query) => query.eq("drink_id", drinkId).eq("bar_id", barId));
+    if (bar) {
+      useDeleteDrinkForBar(drinkId, bar.id).then(console.log);
+    }
   };
 
   const addDrinkToBar = (drinkId: number) => {

@@ -1,5 +1,5 @@
 import { useDelete, useSelect } from "react-supabase";
-import { BarType } from "../types/new";
+import { BarType, DrinkType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 
@@ -20,12 +20,16 @@ export const useBars = () => {
 
 export const useDrinksNew = async () => {
   return await supabase
-    .from("drink")
+    .from<DrinkType>("drink")
     .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
 };
 
-export const useDeleteDrinkForBar = () => {
-  return useDelete("drink_for_bar");
+export const useDeleteDrinkForBar = async (drinkId: number, barId: number) => {
+  return await supabase
+    .from("drink_for_bar")
+    .delete()
+    .eq("drink_id", drinkId)
+    .eq("bar_id", barId);
 };
 
 export const useAddDrinkToBar = async (barId: number, drinkId: number) => {
