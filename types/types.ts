@@ -11,11 +11,6 @@ export type DrinkType = {
   ingredients: IngredientForDrink[];
 };
 
-export type EquipmentType = {
-  id: string;
-  name: string;
-};
-
 export type IngredientForDrink = {
   id: string;
   amount: number;

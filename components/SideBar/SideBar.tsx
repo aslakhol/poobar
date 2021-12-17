@@ -8,7 +8,6 @@ const SideBar = () => {
       <LinkButton href={`/bar`}>Bars</LinkButton>
       <LinkButton href={`/drink`}>Drinks</LinkButton>
       <LinkButton href={`/ingredient`}>Ingredients</LinkButton>
-      <LinkButton href={`/equipment`}>Equipment</LinkButton>
     </SideDrawer>
   );
 };
