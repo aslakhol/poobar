@@ -1,13 +1,14 @@
 import { Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import bar from "..";
 import Bar from "../../../components/Bar/Bar";
 import Header from "../../../components/Header";
 import Loading from "../../../components/Loading";
 import {
-  useAddDrinkToBar,
+  addDrinkToBar,
+  deleteDrinkForBar,
   useBar,
-  useDeleteDrinkForBar,
   useDrinksNew,
 } from "../../../supabase/bars";
 import { BarType, DrinkType } from "../../../types/new";
@@ -26,32 +27,41 @@ export default RoutedBarPage;
 const BarPage = (props: { barId: string }) => {
   const { barId } = props;
   const [bar, setBar] = useState<BarType>();
-  const [allDrinks, setAllDrinks] = useState<DrinkType[]>([]);
 
   useEffect(() => {
-    useBar(barId).then((result) => {
+    useBar(Number(barId)).then((result) => {
       if (result.data && result.data[0]) {
         setBar(result.data[0]);
       }
     });
+  }, [barId]);
 
+  return (
+    <>
+      <Header />
+      {bar ? <BarPageWithBar bar={bar} /> : <Loading />}
+    </>
+  );
+};
+
+const BarPageWithBar = (props: { bar: BarType }) => {
+  const { bar } = props;
+  const [allDrinks, setAllDrinks] = useState<DrinkType[]>([]);
+
+  useEffect(() => {
     useDrinksNew().then((result) => {
       if (result.data) {
         setAllDrinks(result.data);
       }
     });
-  }, [barId]);
+  }, []);
 
   const removeDrink = (drinkId: number) => {
-    if (bar) {
-      useDeleteDrinkForBar(drinkId, bar.id);
-    }
+    deleteDrinkForBar(drinkId, bar.id);
   };
 
-  const addDrinkToBar = (drinkId: number) => {
-    if (bar) {
-      useAddDrinkToBar(bar.id, drinkId);
-    }
+  const addDrink = (drinkId: number) => {
+    addDrinkToBar(bar.id, drinkId);
   };
 
   return (
@@ -62,7 +72,7 @@ const BarPage = (props: { barId: string }) => {
           bar={bar}
           removeDrink={removeDrink}
           allDrinks={allDrinks}
-          addDrink={addDrinkToBar}
+          addDrink={addDrink}
         />
       ) : (
         <Loading />

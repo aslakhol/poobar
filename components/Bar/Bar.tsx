@@ -21,7 +21,7 @@ const Bar = (props: Props) => {
 
   const drinksNotInBar = useMemo(
     () => allDrinks.filter((drink) => !bar.drinks.includes(drink)),
-    [allDrinks, drinks]
+    [allDrinks, bar.drinks]
   );
 
   const toggleAddingDrinks = () => {
