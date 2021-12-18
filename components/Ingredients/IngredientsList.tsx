@@ -21,9 +21,10 @@ type Props = {
 };
 
 const IngredientsList = (props: Props) => {
-  const { ingredients, setIngredients } = props;
+  const { ingredients, setIngredients, deleteIngredient } = props;
 
   const deleteEntity = (id: number) => {
+    deleteIngredient(id);
     setIngredients((prevState) =>
       prevState.filter((ingredient) => ingredient.id !== id)
     );

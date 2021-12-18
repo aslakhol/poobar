@@ -42,7 +42,7 @@ const getIngredients = async () => {
 
 export const deleteIngredient = async (ingredientId: number) => {
   return await supabase
-    .from<IngredientType>("ingredients")
+    .from<IngredientType>("ingredient")
     .delete()
     .eq("id", ingredientId);
 };
