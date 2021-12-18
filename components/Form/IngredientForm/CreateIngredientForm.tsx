@@ -1,6 +1,7 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import IngredientForm from "./IngredientForm";
+import { IngredientType } from "../../../types/new";
 
 const CreateIngredientForm = () => {
   const toast = useToast();
@@ -15,7 +16,11 @@ const CreateIngredientForm = () => {
     });
   };
 
-  return <IngredientForm triggerToast={triggerToast} />;
+  const createIngredient = (ingredient: IngredientType) => {
+    triggerToast(ingredient.name);
+  };
+
+  return <IngredientForm submit={createIngredient} />;
 };
 
 export default CreateIngredientForm;

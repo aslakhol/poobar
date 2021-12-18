@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import ErrorOrNot from "../../../components/ErrorOrNot";
+import React from "react";
 import Header from "../../../components/Header";
 import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
-import { Ingredient } from "../../../types/types";
 import { Spinner } from "@chakra-ui/spinner";
-import { useIngredient } from "../../../supabase/ingredients";
+import { updateIngredient, useIngredient } from "../../../supabase/ingredients";
+import Loading from "../../../components/Loading";
+import { IngredientType } from "../../../types/new";
 
 const RoutedEditIngredient = () => {
   const router = useRouter();
@@ -14,26 +14,32 @@ const RoutedEditIngredient = () => {
 
   if (!ingredientId || Array.isArray(ingredientId)) return <Spinner />;
 
-  return <EditIngredientPage ingredientId={ingredientId} />;
+  return <EditIngredientPage ingredientId={Number(ingredientId)} />;
 };
 
 export default RoutedEditIngredient;
 
-const EditIngredientPage = (props: { ingredientId: string }) => {
+const EditIngredientPage = (props: { ingredientId: number }) => {
   const { ingredientId } = props;
-  const [ingredient, setIngredient] = useState<Ingredient>();
+  const { ingredient } = useIngredient(ingredientId);
 
-  const [{ data, error }] = useIngredient(ingredientId);
+  const editIngredient = (ingredient: IngredientType) => {
+    console.log("EditIngredientPage", ingredient);
 
-  useEffect(() => {
-    if (data && data[0]) setIngredient(data[0]);
-  }, [data]);
+    updateIngredient(ingredient);
+  };
+
+  if (!ingredient) {
+    return <Loading />;
+  }
 
   return (
     <Box>
       <Header />
-      {ingredient ? <EditIngredientForm ingredient={ingredient} /> : ""}
-      <ErrorOrNot error={error} />
+      <EditIngredientForm
+        ingredient={ingredient}
+        updateIngredient={editIngredient}
+      />
     </Box>
   );
 };

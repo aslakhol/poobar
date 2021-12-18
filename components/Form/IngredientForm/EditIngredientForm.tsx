@@ -1,20 +1,18 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
-import { useFilter } from "react-supabase";
-import { Ingredient } from "../../../types/types";
 import IngredientForm from "./IngredientForm";
+import { useRouter } from "next/router";
+import { IngredientType } from "../../../types/new";
 
 type Props = {
-  ingredient: Ingredient;
+  ingredient: IngredientType;
+  updateIngredient: (ingredient: IngredientType) => void;
 };
 
 const EditIngredientForm = (props: Props) => {
-  const { ingredient } = props;
+  const { ingredient, updateIngredient } = props;
   const toast = useToast();
-
-  const filter = useFilter((query) => query.eq("id", ingredient.id), [
-    ingredient,
-  ]);
+  const router = useRouter();
 
   const triggerToast = (name: string) => {
     toast({
@@ -26,13 +24,13 @@ const EditIngredientForm = (props: Props) => {
     });
   };
 
-  return (
-    <IngredientForm
-      ingredient={ingredient}
-      triggerToast={triggerToast}
-      filter={filter}
-    />
-  );
+  const editIngredient = (ingredient: IngredientType) => {
+    updateIngredient(ingredient);
+    triggerToast(ingredient.name);
+    router.push(`${router.basePath}/ingredient/`);
+  };
+
+  return <IngredientForm ingredient={ingredient} submit={editIngredient} />;
 };
 
 export default EditIngredientForm;

@@ -1,45 +1,33 @@
-import { FieldError, useForm } from "react-hook-form";
-import React, { useEffect } from "react";
+import { FieldError, FieldValues, useForm } from "react-hook-form";
+import React from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
-import { Filter, useUpsert } from "react-supabase";
-import ErrorOrNot from "../../ErrorOrNot";
-import { useRouter } from "next/router";
-import { Ingredient } from "../../../types/types";
+import { IngredientType } from "../../../types/new";
 
-type formValues = {
+type IngredientFormValues = {
   name: string;
 };
 
 type Props = {
-  ingredient?: Ingredient;
-  triggerToast: (name: string) => void;
-  filter?: Filter<any>;
+  ingredient?: IngredientType;
+  submit: (ingredient: IngredientType) => void;
 };
 
 const IngredientForm = (props: Props) => {
-  const { ingredient, triggerToast, filter } = props;
-  const router = useRouter();
+  const { ingredient, submit } = props;
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ defaultValues: ingredient });
+  } = useForm<FieldValues>({ defaultValues: ingredient });
 
-  const [{ data, error, fetching }, execute] = useUpsert("ingredient", {
-    filter,
-  });
-
-  useEffect(() => {
-    if (!fetching && data && data[0]) {
-      triggerToast(data[0].name);
-      router.push(`${router.basePath}/ingredient/`);
-    }
-  }, [data, fetching, triggerToast, router]);
-
-  const onSubmit = (values: formValues) => {
-    execute(values);
+  const onSubmit = (values: IngredientFormValues) => {
+    const newIngredient = {
+      id: ingredient?.id ?? 0,
+      name: values.name,
+    };
+    submit(newIngredient);
   };
 
   return (
@@ -48,7 +36,6 @@ const IngredientForm = (props: Props) => {
       <Button mt={4} colorScheme="teal" type="submit">
         Submit
       </Button>
-      <ErrorOrNot error={error} />
     </form>
   );
 };
