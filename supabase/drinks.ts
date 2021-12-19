@@ -3,14 +3,25 @@ import { useFilter, useSelect } from "react-supabase";
 import { CreateDrinkType, DrinkType } from "../types/new";
 import { supabase } from "../utils/superbaseClient";
 
-export const useDrink = (drinkId: string) => {
-  const filter = useFilter((query) => query.eq("id", drinkId), [drinkId]);
+export const useDrink = (drinkId: number) => {
+  const [drink, setDrink] = useState<DrinkType>();
 
-  return useSelect("drink", {
-    columns: `id, name, description, instructions, ingredients: ingredient_for_drink (id, amount, unit, ingredient (id, name))`,
-    filter,
-  });
+  useEffect(() => {
+    getIngredient(drinkId).then((result) => {
+      if (result.data && result.data[0]) {
+        setDrink(result.data[0]);
+      }
+    });
+  }, []);
+
+  return { drink, setDrink };
 };
+
+const getIngredient = (drinkId: number) =>
+  supabase
+    .from<DrinkType>("drink")
+    .select("*, ingredients: ingredient_for_drink (*, ingredient (*))")
+    .eq("id", drinkId);
 
 export const useDrinks = () => {
   const [drinks, setDrinks] = useState<DrinkType[]>([]);
