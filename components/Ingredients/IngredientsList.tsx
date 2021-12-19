@@ -5,14 +5,13 @@ import {
   Th,
   Tbody,
   Link,
-  IconButton,
   Td,
   Button,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/router";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
 import { IngredientType } from "../../types/new";
+import NewLinkButton from "../NewLinkButton";
 
 type Props = {
   ingredients: IngredientType[];
@@ -36,7 +35,7 @@ const IngredientsList = (props: Props) => {
         <Tr>
           <Th>Ingredients</Th>
           <Th>
-            <NewIngredientLink />
+            <NewLinkButton />
           </Th>
         </Tr>
       </Thead>
@@ -54,18 +53,6 @@ const IngredientsList = (props: Props) => {
 };
 
 export default IngredientsList;
-
-const NewIngredientLink = () => {
-  const router = useRouter();
-
-  return (
-    <Link href={`${router.asPath}/new`}>
-      <IconButton aria-label={`new ${router.asPath}`} padding="0">
-        <AddIcon />
-      </IconButton>
-    </Link>
-  );
-};
 
 type IngredientsListElementProps = {
   ingredient: IngredientType;

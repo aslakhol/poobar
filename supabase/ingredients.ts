@@ -27,7 +27,7 @@ export const useIngredients = () => {
 
   useEffect(() => {
     getIngredients().then((result) => {
-      if (result.data && result.data) {
+      if (result.data) {
         setIngredients(result.data);
       }
     });

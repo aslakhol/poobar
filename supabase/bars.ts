@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelect } from "react-supabase";
 import { BarType, DrinkType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
@@ -27,10 +26,27 @@ const getBar = (barId: number) =>
     .eq("id", barId);
 
 export const useBars = () => {
-  return useSelect("bar", {
-    columns: "id, name",
-  });
+  const [bars, setBars] = useState<BarType[]>([]);
+
+  useEffect(() => {
+    getBars().then((result) => {
+      if (result.data) {
+        setBars(result.data);
+      }
+    });
+  }, []);
+
+  return { bars, setBars };
 };
+
+// Got to work my way out of Entity List for Bar aswell.
+
+const getBars = () =>
+  supabase
+    .from<BarType>("bar")
+    .select(
+      "*, drinks: drink (*, ingredients: ingredient_for_drink (*, ingredient (*)))"
+    );
 
 export const useDrinks = () => {
   const [drinks, setDrinks] = useState<DrinkType[]>([]);
