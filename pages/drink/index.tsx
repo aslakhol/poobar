@@ -1,18 +1,33 @@
 import React from "react";
-import type { NextPage } from "next";
 import Header from "../../components/Header";
-import EntityList from "../../components/EntityList/EntityList";
-import ErrorOrNot from "../../components/ErrorOrNot";
 import Loading from "../../components/Loading";
-import { useDrinks } from "../../supabase/drinks";
+import { deleteDrink, useDrinks } from "../../supabase/drinks";
+import DrinksList from "../../components/Drink/DrinksList";
 
-const Drinks: NextPage = () => {
-  const [{ data, error }] = useDrinks();
+const Drinks = () => {
+  const { drinks, setDrinks } = useDrinks();
+
+  const removeDrink = (id: number) => {
+    deleteDrink(id);
+  };
+
+  if (!drinks) {
+    return (
+      <>
+        <Header />
+        <Loading />
+      </>
+    );
+  }
+
   return (
     <>
       <Header />
-      {data ? <EntityList entities={data} type={"drink"} /> : <Loading />}
-      <ErrorOrNot error={error} />
+      <DrinksList
+        drinks={drinks}
+        setDrinks={setDrinks}
+        deleteDrink={removeDrink}
+      />
     </>
   );
 };

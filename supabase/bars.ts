@@ -48,26 +48,6 @@ const getBars = () =>
       "*, drinks: drink (*, ingredients: ingredient_for_drink (*, ingredient (*)))"
     );
 
-export const useDrinks = () => {
-  const [drinks, setDrinks] = useState<DrinkType[]>([]);
-
-  useEffect(() => {
-    getDrinks().then((result) => {
-      if (result.data) {
-        setDrinks(result.data);
-      }
-    });
-  }, []);
-
-  return { drinks, setDrinks };
-};
-
-const getDrinks = async () => {
-  return await supabase
-    .from<DrinkType>("drink")
-    .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
-};
-
 export const deleteDrinkForBar = (drinkId: number, barId: number) => {
   return supabase
     .from("drink_for_bar")

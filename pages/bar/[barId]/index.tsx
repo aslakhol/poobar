@@ -8,8 +8,8 @@ import {
   addDrinkToBar,
   deleteDrinkForBar,
   useBar,
-  useDrinks,
 } from "../../../supabase/bars";
+import { useDrinks } from "../../../supabase/drinks";
 import { BarType, DrinkType } from "../../../types/new";
 
 const RoutedBarPage = () => {
