@@ -10,7 +10,7 @@ type IngredientFormValues = {
 
 type Props = {
   ingredient?: IngredientType;
-  submit: (ingredient: IngredientType) => void;
+  submit: (ingredient: any) => void;
 };
 
 const IngredientForm = (props: Props) => {
@@ -24,7 +24,7 @@ const IngredientForm = (props: Props) => {
 
   const onSubmit = (values: IngredientFormValues) => {
     const newIngredient = {
-      id: ingredient?.id ?? 0,
+      id: ingredient?.id ?? undefined,
       name: values.name,
     };
     submit(newIngredient);

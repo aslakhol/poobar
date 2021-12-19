@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IngredientType } from "../types/new";
+import { CreateIngredientType, IngredientType } from "../types/new";
 import { supabase } from "../utils/superbaseClient";
 
 export const useIngredient = (ingredientId: number) => {
@@ -51,6 +51,9 @@ export const updateIngredient = async (ingredient: IngredientType) => {
   return await supabase
     .from<IngredientType>("ingredient")
     .update(ingredient)
-    .eq("id", ingredient.id)
-    .then((result) => result);
+    .eq("id", ingredient.id);
+};
+
+export const createIngredient = async (ingredient: CreateIngredientType) => {
+  return await supabase.from<IngredientType>("ingredient").insert(ingredient);
 };

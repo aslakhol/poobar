@@ -1,9 +1,14 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import IngredientForm from "./IngredientForm";
-import { IngredientType } from "../../../types/new";
+import { CreateIngredientType } from "../../../types/new";
 
-const CreateIngredientForm = () => {
+type Props = {
+  create: (ingredient: CreateIngredientType) => void;
+};
+
+const CreateIngredientForm = (props: Props) => {
+  const { create } = props;
   const toast = useToast();
 
   const triggerToast = (name: string) => {
@@ -16,7 +21,8 @@ const CreateIngredientForm = () => {
     });
   };
 
-  const createIngredient = (ingredient: IngredientType) => {
+  const createIngredient = (ingredient: CreateIngredientType) => {
+    create(ingredient);
     triggerToast(ingredient.name);
   };
 
