@@ -1,59 +1,41 @@
-import { FieldError, FormProvider, useForm } from "react-hook-form";
+import {
+  FieldError,
+  FieldValues,
+  FormProvider,
+  useForm,
+} from "react-hook-form";
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
-import { Filter, useUpsert } from "react-supabase";
-import ErrorOrNot from "../../ErrorOrNot";
-import { useRouter } from "next/router";
-import { DrinkType, IngredientForDrink } from "../../../types/types";
-import IngredientsSelect from "./IngredientsSelect";
+import {
+  CreateDrinkType,
+  DrinkType,
+  IngredientForDrinkType,
+} from "../../../types/new";
+import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
 
 export type DrinkFormValues = {
   name: string;
-  ingredients: IngredientForDrink[];
+  ingredients: IngredientForDrinkType[];
   description: string;
   instructions: string;
 };
 
 type Props = {
   drink?: DrinkType;
-  triggerToast: (name: string) => void;
-  filter?: Filter<any>;
+  submit: (drink: any) => void;
 };
 
 const DrinkForm = (props: Props) => {
-  const { drink, triggerToast, filter } = props;
-  const router = useRouter();
+  const { drink, submit } = props;
 
-  const methods = useForm<DrinkType>({ defaultValues: drink });
-
-  const [{ error }, execute] = useUpsert("drink", { filter });
-
-  const iForDMethods = useUpsert("ingredient_for_drink");
-  const executeIngredientForDrink = iForDMethods[1];
+  const methods = useForm<FieldValues>({ defaultValues: drink });
 
   const onSubmit = (values: DrinkFormValues) => {
-    const { ingredients, ...rest } = values;
-
-    execute(rest)
-      .then((result) => {
-        const drinkId = result.data[0].id;
-
-        for (const ingredientForDrink of ingredients) {
-          executeIngredientForDrink({
-            drink_id: drinkId,
-            ingredient_id: ingredientForDrink.ingredient.id,
-            amount: ingredientForDrink.amount,
-            unit: ingredientForDrink.unit,
-          });
-        }
-      })
-      .finally(() => {
-        triggerToast(values.name);
-        router.push(`${router.basePath}/drink/`);
-      });
+    const newDrink: CreateDrinkType = values;
+    submit(newDrink);
   };
 
   return (
@@ -75,7 +57,6 @@ const DrinkForm = (props: Props) => {
         <Button mt={4} colorScheme="teal" type="submit">
           Submit
         </Button>
-        <ErrorOrNot error={error} />
       </form>
     </FormProvider>
   );

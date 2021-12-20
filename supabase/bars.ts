@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BarType, DrinkType } from "../types/new";
+import { BarType } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 
@@ -38,8 +38,6 @@ export const useBars = () => {
 
   return { bars, setBars };
 };
-
-// Got to work my way out of Entity List for Bar aswell.
 
 const getBars = () =>
   supabase

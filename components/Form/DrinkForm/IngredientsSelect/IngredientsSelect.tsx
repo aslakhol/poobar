@@ -1,10 +1,10 @@
 import { IconButton } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
-import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
-import { useIngredients } from "../../../supabase/ingredients";
-import { DrinkFormValues } from "./DrinkForm";
+import { useIngredients } from "../../../../supabase/ingredients";
+import Loading from "../../../Loading";
+import { DrinkFormValues } from "../DrinkForm";
 import IngredientSelect from "./IngredientSelect";
 
 const IngredientsSelect = () => {
@@ -12,9 +12,9 @@ const IngredientsSelect = () => {
     name: "ingredients",
   });
 
-  const [{ data }] = useIngredients();
+  const { ingredients } = useIngredients();
 
-  if (!data) return <Spinner />;
+  if (!ingredients) return <Loading />;
 
   return (
     <>
@@ -24,13 +24,13 @@ const IngredientsSelect = () => {
           remove={remove}
           fieldArray={fieldArray}
           index={index}
-          data={data}
+          allIngredients={ingredients}
         />
       ))}
       <IconButton
         aria-label="Add Ingredient"
         onClick={() =>
-          append({ amount: 0, ingredient: { id: "0", name: "" }, unit: "" })
+          append({ amount: 0, ingredient: { id: 0, name: "" }, unit: "" })
         }
       >
         <AddIcon />

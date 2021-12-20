@@ -1,18 +1,16 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
-import { useFilter } from "react-supabase";
-import { DrinkType } from "../../../types/types";
 import DrinkForm from "./DrinkForm";
+import { DrinkType } from "../../../types/new";
 
 type Props = {
   drink: DrinkType;
+  updateDrink: (drink: DrinkType) => Promise<any>;
 };
 
 const EditDrinkForm = (props: Props) => {
-  const { drink } = props;
+  const { drink, updateDrink } = props;
   const toast = useToast();
-
-  const filter = useFilter((query) => query.eq("id", drink.id), [drink]);
 
   const triggerToast = (name: string) => {
     toast({
@@ -24,9 +22,14 @@ const EditDrinkForm = (props: Props) => {
     });
   };
 
-  return (
-    <DrinkForm drink={drink} triggerToast={triggerToast} filter={filter} />
-  );
+  const submit = (drink: DrinkType) => {
+    console.log(drink, "submit");
+    updateDrink(drink).then(() => {
+      triggerToast(drink.name);
+    });
+  };
+
+  return <DrinkForm drink={drink} submit={submit} />;
 };
 
 export default EditDrinkForm;

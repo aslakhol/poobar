@@ -1,8 +1,15 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import DrinkForm from "./DrinkForm";
+import { CreateDrinkType } from "../../../types/new";
+import router from "next/router";
 
-const CreateDrinkForm = () => {
+type Props = {
+  createDrink: (drink: CreateDrinkType) => Promise<any>;
+};
+
+const CreateDrinkForm = (props: Props) => {
+  const { createDrink } = props;
   const toast = useToast();
 
   const triggerToast = (name: string) => {
@@ -15,7 +22,14 @@ const CreateDrinkForm = () => {
     });
   };
 
-  return <DrinkForm triggerToast={triggerToast} />;
+  const submit = (drink: CreateDrinkType) => {
+    createDrink(drink).finally(() => {
+      triggerToast(drink.name);
+      router.push(`${router.basePath}/drink/`);
+    });
+  };
+
+  return <DrinkForm submit={submit} />;
 };
 
 export default CreateDrinkForm;

@@ -1,11 +1,15 @@
 import CreateDrinkForm from "../../components/Form/DrinkForm/CreateDrinkForm";
 import Header from "../../components/Header";
+import { createDrink } from "../../supabase/drinks";
+import { CreateDrinkType } from "../../types/new";
 
 const NewDrinkPage = () => {
+  const create = (drink: CreateDrinkType) => createDrink(drink);
+
   return (
     <>
       <Header />
-      <CreateDrinkForm />
+      <CreateDrinkForm createDrink={create} />
     </>
   );
 };

@@ -31,7 +31,7 @@ const DrinksList = (props: Props) => {
     <Table>
       <Thead>
         <Tr>
-          <Th>Ingredients</Th>
+          <Th>Drinks</Th>
           <Th>
             <NewLinkButton />
           </Th>

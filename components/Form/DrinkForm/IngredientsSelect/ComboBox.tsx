@@ -2,7 +2,7 @@ import { Box, forwardRef, Input, List, ListItem } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React, { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
-import { Ingredient } from "../../../types/types";
+import { IngredientType } from "../../../../types/new";
 
 type ItemType = {
   name: string;
@@ -11,7 +11,7 @@ type ItemType = {
 type ComboBoxProps = {
   items: ItemType[];
   name: string;
-  defaultValue: Ingredient;
+  defaultValue: IngredientType;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
