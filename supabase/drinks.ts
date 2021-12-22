@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Ingredient from "../pages/ingredient/[ingredientId]";
 import {
   CreateDrinkType,
   DrinkType,
@@ -73,13 +72,8 @@ export const createDrink = async (drink: CreateDrinkType) => {
 
 export const updateDrink = async (drink: DrinkType) => {
   const { ingredients, ...justDrink } = drink;
-  console.log(ingredients, "update Drink");
 
   await upsertIngredientsForDrink(justDrink.id, ingredients);
-
-  // for (const ingredient of ingredients) {
-  //   upsertIngredientForDrink(drink.id, ingredient);
-  // }
 
   return await supabase
     .from<DrinkType>("drink")
@@ -101,20 +95,6 @@ export const createIngredientForDrink = async (
     });
 };
 
-// export const updateIngredientForDrink = async (
-//   drinkId: number,
-//   ingredientForDrink: IngredientForDrinkType
-// ) => {
-//   return await supabase
-//     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-//     .update({
-//       amount: ingredientForDrink.amount,
-//       unit: ingredientForDrink.unit,
-//     })
-//     .eq("drink_id", drinkId)
-//     .eq("ingredient_id", ingredientForDrink.ingredient_id);
-// };
-
 export const upsertIngredientsForDrink = async (
   drinkId: number,
   ingredientsForDrink: IngredientForDrinkType[]
@@ -131,32 +111,7 @@ export const upsertIngredientsForDrink = async (
     });
   }
 
-  console.log(foo);
-
   return await supabase
     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
     .upsert(foo);
 };
-
-// export const upsertIngredientForDrink = async (
-//   drinkId: number,
-//   ingredientForDrink: IngredientForDrinkType
-// ) => {
-//   console.log(ingredientForDrink, "alskjdlksaj");
-
-//   return await supabase
-//     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-//     .upsert(
-//       {
-//         id: ingredientForDrink.id,
-//         drink_id: drinkId,
-//         ingredient_id: ingredientForDrink.ingredient.id,
-//         amount: ingredientForDrink.amount,
-//         unit: ingredientForDrink.unit,
-//       },
-//       { ignoreDuplicates: true }
-//     );
-// };
-
-//Supposedly upsert (and insert works with bulk, I should look into doing that instead)
-//https://github.com/supabase/supabase/issues/3089

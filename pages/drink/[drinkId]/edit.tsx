@@ -23,14 +23,12 @@ const EditDrinkPage = (props: { drinkId: number }) => {
   const { drinkId } = props;
   const { drink } = useDrink(drinkId);
   const editDrink = (drink: DrinkType) => {
-    console.log(drink, "editDrinkPage");
     return updateDrink(drink);
   };
 
   if (!drink) {
     return <Loading />;
   }
-  console.log(drink);
 
   return (
     <>

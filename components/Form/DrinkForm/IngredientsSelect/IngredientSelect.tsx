@@ -18,8 +18,6 @@ const IngredientSelect = (props: {
   const { index, fieldArray, allIngredients, remove } = props;
   const { id, amount, ingredient, unit } = fieldArray;
 
-  console.log(id, "id from fA");
-
   const { register } = useFormContext();
 
   return (

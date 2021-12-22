@@ -25,8 +25,6 @@ const EditIngredientPage = (props: { ingredientId: number }) => {
   const { ingredient } = useIngredient(ingredientId);
 
   const editIngredient = (ingredient: IngredientType) => {
-    console.log("EditIngredientPage", ingredient);
-
     updateIngredient(ingredient);
   };
 

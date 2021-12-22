@@ -23,7 +23,6 @@ const EditDrinkForm = (props: Props) => {
   };
 
   const submit = (drink: DrinkType) => {
-    console.log(drink, "submit");
     updateDrink(drink).then(() => {
       triggerToast(drink.name);
     });
