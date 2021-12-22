@@ -35,8 +35,12 @@ const DrinkForm = (props: Props) => {
 
   const onSubmit = (values: DrinkFormValues) => {
     const newDrink: CreateDrinkType = values;
+    console.log(values, "values");
+
     submit(newDrink);
   };
+
+  console.log(methods.watch(), "watch");
 
   return (
     <FormProvider {...methods}>

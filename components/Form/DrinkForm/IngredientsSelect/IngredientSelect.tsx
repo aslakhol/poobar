@@ -13,10 +13,12 @@ const IngredientSelect = (props: {
   index: number;
   allIngredients: IngredientType[];
   remove: (index?: number | number[] | undefined) => void;
-  fieldArray: FieldArrayWithId<DrinkFormValues, "ingredients", "id">;
+  fieldArray: FieldArrayWithId<DrinkFormValues, "ingredients", "key">;
 }) => {
   const { index, fieldArray, allIngredients, remove } = props;
   const { id, amount, ingredient, unit } = fieldArray;
+
+  console.log(id, "id from fA");
 
   const { register } = useFormContext();
 
