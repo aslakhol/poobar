@@ -64,7 +64,7 @@ export const createDrink = async (drink: CreateDrinkType) => {
         const drinkId = result.data[0].id;
 
         for (const ingredientForDrink of ingredients) {
-          createIngredientForDrink([mapToDto(drinkId, ingredientForDrink)]);
+          createIngredientForDrink([mapToCreate(drinkId, ingredientForDrink)]);
         }
       }
 
