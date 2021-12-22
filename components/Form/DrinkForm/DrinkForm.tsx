@@ -4,7 +4,7 @@ import {
   FormProvider,
   useForm,
 } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
@@ -15,6 +15,7 @@ import {
   IngredientForDrinkType,
 } from "../../../types/new";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
+import { deleteIngredientForDrink } from "../../../supabase/drinks";
 
 export type DrinkFormValues = {
   name: string;
@@ -30,13 +31,22 @@ type Props = {
 
 const DrinkForm = (props: Props) => {
   const { drink, submit } = props;
+  const [ingredientsToDelete, setIngredientsToDelete] = useState<number[]>([]);
 
   const methods = useForm<FieldValues>({ defaultValues: drink });
 
-  const onSubmit = (values: DrinkFormValues) => {
+  const onSubmit = async (values: DrinkFormValues) => {
     const newDrink: CreateDrinkType = values;
+    console.log(newDrink);
 
     submit(newDrink);
+
+    if (!drink) {
+      return;
+    }
+    console.log("delete:", ingredientsToDelete, drink.id);
+
+    await deleteIngredientForDrink(ingredientsToDelete, drink.id);
   };
 
   return (
@@ -46,7 +56,7 @@ const DrinkForm = (props: Props) => {
           register={methods.register}
           fieldError={methods.formState.errors.name as FieldError}
         />
-        <IngredientsSelect />
+        <IngredientsSelect setIngredientsToDelete={setIngredientsToDelete} />
         <Instruction
           register={methods.register}
           fieldError={methods.formState.errors.instructions as FieldError}

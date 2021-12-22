@@ -1,13 +1,18 @@
 import { IconButton } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useFieldArray } from "react-hook-form";
 import { useIngredients } from "../../../../supabase/ingredients";
 import Loading from "../../../Loading";
 import { DrinkFormValues } from "../DrinkForm";
 import IngredientSelect from "./IngredientSelect";
 
-const IngredientsSelect = () => {
+type Props = {
+  setIngredientsToDelete: Dispatch<SetStateAction<number[]>>;
+};
+
+const IngredientsSelect = (props: Props) => {
+  const { setIngredientsToDelete } = props;
   const { fields, append, remove } = useFieldArray<
     DrinkFormValues,
     "ingredients",
@@ -19,6 +24,14 @@ const IngredientsSelect = () => {
 
   const { ingredients } = useIngredients();
 
+  const markIngredientForDeletion = (index: number, ingredientId: number) => {
+    remove(index);
+    if (ingredientId === 0) {
+      return;
+    }
+    setIngredientsToDelete((prevState) => [...prevState, ingredientId]);
+  };
+
   if (!ingredients) return <Loading />;
 
   return (
@@ -26,7 +39,7 @@ const IngredientsSelect = () => {
       {fields.map((fieldArray, index) => (
         <IngredientSelect
           key={fieldArray.key}
-          remove={remove}
+          markDelete={markIngredientForDeletion}
           fieldArray={fieldArray}
           index={index}
           allIngredients={ingredients}
@@ -35,7 +48,6 @@ const IngredientsSelect = () => {
       <IconButton
         aria-label="Add Ingredient"
         onClick={() => {
-          debugger;
           append({
             amount: 0,
             ingredient: { id: 0, name: "" },

@@ -99,10 +99,10 @@ export const upsertIngredientsForDrink = async (
   drinkId: number,
   ingredientsForDrink: IngredientForDrinkType[]
 ) => {
-  let foo = [];
+  let toUpsert = [];
 
   for (const i of ingredientsForDrink) {
-    foo.push({
+    toUpsert.push({
       id: i.id,
       drink_id: drinkId,
       ingredient_id: i.ingredient.id,
@@ -113,5 +113,16 @@ export const upsertIngredientsForDrink = async (
 
   return await supabase
     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-    .upsert(foo);
+    .upsert(toUpsert);
+};
+
+export const deleteIngredientForDrink = async (
+  ingredientForDrinkIds: number[],
+  drinkId: number
+) => {
+  return await supabase
+    .from<IngredientForDrinkType>("ingredient_for_drink")
+    .delete()
+    .in("ingredient_id", ingredientForDrinkIds)
+    .eq("drink_id", drinkId);
 };

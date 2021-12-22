@@ -12,10 +12,10 @@ import { DrinkFormValues } from "../DrinkForm";
 const IngredientSelect = (props: {
   index: number;
   allIngredients: IngredientType[];
-  remove: (index?: number | number[] | undefined) => void;
+  markDelete: (index: number, ingredientId: number) => void;
   fieldArray: FieldArrayWithId<DrinkFormValues, "ingredients", "key">;
 }) => {
-  const { index, fieldArray, allIngredients, remove } = props;
+  const { index, fieldArray, allIngredients, markDelete } = props;
   const { id, amount, ingredient, unit } = fieldArray;
 
   const { register } = useFormContext();
@@ -52,7 +52,7 @@ const IngredientSelect = (props: {
       <IconButton
         aria-label="Remove ingredient"
         variant="ghost"
-        onClick={() => remove(index)}
+        onClick={() => markDelete(index, ingredient.id)}
       >
         <DeleteIcon />
       </IconButton>
