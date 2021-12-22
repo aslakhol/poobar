@@ -4,6 +4,7 @@ import {
   CreateIngredientForDrinkType,
   DrinkType,
   IngredientForDrinkType,
+  UpdateIngredientForDrinkType,
 } from "../types/new";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
@@ -63,7 +64,7 @@ export const createDrink = async (drink: CreateDrinkType) => {
         const drinkId = result.data[0].id;
 
         for (const ingredientForDrink of ingredients) {
-          createIngredientForDrink(drinkId, ingredientForDrink);
+          createIngredientForDrink([mapToDto(drinkId, ingredientForDrink)]);
         }
       }
 
@@ -86,42 +87,59 @@ export const upsertIngredientsForDrink = async (
   drinkId: number,
   ingredientsForDrink: IngredientForDrinkType[]
 ) => {
+  const toInsert = [];
+  const toUpdate = [];
+
   for (const i of ingredientsForDrink) {
     if (i.id === 0) {
-      createIngredientForDrink(drinkId, i);
+      console.log(i, "inserting");
+
+      toInsert.push(mapToCreate(drinkId, i));
     } else {
-      updateIngredientForDrink(drinkId, i);
+      console.log(i, "updateing");
+
+      toUpdate.push(mapToUpdate(drinkId, i));
     }
   }
+  await createIngredientForDrink(toInsert);
+  await updateIngredientForDrink(toUpdate);
 };
 
-export const createIngredientForDrink = async (
+const mapToCreate = (
   drinkId: number,
-  ingredientForDrink: CreateIngredientForDrinkType
+  i: IngredientForDrinkType
+): CreateIngredientForDrinkType => ({
+  drink_id: drinkId,
+  ingredient_id: i.ingredient.id,
+  amount: i.amount,
+  unit: i.unit,
+});
+
+const mapToUpdate = (
+  drinkId: number,
+  i: IngredientForDrinkType
+): UpdateIngredientForDrinkType => ({
+  id: i.id,
+  drink_id: drinkId,
+  ingredient_id: i.ingredient.id,
+  amount: i.amount,
+  unit: i.unit,
+});
+
+export const createIngredientForDrink = async (
+  ingredientsForDrinks: CreateIngredientForDrinkType[]
 ) => {
   return await supabase
     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-    .insert({
-      drink_id: drinkId,
-      ingredient_id: ingredientForDrink.ingredient.id,
-      amount: ingredientForDrink.amount,
-      unit: ingredientForDrink.unit,
-    });
+    .insert(ingredientsForDrinks);
 };
 
 const updateIngredientForDrink = async (
-  drinkId: number,
-  ingredientForDrink: IngredientForDrinkType
+  ingredientsForDrinks: UpdateIngredientForDrinkType[]
 ) => {
   return await supabase
-    .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-    .update({
-      drink_id: drinkId,
-      ingredient_id: ingredientForDrink.ingredient.id,
-      amount: ingredientForDrink.amount,
-      unit: ingredientForDrink.unit,
-    })
-    .eq("id", ingredientForDrink.id);
+    .from("ingredient_for_drink")
+    .upsert(ingredientsForDrinks);
 };
 
 export const deleteIngredientForDrink = async (
