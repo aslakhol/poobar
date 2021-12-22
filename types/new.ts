@@ -17,3 +17,5 @@ export type IngredientType = definitions["ingredient"];
 export type CreateIngredientType = Omit<definitions["ingredient"], "id">;
 
 export type CreateDrinkType = Omit<DrinkType, "id">;
+
+export type CreateIngredientForDrinkType = Omit<IngredientForDrinkType, "id">;

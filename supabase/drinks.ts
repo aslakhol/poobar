@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   CreateDrinkType,
+  CreateIngredientForDrinkType,
   DrinkType,
   IngredientForDrinkType,
 } from "../types/new";
@@ -81,9 +82,22 @@ export const updateDrink = async (drink: DrinkType) => {
     .eq("id", drink.id);
 };
 
+export const upsertIngredientsForDrink = async (
+  drinkId: number,
+  ingredientsForDrink: IngredientForDrinkType[]
+) => {
+  for (const i of ingredientsForDrink) {
+    if (i.id === 0) {
+      createIngredientForDrink(drinkId, i);
+    } else {
+      updateIngredientForDrink(drinkId, i);
+    }
+  }
+};
+
 export const createIngredientForDrink = async (
   drinkId: number,
-  ingredientForDrink: IngredientForDrinkType
+  ingredientForDrink: CreateIngredientForDrinkType
 ) => {
   return await supabase
     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
@@ -95,25 +109,19 @@ export const createIngredientForDrink = async (
     });
 };
 
-export const upsertIngredientsForDrink = async (
+const updateIngredientForDrink = async (
   drinkId: number,
-  ingredientsForDrink: IngredientForDrinkType[]
+  ingredientForDrink: IngredientForDrinkType
 ) => {
-  let toUpsert = [];
-
-  for (const i of ingredientsForDrink) {
-    toUpsert.push({
-      id: i.id,
-      drink_id: drinkId,
-      ingredient_id: i.ingredient.id,
-      amount: Number(i.amount),
-      unit: i.unit,
-    });
-  }
-
   return await supabase
     .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-    .upsert(toUpsert);
+    .update({
+      drink_id: drinkId,
+      ingredient_id: ingredientForDrink.ingredient.id,
+      amount: ingredientForDrink.amount,
+      unit: ingredientForDrink.unit,
+    })
+    .eq("id", ingredientForDrink.id);
 };
 
 export const deleteIngredientForDrink = async (
