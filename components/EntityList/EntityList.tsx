@@ -10,7 +10,6 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 
 import { useRouter } from "next/router";
-import { Entity } from "../../types/types";
 import EntityListElement from "./EntityListElement";
 import { useDelete } from "react-supabase";
 import { useState } from "react";
@@ -63,3 +62,8 @@ const EntityList = (props: Props) => {
 };
 
 export default EntityList;
+
+export type Entity = {
+  id: string;
+  name: string;
+};

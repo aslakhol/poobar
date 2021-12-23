@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Tr, Td, Link, Button } from "@chakra-ui/react";
-import { Entity } from "../../types/types";
+import { Entity } from "./EntityList";
 
 type EntityListElementProps = {
   entity: Entity;
