@@ -37,16 +37,16 @@ const DrinkForm = (props: Props) => {
 
   const onSubmit = async (values: DrinkFormValues) => {
     const newDrink: CreateDrinkType = values;
-    console.log(newDrink);
-
     submit(newDrink);
 
     if (!drink) {
       return;
     }
-    console.log("delete:", ingredientsToDelete, drink.id);
+    console.log("delete in submit:", ingredientsToDelete, drink.id);
 
-    await deleteIngredientForDrink(ingredientsToDelete, drink.id);
+    await deleteIngredientForDrink(ingredientsToDelete).then(() =>
+      setIngredientsToDelete([])
+    );
   };
 
   return (

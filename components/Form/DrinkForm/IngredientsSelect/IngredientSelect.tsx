@@ -52,7 +52,7 @@ const IngredientSelect = (props: {
       <IconButton
         aria-label="Remove ingredient"
         variant="ghost"
-        onClick={() => markDelete(index, ingredient.id)}
+        onClick={() => markDelete(index, id)}
       >
         <DeleteIcon />
       </IconButton>

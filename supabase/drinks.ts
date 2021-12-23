@@ -92,12 +92,8 @@ export const upsertIngredientsForDrink = async (
 
   for (const i of ingredientsForDrink) {
     if (i.id === 0) {
-      console.log(i, "inserting");
-
       toInsert.push(mapToCreate(drinkId, i));
     } else {
-      console.log(i, "updateing");
-
       toUpdate.push(mapToUpdate(drinkId, i));
     }
   }
@@ -143,12 +139,10 @@ const updateIngredientForDrink = async (
 };
 
 export const deleteIngredientForDrink = async (
-  ingredientForDrinkIds: number[],
-  drinkId: number
+  ingredientForDrinkIds: number[]
 ) => {
   return await supabase
     .from<IngredientForDrinkType>("ingredient_for_drink")
     .delete()
-    .in("ingredient_id", ingredientForDrinkIds)
-    .eq("drink_id", drinkId);
+    .in("id", ingredientForDrinkIds);
 };
