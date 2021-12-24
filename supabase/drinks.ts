@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import {
-  CreateDrinkType,
-  CreateIngredientForDrinkType,
-  DrinkType,
-  IngredientForDrinkType,
-  UpdateIngredientForDrinkType,
-} from "../types/types";
+import { CreateDrinkType, DrinkType } from "../types/types";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
+import {
+  createIngredientForDrink,
+  mapToCreate,
+  upsertIngredientsForDrink,
+} from "./ingredientForDrink";
 
 export const useDrink = (drinkId: number) => {
   const [drink, setDrink] = useState<DrinkType>();
@@ -81,68 +80,4 @@ export const updateDrink = async (drink: DrinkType) => {
     .from<DrinkType>("drink")
     .update(justDrink)
     .eq("id", drink.id);
-};
-
-export const upsertIngredientsForDrink = async (
-  drinkId: number,
-  ingredientsForDrink: IngredientForDrinkType[]
-) => {
-  const toInsert = [];
-  const toUpdate = [];
-
-  for (const i of ingredientsForDrink) {
-    if (i.id === 0) {
-      toInsert.push(mapToCreate(drinkId, i));
-    } else {
-      toUpdate.push(mapToUpdate(drinkId, i));
-    }
-  }
-  await createIngredientForDrink(toInsert);
-  await updateIngredientForDrink(toUpdate);
-};
-
-const mapToCreate = (
-  drinkId: number,
-  i: IngredientForDrinkType
-): CreateIngredientForDrinkType => ({
-  drink_id: drinkId,
-  ingredient_id: i.ingredient.id,
-  amount: i.amount,
-  unit: i.unit,
-});
-
-const mapToUpdate = (
-  drinkId: number,
-  i: IngredientForDrinkType
-): UpdateIngredientForDrinkType => ({
-  id: i.id,
-  drink_id: drinkId,
-  ingredient_id: i.ingredient.id,
-  amount: i.amount,
-  unit: i.unit,
-});
-
-export const createIngredientForDrink = async (
-  ingredientsForDrinks: CreateIngredientForDrinkType[]
-) => {
-  return await supabase
-    .from<definitions["ingredient_for_drink"]>("ingredient_for_drink")
-    .insert(ingredientsForDrinks);
-};
-
-const updateIngredientForDrink = async (
-  ingredientsForDrinks: UpdateIngredientForDrinkType[]
-) => {
-  return await supabase
-    .from("ingredient_for_drink")
-    .upsert(ingredientsForDrinks);
-};
-
-export const deleteIngredientForDrink = async (
-  ingredientForDrinkIds: number[]
-) => {
-  return await supabase
-    .from<IngredientForDrinkType>("ingredient_for_drink")
-    .delete()
-    .in("id", ingredientForDrinkIds);
 };
