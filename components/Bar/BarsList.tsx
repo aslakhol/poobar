@@ -1,5 +1,5 @@
 import { Table, Thead, Tr, Th, Tbody, Link, Td } from "@chakra-ui/react";
-import { BarType } from "../../types/new";
+import { BarType } from "../../types/types";
 
 type Props = {
   bars: BarType[];

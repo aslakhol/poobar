@@ -3,7 +3,7 @@ import EditDrinkForm from "../../../components/Drink/DrinkForm/EditDrinkForm";
 import Header from "../../../components/Header";
 import { updateDrink, useDrink } from "../../../supabase/drinks";
 import Loading from "../../../components/Loading";
-import { DrinkType } from "../../../types/new";
+import { DrinkType } from "../../../types/types";
 
 const RoutedEditDrink = () => {
   const router = useRouter();

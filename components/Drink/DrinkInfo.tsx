@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/layout";
 import React from "react";
-import { DrinkType, IngredientForDrinkType } from "../../types/new";
+import { DrinkType, IngredientForDrinkType } from "../../types/types";
 
 type Props = { drink: DrinkType };
 

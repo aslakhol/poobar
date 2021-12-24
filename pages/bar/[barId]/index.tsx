@@ -10,7 +10,7 @@ import {
   useBar,
 } from "../../../supabase/bars";
 import { useDrinks } from "../../../supabase/drinks";
-import { BarType, DrinkType } from "../../../types/new";
+import { BarType, DrinkType } from "../../../types/types";
 
 const RoutedBarPage = () => {
   const router = useRouter();

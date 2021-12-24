@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import CreateIngredientForm from "../../components/Ingredients/IngredientForm/CreateIngredientForm";
 import { createIngredient } from "../../supabase/ingredients";
-import { CreateIngredientType } from "../../types/new";
+import { CreateIngredientType } from "../../types/types";
 
 const NewIngredientPage = () => {
   const create = (ingredient: CreateIngredientType) =>

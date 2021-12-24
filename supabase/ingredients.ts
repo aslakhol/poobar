@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CreateIngredientType, IngredientType } from "../types/new";
+import { CreateIngredientType, IngredientType } from "../types/types";
 import { supabase } from "../utils/superbaseClient";
 
 export const useIngredient = (ingredientId: number) => {

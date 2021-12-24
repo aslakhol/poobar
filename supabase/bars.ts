@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BarType } from "../types/new";
+import { BarType } from "../types/types";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 

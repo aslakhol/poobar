@@ -2,7 +2,7 @@ import React from "react";
 import { useToast } from "@chakra-ui/react";
 import IngredientForm from "./IngredientForm";
 import { useRouter } from "next/router";
-import { IngredientType } from "../../../types/new";
+import { IngredientType } from "../../../types/types";
 
 type Props = {
   ingredient: IngredientType;

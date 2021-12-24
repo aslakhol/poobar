@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { DrinkType } from "../../types/new";
+import { DrinkType } from "../../types/types";
 
 type Props = {
   drinks: DrinkType[];

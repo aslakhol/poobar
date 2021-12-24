@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import EditIngredientForm from "../../../components/Ingredients/IngredientForm/EditIngredientForm";
 import { updateIngredient, useIngredient } from "../../../supabase/ingredients";
 import Loading from "../../../components/Loading";
-import { IngredientType } from "../../../types/new";
+import { IngredientType } from "../../../types/types";
 
 const RoutedEditIngredient = () => {
   const router = useRouter();

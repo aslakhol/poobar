@@ -2,7 +2,7 @@ import { Box, forwardRef, Input, List, ListItem } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React, { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
-import { IngredientType } from "../../../../types/new";
+import { IngredientType } from "../../../../types/types";
 
 type ItemType = {
   name: string;

@@ -2,7 +2,7 @@ import { FieldError, FieldValues, useForm } from "react-hook-form";
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import Name from "./Name";
-import { IngredientType } from "../../../types/new";
+import { IngredientType } from "../../../types/types";
 
 type IngredientFormValues = {
   name: string;

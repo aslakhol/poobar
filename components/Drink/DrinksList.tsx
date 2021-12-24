@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
-import { DrinkType } from "../../types/new";
+import { DrinkType } from "../../types/types";
 import NewLinkButton from "../NewLinkButton";
 
 type Props = {

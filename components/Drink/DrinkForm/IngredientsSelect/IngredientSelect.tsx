@@ -5,7 +5,7 @@ import { NumberInput, NumberInputField } from "@chakra-ui/number-input";
 import { Select } from "@chakra-ui/select";
 import React from "react";
 import { FieldArrayWithId, useFormContext } from "react-hook-form";
-import { IngredientType } from "../../../../types/new";
+import { IngredientType } from "../../../../types/types";
 import ComboBox from "./ComboBox";
 import { DrinkFormValues } from "../DrinkForm";
 

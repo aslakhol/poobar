@@ -13,7 +13,7 @@ import {
   CreateDrinkType,
   DrinkType,
   IngredientForDrinkType,
-} from "../../../types/new";
+} from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
 import { deleteIngredientForDrink } from "../../../supabase/drinks";
 

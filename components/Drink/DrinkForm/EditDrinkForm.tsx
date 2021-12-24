@@ -1,7 +1,7 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import DrinkForm from "./DrinkForm";
-import { DrinkType } from "../../../types/new";
+import { DrinkType } from "../../../types/types";
 
 type Props = {
   drink: DrinkType;

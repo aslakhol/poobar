@@ -5,7 +5,7 @@ import {
   DrinkType,
   IngredientForDrinkType,
   UpdateIngredientForDrinkType,
-} from "../types/new";
+} from "../types/types";
 import { definitions } from "../types/supabase";
 import { supabase } from "../utils/superbaseClient";
 

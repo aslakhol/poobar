@@ -1,7 +1,7 @@
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import IngredientForm from "./IngredientForm";
-import { CreateIngredientType } from "../../../types/new";
+import { CreateIngredientType } from "../../../types/types";
 
 type Props = {
   create: (ingredient: CreateIngredientType) => void;

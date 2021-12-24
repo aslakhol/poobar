@@ -1,6 +1,6 @@
 import { Center } from "@chakra-ui/layout";
 import React, { useMemo, useState } from "react";
-import { BarType, DrinkType } from "../../types/new";
+import { BarType, DrinkType } from "../../types/types";
 import BarNav from "./BarNav";
 import ComboBox from "./ComboBox";
 import DrinkList from "./DrinkList";
