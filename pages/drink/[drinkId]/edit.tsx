@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import EditDrinkForm from "../../../components/Form/DrinkForm/EditDrinkForm";
+import EditDrinkForm from "../../../components/Drink/DrinkForm/EditDrinkForm";
 import Header from "../../../components/Header";
 import { updateDrink, useDrink } from "../../../supabase/drinks";
 import Loading from "../../../components/Loading";

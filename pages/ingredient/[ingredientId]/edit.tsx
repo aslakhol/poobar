@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
 import React from "react";
 import Header from "../../../components/Header";
-import EditIngredientForm from "../../../components/Form/IngredientForm/EditIngredientForm";
+import EditIngredientForm from "../../../components/Ingredients/IngredientForm/EditIngredientForm";
 import { updateIngredient, useIngredient } from "../../../supabase/ingredients";
 import Loading from "../../../components/Loading";
 import { IngredientType } from "../../../types/new";
