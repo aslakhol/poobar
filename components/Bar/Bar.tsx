@@ -87,11 +87,7 @@ const AddDrink = (props: {
 
   return (
     <Center>
-      <ComboBox
-        items={drinks}
-        onSelectedItemChange={onSelectedItemChange}
-        submit={() => console.log("fooo")}
-      />
+      <ComboBox items={drinks} onSelectedItemChange={onSelectedItemChange} />
     </Center>
   );
 };

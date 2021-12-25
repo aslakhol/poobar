@@ -1,4 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { ArrowDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -10,7 +10,7 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { useCombobox, UseComboboxStateChange } from "downshift";
+import { useCombobox } from "downshift";
 import React, { useState } from "react";
 import LinkButton from "../LinkButton";
 
@@ -21,12 +21,11 @@ type ItemType = {
 
 type ComboBoxProps = {
   items: ItemType[];
-  submit: () => void;
   onSelectedItemChange: (selectedItem: ItemType | undefined) => void;
 };
 
 const ComboBox = (props: ComboBoxProps) => {
-  const { items, onSelectedItemChange, submit } = props;
+  const { items, onSelectedItemChange } = props;
   const [inputItems, setInputItems] = useState(items);
 
   const {
@@ -36,6 +35,7 @@ const ComboBox = (props: ComboBoxProps) => {
     getComboboxProps,
     highlightedIndex,
     getItemProps,
+    getToggleButtonProps,
   } = useCombobox({
     items: inputItems,
     onSelectedItemChange: ({ inputValue }) => {
@@ -80,22 +80,13 @@ const ComboBox = (props: ComboBoxProps) => {
   return (
     <Box>
       <Box {...getComboboxProps()}>
-        {submit ? (
-          <ComboboxInputWithButton
-            {...getInputProps()}
-            placeholder="Search..."
-            flex="0 0 auto"
-            width={500}
-            submit={submit}
-          />
-        ) : (
-          <ComboboxInput
-            {...getInputProps()}
-            placeholder="Search..."
-            flex="0 0 auto"
-            width={500}
-          />
-        )}
+        <ComboboxInputWithButton
+          {...getInputProps()}
+          getToggleButtonProps={getToggleButtonProps}
+          placeholder="Search..."
+          flex="0 0 auto"
+          width={500}
+        />
       </Box>
       <ComboboxList
         isOpen={isOpen}
@@ -112,24 +103,20 @@ const ComboBox = (props: ComboBoxProps) => {
 };
 
 const ComboboxInputWithButton = forwardRef(({ ...props }, ref) => {
-  const { submit, ...rest } = props;
+  const { getToggleButtonProps, ...rest } = props;
   return (
     <InputGroup>
       <Input {...rest} ref={ref} />
       <InputRightElement>
         <IconButton
+          {...getToggleButtonProps()}
           size="sm"
           aria-label="Add drink to bar"
-          icon={<AddIcon />}
-          onClick={submit}
+          icon={<ArrowDownIcon />}
         />
       </InputRightElement>
     </InputGroup>
   );
-});
-
-const ComboboxInput = forwardRef(({ ...props }, ref) => {
-  return <Input {...props} ref={ref} />;
 });
 
 const ComboboxList = forwardRef(({ isOpen, ...props }, ref) => {
