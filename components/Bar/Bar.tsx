@@ -40,6 +40,9 @@ const Bar = (props: Props) => {
   };
 
   const addDrinkToBar = (drinkId: number) => {
+    const drinkToAdd = allDrinks.filter((drink) => drink.id === drinkId)[0];
+
+    setDrinks((prevState) => [...prevState, drinkToAdd]);
     addDrink(drinkId);
   };
 
