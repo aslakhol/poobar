@@ -46,8 +46,10 @@ const getBars = () =>
       "*, drinks: drink (*, ingredients: ingredient_for_drink (*, ingredient (*)))"
     );
 
-export const deleteDrinkForBar = (drinkId: number, barId: number) => {
-  return supabase
+export const deleteDrinkForBar = async (drinkId: number, barId: number) => {
+  console.log("deleteDrinkForBar", drinkId, barId);
+
+  return await supabase
     .from("drink_for_bar")
     .delete()
     .eq("drink_id", drinkId)
