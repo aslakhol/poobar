@@ -15,7 +15,7 @@ import {
   IngredientForDrinkType,
 } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
-import { deleteIngredientForDrink } from "../../../supabase/drinks";
+import { deleteIngredientForDrink } from "../../../supabase/ingredientForDrink";
 
 export type DrinkFormValues = {
   name: string;
@@ -42,7 +42,6 @@ const DrinkForm = (props: Props) => {
     if (!drink) {
       return;
     }
-    console.log("delete in submit:", ingredientsToDelete, drink.id);
 
     await deleteIngredientForDrink(ingredientsToDelete).then(() =>
       setIngredientsToDelete([])
