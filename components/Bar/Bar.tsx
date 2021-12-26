@@ -19,10 +19,9 @@ const Bar = (props: Props) => {
   const [addingDrinks, setAddingDrinks] = useState(false);
   const [addingIngredients, setAddingIngredients] = useState(false);
 
-  const drinksNotInBar = useMemo(
-    () => allDrinks.filter((drink) => !bar.drinks.includes(drink)),
-    [allDrinks, bar.drinks]
-  );
+  const drinksNotInBar = useMemo(() => {
+    return allDrinks.filter((drink) => !drinkInBar(drink, drinks));
+  }, [allDrinks, drinks]);
 
   const toggleAddingDrinks = () => {
     setAddingDrinks((prev) => !prev);
@@ -65,11 +64,6 @@ const Bar = (props: Props) => {
 
 export default Bar;
 
-type ItemType = {
-  name: string;
-  id: number;
-};
-
 const AddDrink = (props: {
   display: boolean;
   drinks: DrinkType[];
@@ -77,9 +71,14 @@ const AddDrink = (props: {
 }) => {
   const { display, drinks, addDrink } = props;
 
-  if (!display) return null;
+  if (!display) {
+    return null;
+  }
 
-  const onSelectedItemChange = (selectedItem: ItemType | undefined) => {
+  const onSelectedItemChange = (selectedItem?: {
+    name: string;
+    id: number;
+  }) => {
     if (selectedItem) {
       addDrink(selectedItem.id);
     }
@@ -95,10 +94,22 @@ const AddDrink = (props: {
 const AddIngredient = (props: { display: boolean }) => {
   const { display } = props;
 
-  if (!display) return null;
+  if (!display) {
+    return null;
+  }
+
   return (
     <Center>
       <div>Add Ingredient</div>
     </Center>
   );
+};
+
+const drinkInBar = (drink: DrinkType, barDrinks: DrinkType[]) => {
+  for (const barDrink of barDrinks) {
+    if (barDrink.id === drink.id) {
+      return true;
+    }
+  }
+  return false;
 };
