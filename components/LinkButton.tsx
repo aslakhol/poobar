@@ -11,11 +11,9 @@ const LinkButton = (props: LinkButtonProps) => {
   const { href, children } = props;
 
   return (
-    <Link href={href} passHref>
-      <Button variant="link" as="a">
-        {children}
-      </Button>
-    </Link>
+    <Button variant="link">
+      <Link href={href}>{children}</Link>
+    </Button>
   );
 };
 
