@@ -9,20 +9,11 @@ import { Button } from "@chakra-ui/react";
 import Name from "./Name";
 import Description from "./Description";
 import Instruction from "./Instructions";
-import {
-  CreateDrinkType,
-  DrinkType,
-  IngredientForDrinkType,
-} from "../../../types/types";
+import { CreateDrinkType, DrinkType } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
 import { deleteIngredientForDrink } from "../../../supabase/ingredientForDrink";
 
-export type DrinkFormValues = {
-  name: string;
-  ingredients: IngredientForDrinkType[];
-  description: string;
-  instructions: string;
-};
+export type DrinkFormValues = CreateDrinkType;
 
 type Props = {
   drink?: DrinkType;

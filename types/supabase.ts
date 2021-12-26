@@ -110,6 +110,7 @@ export interface paths {
           name?: parameters["rowFilter.drink.name"];
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
+          deleted?: parameters["rowFilter.drink.deleted"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -164,6 +165,7 @@ export interface paths {
           name?: parameters["rowFilter.drink.name"];
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
+          deleted?: parameters["rowFilter.drink.deleted"];
         };
         header: {
           /** Preference */
@@ -182,6 +184,7 @@ export interface paths {
           name?: parameters["rowFilter.drink.name"];
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
+          deleted?: parameters["rowFilter.drink.deleted"];
         };
         body: {
           /** drink */
@@ -962,6 +965,7 @@ export interface definitions {
     name: string;
     description?: string;
     instructions?: string;
+    deleted: boolean;
   };
   drink_for_bar: {
     /**
@@ -1108,6 +1112,7 @@ export interface parameters {
   "rowFilter.drink.name": string;
   "rowFilter.drink.description": string;
   "rowFilter.drink.instructions": string;
+  "rowFilter.drink.deleted": string;
   /** drink_for_bar */
   "body.drink_for_bar": definitions["drink_for_bar"];
   "rowFilter.drink_for_bar.id": string;

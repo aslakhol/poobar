@@ -45,11 +45,15 @@ export const useDrinks = () => {
 const getDrinks = async () => {
   return await supabase
     .from<DrinkType>("drink")
-    .select("*, ingredients: ingredient_for_drink (*, ingredient (*))");
+    .select("*, ingredients: ingredient_for_drink (*, ingredient (*))")
+    .eq("deleted", false);
 };
 
 export const deleteDrink = async (drinkId: number) => {
-  return await supabase.from<DrinkType>("drink").delete().eq("id", drinkId);
+  return await supabase
+    .from<DrinkType>("drink")
+    .update({ deleted: true })
+    .eq("id", drinkId);
 };
 
 export const createDrink = async (drink: CreateDrinkType) => {

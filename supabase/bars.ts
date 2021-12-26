@@ -47,8 +47,6 @@ const getBars = () =>
     );
 
 export const deleteDrinkForBar = async (drinkId: number, barId: number) => {
-  console.log("deleteDrinkForBar", drinkId, barId);
-
   return await supabase
     .from("drink_for_bar")
     .delete()
