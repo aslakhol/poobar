@@ -579,6 +579,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.ingredient.id"];
           name?: parameters["rowFilter.ingredient.name"];
+          description?: parameters["rowFilter.ingredient.description"];
+          deleted?: parameters["rowFilter.ingredient.deleted"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -631,6 +633,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.ingredient.id"];
           name?: parameters["rowFilter.ingredient.name"];
+          description?: parameters["rowFilter.ingredient.description"];
+          deleted?: parameters["rowFilter.ingredient.deleted"];
         };
         header: {
           /** Preference */
@@ -647,6 +651,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.ingredient.id"];
           name?: parameters["rowFilter.ingredient.name"];
+          description?: parameters["rowFilter.ingredient.description"];
+          deleted?: parameters["rowFilter.ingredient.deleted"];
         };
         body: {
           /** ingredient */
@@ -1034,6 +1040,8 @@ export interface definitions {
      */
     id: number;
     name: string;
+    description?: string;
+    deleted: boolean;
   };
   ingredient_for_bar: {
     /**
@@ -1137,6 +1145,8 @@ export interface parameters {
   "body.ingredient": definitions["ingredient"];
   "rowFilter.ingredient.id": string;
   "rowFilter.ingredient.name": string;
+  "rowFilter.ingredient.description": string;
+  "rowFilter.ingredient.deleted": string;
   /** ingredient_for_bar */
   "body.ingredient_for_bar": definitions["ingredient_for_bar"];
   "rowFilter.ingredient_for_bar.id": string;

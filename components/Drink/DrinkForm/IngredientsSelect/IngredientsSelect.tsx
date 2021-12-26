@@ -50,7 +50,7 @@ const IngredientsSelect = (props: Props) => {
         onClick={() => {
           append({
             amount: 0,
-            ingredient: { id: 0, name: "" },
+            ingredient: { id: 0, name: "", deleted: false },
             unit: "",
             id: 0,
             ingredient_id: 0,

@@ -37,13 +37,16 @@ export const useIngredients = () => {
 };
 
 const getIngredients = async () => {
-  return await supabase.from<IngredientType>("ingredient").select("*");
+  return await supabase
+    .from<IngredientType>("ingredient")
+    .select("*")
+    .eq("deleted", false);
 };
 
 export const deleteIngredient = async (ingredientId: number) => {
   return await supabase
     .from<IngredientType>("ingredient")
-    .delete()
+    .update({ deleted: true })
     .eq("id", ingredientId);
 };
 
