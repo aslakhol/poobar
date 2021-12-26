@@ -43,6 +43,7 @@ const Bar = (props: Props) => {
 
     setDrinks((prevState) => [...prevState, drinkToAdd]);
     addDrink(drinkId);
+    setAddingDrinks(false);
   };
 
   return (
