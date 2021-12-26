@@ -5,15 +5,14 @@ import { NumberInput, NumberInputField } from "@chakra-ui/number-input";
 import { Select } from "@chakra-ui/select";
 import React from "react";
 import { FieldArrayWithId, useFormContext } from "react-hook-form";
-import { IngredientType } from "../../../../types/types";
+import { CreateDrinkType, IngredientType } from "../../../../types/types";
 import ComboBox from "./ComboBox";
-import { DrinkFormValues } from "../DrinkForm";
 
 const IngredientSelect = (props: {
   index: number;
   allIngredients: IngredientType[];
   markDelete: (index: number, ingredientId: number) => void;
-  fieldArray: FieldArrayWithId<DrinkFormValues, "ingredients", "key">;
+  fieldArray: FieldArrayWithId<CreateDrinkType, "ingredients", "key">;
 }) => {
   const { index, fieldArray, allIngredients, markDelete } = props;
   const { id, amount, ingredient, unit } = fieldArray;

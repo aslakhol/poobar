@@ -3,8 +3,8 @@ import { AddIcon } from "@chakra-ui/icons";
 import React, { Dispatch, SetStateAction } from "react";
 import { useFieldArray } from "react-hook-form";
 import { useIngredients } from "../../../../supabase/ingredients";
+import { CreateDrinkType } from "../../../../types/types";
 import Loading from "../../../Loading";
-import { DrinkFormValues } from "../DrinkForm";
 import IngredientSelect from "./IngredientSelect";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 const IngredientsSelect = (props: Props) => {
   const { setIngredientsToDelete } = props;
   const { fields, append, remove } = useFieldArray<
-    DrinkFormValues,
+    CreateDrinkType,
     "ingredients",
     "key"
   >({

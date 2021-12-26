@@ -13,8 +13,6 @@ import { CreateDrinkType, DrinkType } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
 import { deleteIngredientForDrink } from "../../../supabase/ingredientForDrink";
 
-export type DrinkFormValues = CreateDrinkType;
-
 type Props = {
   drink?: DrinkType;
   submit: (drink: any) => void;
@@ -26,8 +24,8 @@ const DrinkForm = (props: Props) => {
 
   const methods = useForm<FieldValues>({ defaultValues: drink });
 
-  const onSubmit = async (values: DrinkFormValues) => {
-    const newDrink: CreateDrinkType = values;
+  const onSubmit = async (values: CreateDrinkType) => {
+    const newDrink = values;
     submit(newDrink);
 
     if (!drink) {

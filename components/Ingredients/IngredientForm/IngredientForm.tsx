@@ -5,8 +5,6 @@ import Name from "./Name";
 import { CreateIngredientType, IngredientType } from "../../../types/types";
 import Description from "./Description";
 
-type IngredientFormValues = CreateIngredientType;
-
 type Props = {
   ingredient?: IngredientType;
   submit: (ingredient: any) => void;
@@ -21,7 +19,7 @@ const IngredientForm = (props: Props) => {
     formState: { errors },
   } = useForm<FieldValues>({ defaultValues: ingredient });
 
-  const onSubmit = (values: IngredientFormValues) => {
+  const onSubmit = (values: CreateIngredientType) => {
     const newIngredient = values;
     submit(newIngredient);
   };
