@@ -2,6 +2,7 @@ import React from "react";
 import { useToast } from "@chakra-ui/react";
 import IngredientForm from "./IngredientForm";
 import { CreateIngredientType } from "../../../types/types";
+import router from "next/router";
 
 type Props = {
   create: (ingredient: CreateIngredientType) => void;
@@ -24,6 +25,7 @@ const CreateIngredientForm = (props: Props) => {
   const createIngredient = (ingredient: CreateIngredientType) => {
     create(ingredient);
     triggerToast(ingredient.name);
+    router.push(`${router.basePath}/ingredient/`);
   };
 
   return <IngredientForm submit={createIngredient} />;

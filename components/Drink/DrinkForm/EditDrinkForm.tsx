@@ -2,6 +2,7 @@ import React from "react";
 import { useToast } from "@chakra-ui/react";
 import DrinkForm from "./DrinkForm";
 import { DrinkType } from "../../../types/types";
+import router from "next/router";
 
 type Props = {
   drink: DrinkType;
@@ -25,6 +26,7 @@ const EditDrinkForm = (props: Props) => {
   const submit = (drink: DrinkType) => {
     updateDrink(drink).then(() => {
       triggerToast(drink.name);
+      router.push(`${router.basePath}/drink/`);
     });
   };
 
