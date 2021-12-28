@@ -11,6 +11,7 @@ const DrinkInfo = (props: Props) => {
     <VStack>
       <p>Id: {drink.id}</p>
       <p>Name: {drink.name}</p>
+      <p>Variant: {drink.variant}</p>
       <p>Ingredients:</p>
       {drink.ingredients.map((ingredientForDrink) => (
         <Ingredient
