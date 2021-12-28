@@ -12,6 +12,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
 import { IngredientType } from "../../types/types";
 import NewLinkButton from "../NewLinkButton";
+import { sortByName } from "../../utils/utils";
 
 type Props = {
   ingredients: IngredientType[];
@@ -40,7 +41,7 @@ const IngredientsList = (props: Props) => {
         </Tr>
       </Thead>
       <Tbody>
-        {ingredients.map((ingredient: IngredientType) => (
+        {ingredients.sort(sortByName).map((ingredient: IngredientType) => (
           <IngredientsListElement
             key={`ingredient-${ingredient.id}`}
             ingredient={ingredient}

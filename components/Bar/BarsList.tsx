@@ -1,5 +1,6 @@
 import { Table, Thead, Tr, Th, Tbody, Link, Td } from "@chakra-ui/react";
 import { BarType } from "../../types/types";
+import { sortByName } from "../../utils/utils";
 
 type Props = {
   bars: BarType[];
@@ -16,7 +17,7 @@ const BarsList = (props: Props) => {
         </Tr>
       </Thead>
       <Tbody>
-        {bars.map((bar: BarType) => (
+        {bars.sort(sortByName).map((bar: BarType) => (
           <BarsListElement key={`bar-${bar.id}`} bar={bar} />
         ))}
       </Tbody>

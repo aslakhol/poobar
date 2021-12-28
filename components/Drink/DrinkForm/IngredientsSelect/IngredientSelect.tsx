@@ -43,10 +43,13 @@ const IngredientSelect = (props: {
         <option value="dl">dl</option>
         <option value="oz">oz</option>
         <option value="g">g</option>
-        <option value="shot">Shot</option>
-        <option value="part">Part</option>
-        <option value="bunch">Bunch</option>
-        <option value="garnish">Garnish</option>
+        <option value="wash">wash</option>
+        <option value="dash">dash</option>
+        <option value="drop">drop</option>
+        <option value="barspoon">barspoon</option>
+        <option value="part">part</option>
+        <option value="bunch">bunch</option>
+        <option value="garnish">garnish</option>
       </Select>
       <IconButton
         aria-label="Remove ingredient"

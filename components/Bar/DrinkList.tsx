@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { DrinkType } from "../../types/types";
+import { sortByName } from "../../utils/utils";
 
 type Props = {
   drinks: DrinkType[];
@@ -34,7 +35,7 @@ const DrinkList = (props: Props) => {
           Remove from bar
         </Heading>
       </GridItem>
-      {drinks.map((drink: DrinkType) => (
+      {drinks.sort(sortByName).map((drink: DrinkType) => (
         <Drink
           key={`drink-${drink.id}`}
           drink={drink}

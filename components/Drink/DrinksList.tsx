@@ -12,6 +12,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
 import { DrinkType } from "../../types/types";
 import NewLinkButton from "../NewLinkButton";
+import { sortByName } from "../../utils/utils";
 
 type Props = {
   drinks: DrinkType[];
@@ -38,7 +39,7 @@ const DrinksList = (props: Props) => {
         </Tr>
       </Thead>
       <Tbody>
-        {drinks.map((drink: DrinkType) => (
+        {drinks.sort(sortByName).map((drink: DrinkType) => (
           <DrinksListElement
             key={`drink-${drink.id}`}
             drink={drink}
