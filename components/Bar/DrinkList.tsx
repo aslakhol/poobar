@@ -4,6 +4,7 @@ import {
   Heading,
   Link,
   IconButton,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -64,6 +65,7 @@ const Drink = (props: DrinkProps) => {
     <>
       <GridItem colSpan={5} isTruncated>
         <Link href={`/drink/${drink.id}`}>{drink.name}</Link>
+        <VariantLabel variant={drink.variant} />
       </GridItem>
       <GridItem colSpan={5} noOfLines={2}>
         {ingredentsNames}
@@ -76,5 +78,20 @@ const Drink = (props: DrinkProps) => {
         />
       </GridItem>
     </>
+  );
+};
+
+const VariantLabel = (props: { variant?: string }) => {
+  const { variant } = props;
+
+  if (!variant) {
+    return <></>;
+  }
+
+  return (
+    <Text as="i" color="#333">
+      {" "}
+      - {variant}
+    </Text>
   );
 };
