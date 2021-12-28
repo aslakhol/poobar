@@ -111,6 +111,7 @@ export interface paths {
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
           deleted?: parameters["rowFilter.drink.deleted"];
+          variant?: parameters["rowFilter.drink.variant"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -166,6 +167,7 @@ export interface paths {
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
           deleted?: parameters["rowFilter.drink.deleted"];
+          variant?: parameters["rowFilter.drink.variant"];
         };
         header: {
           /** Preference */
@@ -185,6 +187,7 @@ export interface paths {
           description?: parameters["rowFilter.drink.description"];
           instructions?: parameters["rowFilter.drink.instructions"];
           deleted?: parameters["rowFilter.drink.deleted"];
+          variant?: parameters["rowFilter.drink.variant"];
         };
         body: {
           /** drink */
@@ -282,285 +285,6 @@ export interface paths {
         body: {
           /** drink_for_bar */
           drink_for_bar?: definitions["drink_for_bar"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-  };
-  "/equipment": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment.id"];
-          name?: parameters["rowFilter.equipment.name"];
-          /** Filtering Columns */
-          select?: parameters["select"];
-          /** Ordering */
-          order?: parameters["order"];
-          /** Limiting and Pagination */
-          offset?: parameters["offset"];
-          /** Limiting and Pagination */
-          limit?: parameters["limit"];
-        };
-        header: {
-          /** Limiting and Pagination */
-          Range?: parameters["range"];
-          /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
-          /** Preference */
-          Prefer?: parameters["preferCount"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["equipment"][];
-        };
-        /** Partial Content */
-        206: unknown;
-      };
-    };
-    post: {
-      parameters: {
-        body: {
-          /** equipment */
-          equipment?: definitions["equipment"];
-        };
-        query: {
-          /** Filtering Columns */
-          select?: parameters["select"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** Created */
-        201: unknown;
-      };
-    };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment.id"];
-          name?: parameters["rowFilter.equipment.name"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment.id"];
-          name?: parameters["rowFilter.equipment.name"];
-        };
-        body: {
-          /** equipment */
-          equipment?: definitions["equipment"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-  };
-  "/equipment_for_bar": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_bar.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_bar.equipment_id"];
-          bar_id?: parameters["rowFilter.equipment_for_bar.bar_id"];
-          /** Filtering Columns */
-          select?: parameters["select"];
-          /** Ordering */
-          order?: parameters["order"];
-          /** Limiting and Pagination */
-          offset?: parameters["offset"];
-          /** Limiting and Pagination */
-          limit?: parameters["limit"];
-        };
-        header: {
-          /** Limiting and Pagination */
-          Range?: parameters["range"];
-          /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
-          /** Preference */
-          Prefer?: parameters["preferCount"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["equipment_for_bar"][];
-        };
-        /** Partial Content */
-        206: unknown;
-      };
-    };
-    post: {
-      parameters: {
-        body: {
-          /** equipment_for_bar */
-          equipment_for_bar?: definitions["equipment_for_bar"];
-        };
-        query: {
-          /** Filtering Columns */
-          select?: parameters["select"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** Created */
-        201: unknown;
-      };
-    };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_bar.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_bar.equipment_id"];
-          bar_id?: parameters["rowFilter.equipment_for_bar.bar_id"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_bar.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_bar.equipment_id"];
-          bar_id?: parameters["rowFilter.equipment_for_bar.bar_id"];
-        };
-        body: {
-          /** equipment_for_bar */
-          equipment_for_bar?: definitions["equipment_for_bar"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-  };
-  "/equipment_for_drink": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_drink.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_drink.equipment_id"];
-          drink_id?: parameters["rowFilter.equipment_for_drink.drink_id"];
-          required?: parameters["rowFilter.equipment_for_drink.required"];
-          /** Filtering Columns */
-          select?: parameters["select"];
-          /** Ordering */
-          order?: parameters["order"];
-          /** Limiting and Pagination */
-          offset?: parameters["offset"];
-          /** Limiting and Pagination */
-          limit?: parameters["limit"];
-        };
-        header: {
-          /** Limiting and Pagination */
-          Range?: parameters["range"];
-          /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
-          /** Preference */
-          Prefer?: parameters["preferCount"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["equipment_for_drink"][];
-        };
-        /** Partial Content */
-        206: unknown;
-      };
-    };
-    post: {
-      parameters: {
-        body: {
-          /** equipment_for_drink */
-          equipment_for_drink?: definitions["equipment_for_drink"];
-        };
-        query: {
-          /** Filtering Columns */
-          select?: parameters["select"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** Created */
-        201: unknown;
-      };
-    };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_drink.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_drink.equipment_id"];
-          drink_id?: parameters["rowFilter.equipment_for_drink.drink_id"];
-          required?: parameters["rowFilter.equipment_for_drink.required"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.equipment_for_drink.id"];
-          equipment_id?: parameters["rowFilter.equipment_for_drink.equipment_id"];
-          drink_id?: parameters["rowFilter.equipment_for_drink.drink_id"];
-          required?: parameters["rowFilter.equipment_for_drink.required"];
-        };
-        body: {
-          /** equipment_for_drink */
-          equipment_for_drink?: definitions["equipment_for_drink"];
         };
         header: {
           /** Preference */
@@ -956,212 +680,209 @@ export interface paths {
 export interface definitions {
   bar: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /** Format: text */
     name: string;
   };
   drink: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /** Format: text */
     name: string;
+    /** Format: text */
     description?: string;
+    /** Format: text */
     instructions?: string;
+    /** Format: boolean */
     deleted: boolean;
+    /** Format: text */
+    variant?: string;
   };
   drink_for_bar: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `drink.id`.<fk table='drink' column='id'/>
      */
     drink_id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `bar.id`.<fk table='bar' column='id'/>
      */
     bar_id: number;
-  };
-  equipment: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    name: string;
-  };
-  equipment_for_bar: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `equipment.id`.<fk table='equipment' column='id'/>
-     */
-    equipment_id: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `bar.id`.<fk table='bar' column='id'/>
-     */
-    bar_id: number;
-  };
-  equipment_for_drink: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `equipment.id`.<fk table='equipment' column='id'/>
-     */
-    equipment_id: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `drink.id`.<fk table='drink' column='id'/>
-     */
-    drink_id: number;
-    required: boolean;
   };
   ingredient: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
+    /** Format: text */
     name: string;
+    /** Format: text */
     description?: string;
+    /** Format: boolean */
     deleted: boolean;
   };
   ingredient_for_bar: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `ingredient.id`.<fk table='ingredient' column='id'/>
      */
     ingredient_id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `bar.id`.<fk table='bar' column='id'/>
      */
     bar_id: number;
   };
   ingredient_for_drink: {
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `ingredient.id`.<fk table='ingredient' column='id'/>
      */
     ingredient_id: number;
     /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Foreign Key to `drink.id`.<fk table='drink' column='id'/>
      */
     drink_id: number;
+    /** Format: real */
     amount?: number;
+    /** Format: text */
     unit?: string;
   };
   profile: {
     /**
-     * Note:
+     * Format: uuid
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: string;
+    /** Format: text */
     username?: string;
   };
 }
 
 export interface parameters {
-  /** Preference */
+  /** @description Preference */
   preferParams: "params=single-object";
-  /** Preference */
+  /** @description Preference */
   preferReturn: "return=representation" | "return=minimal" | "return=none";
-  /** Preference */
+  /** @description Preference */
   preferCount: "count=none";
-  /** Filtering Columns */
+  /** @description Filtering Columns */
   select: string;
-  /** On Conflict */
+  /** @description On Conflict */
   on_conflict: string;
-  /** Ordering */
+  /** @description Ordering */
   order: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   range: string;
-  /** Limiting and Pagination */
+  /**
+   * @description Limiting and Pagination
+   * @default items
+   */
   rangeUnit: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   offset: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   limit: string;
-  /** bar */
+  /** @description bar */
   "body.bar": definitions["bar"];
+  /** Format: bigint */
   "rowFilter.bar.id": string;
+  /** Format: text */
   "rowFilter.bar.name": string;
-  /** drink */
+  /** @description drink */
   "body.drink": definitions["drink"];
+  /** Format: bigint */
   "rowFilter.drink.id": string;
+  /** Format: text */
   "rowFilter.drink.name": string;
+  /** Format: text */
   "rowFilter.drink.description": string;
+  /** Format: text */
   "rowFilter.drink.instructions": string;
+  /** Format: boolean */
   "rowFilter.drink.deleted": string;
-  /** drink_for_bar */
+  /** Format: text */
+  "rowFilter.drink.variant": string;
+  /** @description drink_for_bar */
   "body.drink_for_bar": definitions["drink_for_bar"];
+  /** Format: bigint */
   "rowFilter.drink_for_bar.id": string;
+  /** Format: bigint */
   "rowFilter.drink_for_bar.drink_id": string;
+  /** Format: bigint */
   "rowFilter.drink_for_bar.bar_id": string;
-  /** equipment */
-  "body.equipment": definitions["equipment"];
-  "rowFilter.equipment.id": string;
-  "rowFilter.equipment.name": string;
-  /** equipment_for_bar */
-  "body.equipment_for_bar": definitions["equipment_for_bar"];
-  "rowFilter.equipment_for_bar.id": string;
-  "rowFilter.equipment_for_bar.equipment_id": string;
-  "rowFilter.equipment_for_bar.bar_id": string;
-  /** equipment_for_drink */
-  "body.equipment_for_drink": definitions["equipment_for_drink"];
-  "rowFilter.equipment_for_drink.id": string;
-  "rowFilter.equipment_for_drink.equipment_id": string;
-  "rowFilter.equipment_for_drink.drink_id": string;
-  "rowFilter.equipment_for_drink.required": string;
-  /** ingredient */
+  /** @description ingredient */
   "body.ingredient": definitions["ingredient"];
+  /** Format: bigint */
   "rowFilter.ingredient.id": string;
+  /** Format: text */
   "rowFilter.ingredient.name": string;
+  /** Format: text */
   "rowFilter.ingredient.description": string;
+  /** Format: boolean */
   "rowFilter.ingredient.deleted": string;
-  /** ingredient_for_bar */
+  /** @description ingredient_for_bar */
   "body.ingredient_for_bar": definitions["ingredient_for_bar"];
+  /** Format: bigint */
   "rowFilter.ingredient_for_bar.id": string;
+  /** Format: bigint */
   "rowFilter.ingredient_for_bar.ingredient_id": string;
+  /** Format: bigint */
   "rowFilter.ingredient_for_bar.bar_id": string;
-  /** ingredient_for_drink */
+  /** @description ingredient_for_drink */
   "body.ingredient_for_drink": definitions["ingredient_for_drink"];
+  /** Format: bigint */
   "rowFilter.ingredient_for_drink.id": string;
+  /** Format: bigint */
   "rowFilter.ingredient_for_drink.ingredient_id": string;
+  /** Format: bigint */
   "rowFilter.ingredient_for_drink.drink_id": string;
+  /** Format: real */
   "rowFilter.ingredient_for_drink.amount": string;
+  /** Format: text */
   "rowFilter.ingredient_for_drink.unit": string;
-  /** profile */
+  /** @description profile */
   "body.profile": definitions["profile"];
+  /** Format: uuid */
   "rowFilter.profile.id": string;
+  /** Format: text */
   "rowFilter.profile.username": string;
 }
 

@@ -12,6 +12,7 @@ import Instruction from "./Instructions";
 import { CreateDrinkType, DrinkType } from "../../../types/types";
 import IngredientsSelect from "./IngredientsSelect/IngredientsSelect";
 import { deleteIngredientForDrink } from "../../../supabase/ingredientForDrink";
+import Variant from "./Variant";
 
 type Props = {
   drink?: DrinkType;
@@ -41,6 +42,10 @@ const DrinkForm = (props: Props) => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Name
+          register={methods.register}
+          fieldError={methods.formState.errors.name as FieldError}
+        />
+        <Variant
           register={methods.register}
           fieldError={methods.formState.errors.name as FieldError}
         />

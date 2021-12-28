@@ -7,6 +7,7 @@ import {
   Link,
   Td,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Dispatch, SetStateAction } from "react";
@@ -60,12 +61,13 @@ type DrinkListElementProps = {
 
 const DrinksListElement = (props: DrinkListElementProps) => {
   const { drink, handleDelete } = props;
-  const { name, id } = drink;
+  const { name, id, variant } = drink;
 
   return (
     <Tr>
       <Td>
         <Link href={`/drink/${id}`}>{name}</Link>
+        <VariantLabel variant={variant} />
       </Td>
       <Td>
         <Button onClick={() => handleDelete(id)} padding="0">
@@ -73,5 +75,20 @@ const DrinksListElement = (props: DrinkListElementProps) => {
         </Button>
       </Td>
     </Tr>
+  );
+};
+
+const VariantLabel = (props: { variant?: string }) => {
+  const { variant } = props;
+
+  if (!variant) {
+    return <></>;
+  }
+
+  return (
+    <Text as="i" color="#333">
+      {" "}
+      - {variant}
+    </Text>
   );
 };
