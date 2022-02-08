@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import { BarType, DrinkType } from "../../types/types";
 import BarNav from "./BarNav";
 import ComboBox from "./ComboBox";
-import DrinkList from "./DrinkList";
+import Drinks from "./Drinks";
 
 type Props = {
   bar: BarType;
@@ -58,7 +58,7 @@ const Bar = (props: Props) => {
         addDrink={addDrinkToBar}
       />
       <AddIngredient display={addingIngredients} />
-      <DrinkList drinks={drinks} removeDrinkFromBar={removeDrinkFromBar} />
+      <Drinks drinks={drinks} removeDrinkFromBar={removeDrinkFromBar} />
     </>
   );
 };

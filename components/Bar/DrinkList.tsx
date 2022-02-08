@@ -85,7 +85,7 @@ const VariantLabel = (props: { variant?: string }) => {
   const { variant } = props;
 
   if (!variant) {
-    return <></>;
+    return null;
   }
 
   return (
