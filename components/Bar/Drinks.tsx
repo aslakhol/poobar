@@ -1,5 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { DrinkType } from "../../types/types";
 
@@ -39,33 +39,35 @@ const Drink = (props: DrinkProps) => {
     .join(", ");
 
   return (
-    <Flex
-      direction={"column"}
-      justify="space-between"
-      border="2px"
-      borderColor="gray.800"
-      w={300}
-      m="4"
-      p="5"
-    >
-      <Box>
-        <Text as="h3" fontSize="22">
-          {drink.name}
-        </Text>
-        <Text as="i" color="#333" fontSize={12}>
-          {drink.variant}
-        </Text>
-        <Box>{ingredentsNames}</Box>
-      </Box>
+    <Link href={`/drink/${drink.id}`}>
+      <Flex
+        direction={"column"}
+        justify="space-between"
+        border="2px"
+        borderColor="gray.800"
+        w={300}
+        m="4"
+        p="5"
+      >
+        <Box>
+          <Text as="h3" fontSize="22">
+            {drink.name}
+          </Text>
+          <Text as="i" color="#333" fontSize={12}>
+            {drink.variant}
+          </Text>
+          <Box>{ingredentsNames}</Box>
+        </Box>
 
-      <Flex w="100%" justify={"space-between"} align={"center"}>
-        <Text>Remove drink from bar?</Text>
-        <IconButton
-          aria-label="remove drink"
-          icon={<CloseIcon />}
-          onClick={() => removeDrinkFromBar(drink.id)}
-        />
+        <Flex w="100%" justify={"space-between"} align={"center"}>
+          <Text>Remove drink from bar?</Text>
+          <IconButton
+            aria-label="remove drink"
+            icon={<CloseIcon />}
+            onClick={() => removeDrinkFromBar(drink.id)}
+          />
+        </Flex>
       </Flex>
-    </Flex>
+    </Link>
   );
 };

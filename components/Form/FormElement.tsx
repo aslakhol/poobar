@@ -49,14 +49,8 @@ type FormElementBodyProps = {
 };
 
 export const FormElementInput = (props: FormElementBodyProps) => {
-  const {
-    name,
-    placeholder,
-    labelText,
-    register,
-    fieldError,
-    required,
-  } = props;
+  const { name, placeholder, labelText, register, fieldError, required } =
+    props;
   return (
     <FormElementWrapper
       name={name}
@@ -73,14 +67,8 @@ export const FormElementInput = (props: FormElementBodyProps) => {
 };
 
 export const FormElementText = (props: FormElementBodyProps) => {
-  const {
-    name,
-    placeholder,
-    labelText,
-    register,
-    fieldError,
-    required,
-  } = props;
+  const { name, placeholder, labelText, register, fieldError, required } =
+    props;
   return (
     <FormElementWrapper
       name={name}
